@@ -125,8 +125,11 @@ public class CookBookApp {
 	 */
 	public static void main(String[] args) {
 		CookBook cb = new CookBook("Chinese Cuisine");
-
-		cb.add(createGongBaoJiding());
+		DatabaseController jDatabaseController = new DatabaseController();
+		Recipe recipeGBJD = createGongBaoJiding();
+		
+		cb.add(recipeGBJD);
+		jDatabaseController.insertRecipe(recipeGBJD);
 		cb.add(createHongShaoRou());
 		cb.add(createSuanLaFen());
 
