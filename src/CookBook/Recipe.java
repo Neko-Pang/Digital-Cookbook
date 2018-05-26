@@ -1,0 +1,122 @@
+package CookBook;
+
+import java.util.ArrayList;
+import java.io.Serializable;
+import java.sql.*;
+
+public class Recipe implements Serializable {
+	
+		private ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+		private int recipeID;
+		private int servingPpl ;
+		private int accountID = 0;
+		private String name;
+		private String categary;
+		private ArrayList<String> preparationStep = new ArrayList<String>();
+		private int preparationTime;
+		private int cookingTime;
+		
+		public Recipe(String name, String categary, int servingPpl){
+			
+			this.name = name;
+			this.categary = categary;
+			this.servingPpl = servingPpl;
+
+		}
+
+		/*
+		 * getters and setters
+		 */
+		public void setIngredients(ArrayList<Ingredient> ingredients) {
+			this.ingredients = ingredients;
+		}
+
+		public void setRecipeID(int recipeID) {
+			this.recipeID = recipeID;
+		}
+
+		public void setServingPpl(int servingPpl) {
+			this.servingPpl = servingPpl;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public void setCategary(String categary) {
+			this.categary = categary;
+		}
+
+		public void setPreparationStep(ArrayList<String> preparationStep) {
+			this.preparationStep = preparationStep;
+		}
+
+		public ArrayList<Ingredient> getIngredients() {
+			return ingredients;
+		}
+
+		public int getRecipeID() {
+			return recipeID;
+		}
+
+		public int getServingPpl() {
+			return servingPpl;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public String getCategary() {
+			return categary;
+		}
+
+		public ArrayList<String> getPreparationStep() {
+			return preparationStep;
+		}
+
+		public int getPreparationTime() {
+			return preparationTime;
+		}
+
+		public int getCookingTime() {
+			return cookingTime;
+		}
+		
+		public int getAccountID() {
+			return accountID;
+		}
+
+		public void setAccountID(int accountID) {
+			this.accountID = accountID;
+		}
+		
+		
+		/*
+		 * 
+		 */
+		
+		public void addIngredient(Ingredient ingredient ){
+			this.ingredients.add(ingredient);
+		}
+		
+		public void addPreparationStep(String preparation){
+			this.preparationStep.add(preparation);
+		}
+		
+		public void setPreparationTime(int preparationTime){
+			this.preparationTime = preparationTime;
+		}
+		
+		public void setCookingTime(int cookingTime){
+			this.cookingTime = cookingTime;
+		}
+		
+		@Override
+		public String toString(){
+			String str1 = this.getName()+"\n"+this.getCategary();
+			
+			return str1;
+		}
+}
+	
