@@ -123,19 +123,26 @@ public class CookBookApp {
 	 *
 	 * @param args  command line arguments; not used.
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args){
 		CookBook cb = new CookBook("Chinese Cuisine");
 		DatabaseController jDatabaseController = new DatabaseController();
 		Recipe recipeGBJD = createGongBaoJiding();
-		
+		Recipe recipeHSR = createHongShaoRou();
+		Recipe recipeSLF = createSuanLaFen();
 		cb.add(recipeGBJD);
+		cb.add(recipeHSR);
+		cb.add(recipeSLF);
+		
+		
 		jDatabaseController.insertRecipe(recipeGBJD);
-		cb.add(createHongShaoRou());
-		cb.add(createSuanLaFen());
-
+		jDatabaseController.insertRecipe(recipeHSR);
+		jDatabaseController.insertRecipe(recipeSLF);
+		
 		Recipe recipe = cb.getRecipe("Gong Bao Jiding");
+		Recipe recalRecipe = cb.recalculate(recipe, 6);
 		if (recipe != null) {
 			System.out.println(recipe);
+			System.out.println(recalRecipe);
 		}
 	}
 }

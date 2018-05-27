@@ -1,10 +1,13 @@
 package CookBook;
 
 import java.util.ArrayList;
+
+import javax.xml.stream.events.ProcessingInstruction;
+
 import java.io.Serializable;
 import java.sql.*;
 
-public class Recipe implements Serializable {
+public class Recipe implements Serializable{
 	
 		private ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
 		private int recipeID;
@@ -22,6 +25,10 @@ public class Recipe implements Serializable {
 			this.categary = categary;
 			this.servingPpl = servingPpl;
 
+		}
+		
+		public Recipe(){
+			
 		}
 
 		/*
@@ -112,11 +119,44 @@ public class Recipe implements Serializable {
 			this.cookingTime = cookingTime;
 		}
 		
+		
+		
 		@Override
 		public String toString(){
-			String str1 = this.getName()+"\n"+this.getCategary();
+			//To give the information of Name and Category
+			String strNameandCategory = "Name: "+this.getName()+"\n"+"Category: "+this.getCategary()+"\n";
 			
-			return str1;
+			//This string is to give all steps of preparation
+			String strPreparationStep = "Preparation Steps: \n";
+			for (int i = 0; i < preparationStep.size(); i++) {
+				String str = preparationStep.get(i);
+				strPreparationStep =  strPreparationStep + "Step " + (i+1) +": " + str +"\n";
+			}
+			
+			//To give the ID of the Recipe
+			String strRecipeID = "Recipe ID: " + this.recipeID + "\n";
+			
+			//To give all the information of ingredients
+			String strIngredients = "Ingredients: \n";
+			for (int i = 0; i < ingredients.size(); i++) {
+				
+				Ingredient ingrePointer = ingredients.get(i);
+				//Using the override toString() method to change Ingredient into String
+				strIngredients = strIngredients + ingrePointer;
+			
+			}
+			
+			//To give the preparation time of the recipe
+			String strPreparationTime = "Preparation Time: " + this.preparationTime + " min" + "\n";
+			
+			//To give the cooking time of the recipe
+			String strCookingTime = "Cooking Time: " + this.preparationTime + "\n";
+			
+			//To give the serving people of the recipe
+			String strServingPeople = "Serving People:" + this.servingPpl;
+			
+			//Return all the  recipe information
+			return strNameandCategory + strRecipeID + strIngredients + strPreparationStep +strPreparationTime + strCookingTime + strServingPeople;
 		}
 }
 	
