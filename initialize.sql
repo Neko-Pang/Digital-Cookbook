@@ -2,12 +2,12 @@ use cookbookdatabase;
 
 
 create table if not exists Ingredient(
-		Name varchar(18) primary key
+		Name varchar(45) primary key
         );
         
 create table if not exists IngredientUsingInfo(
 		
-        Name varchar(18) not null,
+        Name varchar(45) not null,
         RecipeID int not null ,
         CookingWay varchar(45),
         Weight double,
@@ -49,6 +49,6 @@ create table if not exists Comment(
         primary key(RecipeID, AccountID, CommentNo)
 );
 
-#alter table IngredientUsingInfo change Weight Weight double not null
-#alter table recipe change ServerPeople ServingPeople int
-alter table recipe add Category varchar(45)
+#alter table recipe add Category varchar(45)
+#alter table recipe auto_increment=1
+#alter table IngredientUsingInfo change Name Name varchar(45) not null
