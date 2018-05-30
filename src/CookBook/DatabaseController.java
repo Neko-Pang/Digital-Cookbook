@@ -55,7 +55,13 @@ public class DatabaseController implements Serializable {
 	public void insertRecipe(Recipe recipe) {
 
 		Connection conn = this.getConn();
-
+		
+		//these booleans are to check whether each part has been added successfully
+		Boolean isSuccessRecipe = false;
+		Boolean isSuccessIngre = false;
+		Boolean isSuccessPrep = false;
+		int resultRecipe = 0;
+		int resultIngre = 0;
 		try {
 
 			Statement state = conn.createStatement();
@@ -75,7 +81,7 @@ public class DatabaseController implements Serializable {
 			String statementBasic = "insert into recipe( Name , PrepTime , AccountID , CookingTime , ServingPeople , Category ) "
 					+ "values(?,?,?,?,?,?)";
 			PreparedStatement sql;
-			int result;
+			
 			// set the information
 			sql = conn.prepareStatement(statementBasic);
 			sql.setString(1, recipe.getName());
@@ -85,11 +91,9 @@ public class DatabaseController implements Serializable {
 			sql.setInt(5, recipe.getServingPpl());
 			sql.setString(6, recipe.getCategary());
 			// execute the statement and to check whether the sql works
-			result = sql.executeUpdate();
-			if (result == 1) {
-				System.out.println("Insert basic information successfully");
-			} else {
-				System.out.println("Insert basic information failed");
+			resultRecipe = sql.executeUpdate();
+			if (resultRecipe == 1) {
+				isSuccessRecipe = true;
 			}
 
 			// Because the ID in database is auto_increment,we need to get
@@ -114,20 +118,20 @@ public class DatabaseController implements Serializable {
 				sql.setDouble(4, ingrePointer.getWeight());
 				sql.setString(5, ingrePointer.getUnit());
 				// execute the statement and to check whether the sql works
-				result += sql.executeUpdate();
+			
+			resultIngre += sql.executeUpdate();
 
 			}
-			if (result == recipe.getIngredients().size()) {
+			if (resultIngre == recipe.getIngredients().size()) {
 
-				System.out.println("Insert ingredient information successfully");
+				isSuccessIngre = true;
 
-			} else {
-				System.out.println("Only " + result + " rows changed.");
-			}
+			} 
 
 			/*
 			 * 3rd step: to store the preparation steps
 			 */
+			int resultPrep = 0;
 			String statementPrepSteps = "insert into preparationstep(RecipeID , StepNo , PreparationContext) "
 					+ "values(?,?,?)";
 			sql = conn.prepareStatement(statementPrepSteps);
@@ -138,16 +142,14 @@ public class DatabaseController implements Serializable {
 				sql.setString(3, context);
 				sql.setInt(2, stepNo);
 				sql.setInt(1, recipe.getRecipeID());
-				result += sql.executeUpdate();
+				resultPrep += sql.executeUpdate();
 			}
 
-			if (result == recipe.getPreparationStep().size()) {
+			if (resultPrep == recipe.getPreparationStep().size()) {
 
-				System.out.println("Insert preparation information successfully");
+				isSuccessPrep = true ;
 
-			} else {
-				System.out.println("Only " + result + " rows changed.");
-			}
+			} 
 
 			// } else {
 			// System.out.println("The recipe already exists");
@@ -216,43 +218,50 @@ public class DatabaseController implements Serializable {
 	}
 
 	/**
-	 * To get the recipe from the database by name
+	 * To get the recipe from the database by name, because the name can be duplicate so we need an arraylist to store the recipes
 	 * 
 	 * @param recipeName
 	 * @return
 	 */
-	public Recipe searchRecipe(String recipeName) {
-
-		Recipe goalRecipe = null;
+	public ArrayList<Recipe> searchRecipe(String recipeName) {
+		
+		ArrayList<Recipe> goalRecipe = new ArrayList<Recipe>();
 		int recipeID = 0;
 		Connection conn = this.getConn();
 
 		try {
-			// 1st:take out the basic information
+			
 			String statementSearchRe = "select * from recipe where Name='" + recipeName + "'";
 			Statement sql = conn.createStatement();
 			ResultSet searchResult = sql.executeQuery(statementSearchRe);
 			while (searchResult.next()) {
-				goalRecipe = new Recipe();
-				goalRecipe.setName(searchResult.getString("Name"));
-				goalRecipe.setAccountID(searchResult.getInt("AccountID"));
-				goalRecipe.setCategary(searchResult.getString("Category"));
-				goalRecipe.setCookingTime(searchResult.getInt("CookingTime"));
-				goalRecipe.setPreparationTime(searchResult.getInt("PrepTime"));
+				
+				Recipe recipe = new Recipe();
+				
+				// 1st:take out the basic information
 				recipeID = searchResult.getInt("RecipeID");
-				goalRecipe.setRecipeID(recipeID);
-				goalRecipe.setServingPpl(searchResult.getInt("ServingPeople"));
+				recipe.setRecipeID(recipeID);
+				recipe.setName(searchResult.getString("Name"));
+				recipe.setAccountID(searchResult.getInt("AccountID"));
+				recipe.setCategary(searchResult.getString("Category"));
+				recipe.setCookingTime(searchResult.getInt("CookingTime"));
+				recipe.setPreparationTime(searchResult.getInt("PrepTime"));
+				
+				recipe.setServingPpl(searchResult.getInt("ServingPeople"));
+				// 2nd : take out the ingredient information
+				if (recipeID != 0) {
+					recipe.setIngredients(searchIngre(recipeID));
+				}
+
+				// 3rd : take out the preparation step information
+				if (recipeID != 0) {
+					recipe.setPreparationStep(searchPrep(recipeID));
+				}
+				
+				goalRecipe.add(recipe);
 			}
 
-			// 2nd : take out the ingredient information
-			if (recipeID != 0) {
-				goalRecipe.setIngredients(searchIngre(recipeID));
-			}
-
-			// 3rd : take out the preparation step information
-			if (recipeID != 0) {
-				goalRecipe.setPreparationStep(searchPrep(recipeID));
-			}
+			
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

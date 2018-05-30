@@ -1,5 +1,8 @@
 package CookBook;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 /**
  * A class for the program entry point and some test recipes.
  *
@@ -135,19 +138,24 @@ public class CookBookApp {
 	 */
 	public static void main(String[] args) {
 		CookBook cb = new CookBook("Chinese Cuisine");
-		Recipe recipeGBJD = createGongBaoJiding();
-		Recipe recipeHSR = createHongShaoRou();
-		Recipe recipeSLF = createSuanLaFen();
+//		Recipe recipeGBJD = createGongBaoJiding();
+//		Recipe recipeHSR = createHongShaoRou();
+//		Recipe recipeSLF = createSuanLaFen();
+//
+//		cb.add(recipeGBJD);
+//		cb.add(recipeHSR);
+//		cb.add(recipeSLF);
 
-		cb.add(recipeGBJD);
-		cb.add(recipeHSR);
-		cb.add(recipeSLF);
-
-		Recipe recipe = cb.getRecipe("Gong Bao Jiding");
-		Recipe recalRecipe = cb.recalculate(recipe, 6);
-		if (recipe != null) {
-			System.out.println(recipe);
+		ArrayList<Recipe> recipe = cb.getRecipe("Gong Bao Jiding");
+		Recipe recalRecipe = cb.recalculate(recipe.get(0), 6);
+		if (recipe.size() != 0) {
+			
+			for (int i = 0; i < recipe.size(); i++) {
+				System.out.println(recipe.get(i));
+			}
+			
 			System.out.println(recalRecipe);
+			
 		}
 	}
 }

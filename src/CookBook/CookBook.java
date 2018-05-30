@@ -39,22 +39,14 @@ public class CookBook {
 	 * @param name
 	 * @return
 	 */
-	public Recipe getRecipe(String name) {
+	public ArrayList<Recipe> getRecipe(String name) {
 		DatabaseController jDatabaseController = new DatabaseController();
-		Recipe recipePointer = null;
-		for (int i = 0; i < recipes.size(); i++) {
-			recipePointer = this.recipes.get(i);
-			if (recipePointer.getName().equals(name)) {
+		ArrayList<Recipe> goalRecipes = new ArrayList<Recipe>();
 
-				return recipePointer;
-			}
-		}
+		//search the recipes directly from database
+		goalRecipes = jDatabaseController.searchRecipe(name);
 
-		// if there is no recipe with such name in the program working memory
-		// then search it in the database
-		recipePointer = jDatabaseController.searchRecipe(name);
-
-		return recipePointer;
+		return goalRecipes;
 
 	}
 
