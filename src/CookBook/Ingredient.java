@@ -2,31 +2,31 @@ package CookBook;
 
 import java.io.Serializable;
 
-
-public class Ingredient implements Serializable{
+public class Ingredient implements Serializable {
 
 	public String name;
 	public double weight;
 	public String unit = "g";
 	public String cookingWay = null;
-	public Ingredient(String name,double weight, String unit, String cookingWay){
+
+	public Ingredient(String name, double weight, String unit, String cookingWay) {
 		this.name = name;
 		this.weight = weight;
 		this.unit = unit;
 		this.cookingWay = cookingWay;
 	}
-	
-	public Ingredient(String name,double weight, String unit){
+
+	public Ingredient(String name, double weight, String unit) {
 		this.name = name;
 		this.weight = weight;
 		this.unit = unit;
 		this.cookingWay = "None";
 	}
-	
+
 	public Ingredient() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -58,18 +58,14 @@ public class Ingredient implements Serializable{
 	public void setCookingWay(String cookingWay) {
 		this.cookingWay = cookingWay;
 	}
-	
-	
-	
+
 	@Override
-	public String toString(){
-		//this string is collection of all ingredient
+	public String toString() {
+		// this string is collection of all ingredient
 		String totalInformation;
-		
-		totalInformation = this.name + ": " + this.weight + " " + this.unit 
-				+ " Cooking way: " + this.cookingWay +"\n";
-		
-		
+
+		totalInformation = this.name + ": " + this.weight + " " + this.unit + " Cooking way: " + this.cookingWay + "\n";
+
 		return totalInformation;
 	}
 }

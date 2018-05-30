@@ -1,4 +1,5 @@
 package CookBook;
+
 /**
  * A class for the program entry point and some test recipes.
  *
@@ -9,7 +10,7 @@ public class CookBookApp {
 	/**
 	 * Creates a Gong Bao Jiding recipe.
 	 *
-	 * @return  the new recipe
+	 * @return the new recipe
 	 */
 	private static Recipe createGongBaoJiding() {
 		Recipe recipe = new Recipe("Gong Bao Jiding", "Sichuan Dish", 4);
@@ -24,7 +25,8 @@ public class CookBookApp {
 		recipe.addIngredient(new Ingredient("sesame oil", 4.0, "tablespoon"));
 		recipe.addIngredient(new Ingredient("dark soy sauce", 2.0, "teaspoon"));
 		recipe.addIngredient(new Ingredient("peanut oil", 3.0, "tablespoon"));
-		recipe.addIngredient(new Ingredient("dried red chilis", 12.0, "pieces", "stemmed, halved crosswise, and seeded"));
+		recipe.addIngredient(
+				new Ingredient("dried red chilis", 12.0, "pieces", "stemmed, halved crosswise, and seeded"));
 		recipe.addIngredient(new Ingredient("scallions", 5.0, "pieces", "white part onyl, thickly sliced crosswise"));
 		recipe.addIngredient(new Ingredient("garlic", 1.0, "cloves", "peeled, thinly sliced"));
 		recipe.addIngredient(new Ingredient("ginger", 0.5, "pieces", "peeled, minced"));
@@ -32,10 +34,13 @@ public class CookBookApp {
 
 		recipe.addPreparationStep("Mix together cornstarch and 1 tbsp. of the soy sauce in a medium bowl.");
 		recipe.addPreparationStep("Add chicken, toss well, and set aside to marinate for 30 minutes.");
-		recipe.addPreparationStep("Meanwhile, mix together the remaining 3 tbsp. soy sauce, rice wine, sugar, stock, vinegar, sesame oil, and dark soy sauce.");
+		recipe.addPreparationStep(
+				"Meanwhile, mix together the remaining 3 tbsp. soy sauce, rice wine, sugar, stock, vinegar, sesame oil, and dark soy sauce.");
 		recipe.addPreparationStep("Set aside.");
-		recipe.addPreparationStep("Heat peanut oil in a wok or large nonstick skillet over high heat until just beginning to smoke.");
-		recipe.addPreparationStep("Add chilis, half the scallions, garlic, ginger, and chicken and stir-fry until chicken is golden, 3-5 minutes.");
+		recipe.addPreparationStep(
+				"Heat peanut oil in a wok or large nonstick skillet over high heat until just beginning to smoke.");
+		recipe.addPreparationStep(
+				"Add chilis, half the scallions, garlic, ginger, and chicken and stir-fry until chicken is golden, 3-5 minutes.");
 		recipe.addPreparationStep("Add soy sauce mixture and stir-fry until sauce thickens, about 2 minutes.");
 		recipe.addPreparationStep("Stir in peanuts.");
 		recipe.addPreparationStep("Garnish with remaining scallions.");
@@ -49,7 +54,7 @@ public class CookBookApp {
 	/**
 	 * Creates a Hong Shao Rou recipe.
 	 *
-	 * @return  the recipe
+	 * @return the recipe
 	 */
 	private static Recipe createHongShaoRou() {
 		Recipe recipe = new Recipe("Hong Shao Rou", "Hunan Dish", 4);
@@ -67,10 +72,12 @@ public class CookBookApp {
 		recipe.addPreparationStep("Over low heat, add oil and sugar to your wok.");
 		recipe.addPreparationStep("Melt the sugar slightly and add the pork.");
 		recipe.addPreparationStep("Raise the heat to medium and cook until the pork is lightly browned.");
-		recipe.addPreparationStep("Turn the heat back down to low and add cooking wine, light soy sauce, dark soy sauce, and chicken stock.");
+		recipe.addPreparationStep(
+				"Turn the heat back down to low and add cooking wine, light soy sauce, dark soy sauce, and chicken stock.");
 		recipe.addPreparationStep("Cover and simmer for about 60 minutes to 90 minutes until pork is fork tender.");
 		recipe.addPreparationStep("Every 5-10 minutes, stir to prevent burning and add water if it gets too dry.");
-		recipe.addPreparationStep("Once the pork is fork tender, if there is still a lot of visible liquid, uncover the wok, turn up the heat, and stir continuously the sauce has reduced to a glistening coating.");
+		recipe.addPreparationStep(
+				"Once the pork is fork tender, if there is still a lot of visible liquid, uncover the wok, turn up the heat, and stir continuously the sauce has reduced to a glistening coating.");
 
 		recipe.setPreparationTime(5);
 		recipe.setCookingTime(100);
@@ -81,7 +88,7 @@ public class CookBookApp {
 	/**
 	 * Creates a Suan La Fen recipe.
 	 *
-	 * @return  the recipe
+	 * @return the recipe
 	 */
 	private static Recipe createSuanLaFen() {
 		Recipe recipe = new Recipe("Suan La Fen", "Sichuan Dish", 2);
@@ -109,8 +116,10 @@ public class CookBookApp {
 		recipe.addPreparationStep("Pour in boiling water or stock to tune the seasonings.");
 		recipe.addPreparationStep("Add vinegar and light soy sauce.");
 		recipe.addPreparationStep("Mix well and set aside.");
-		recipe.addPreparationStep("Cook soaked sweet potato noodles around 3~5 minutes until you can break the noodles with your fingers.");
-		recipe.addPreparationStep("Transfer the noodles out to the serving bowls and then add top with pickled vegetables, roasted peanuts and chopped spring onions and coriander. ");
+		recipe.addPreparationStep(
+				"Cook soaked sweet potato noodles around 3~5 minutes until you can break the noodles with your fingers.");
+		recipe.addPreparationStep(
+				"Transfer the noodles out to the serving bowls and then add top with pickled vegetables, roasted peanuts and chopped spring onions and coriander. ");
 
 		recipe.setPreparationTime(30);
 		recipe.setCookingTime(5);
@@ -121,23 +130,19 @@ public class CookBookApp {
 	/**
 	 * Program entry point.
 	 *
-	 * @param args  command line arguments; not used.
+	 * @param args
+	 *            command line arguments; not used.
 	 */
-	public static void main(String[] args){
+	public static void main(String[] args) {
 		CookBook cb = new CookBook("Chinese Cuisine");
-		DatabaseController jDatabaseController = new DatabaseController();
 		Recipe recipeGBJD = createGongBaoJiding();
 		Recipe recipeHSR = createHongShaoRou();
 		Recipe recipeSLF = createSuanLaFen();
+
 		cb.add(recipeGBJD);
 		cb.add(recipeHSR);
 		cb.add(recipeSLF);
-		
-		
-		jDatabaseController.insertRecipe(recipeGBJD);
-		jDatabaseController.insertRecipe(recipeHSR);
-		jDatabaseController.insertRecipe(recipeSLF);
-		
+
 		Recipe recipe = cb.getRecipe("Gong Bao Jiding");
 		Recipe recalRecipe = cb.recalculate(recipe, 6);
 		if (recipe != null) {
