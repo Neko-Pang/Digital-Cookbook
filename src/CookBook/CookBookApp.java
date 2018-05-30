@@ -146,16 +146,20 @@ public class CookBookApp {
 //		cb.add(recipeHSR);
 //		cb.add(recipeSLF);
 
-		ArrayList<Recipe> recipe = cb.getRecipe("Gong Bao Jiding");
-		Recipe recalRecipe = cb.recalculate(recipe.get(0), 6);
+		ArrayList<Recipe> recipe = cb.getRecipe("Hong Shao Rou");
+		
 		if (recipe.size() != 0) {
+			
+			Recipe recalRecipe = cb.recalculate(recipe.get(0), 6);
+			
+			Boolean test = cb.deleteRecipe(recipe.get(0));
 			
 			for (int i = 0; i < recipe.size(); i++) {
 				System.out.println(recipe.get(i));
 			}
 			
-			System.out.println(recalRecipe);
-			
+			System.out.println(recalRecipe+ "\n" + test);
+		   
 		}
 	}
 }

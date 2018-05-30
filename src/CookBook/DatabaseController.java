@@ -5,8 +5,6 @@ import java.lang.Thread.State;
 import java.sql.*;
 import java.util.ArrayList;
 
-import org.omg.CORBA.portable.ValueInputStream;
-
 public class DatabaseController implements Serializable {
 
 	/**
@@ -48,15 +46,19 @@ public class DatabaseController implements Serializable {
 	}
 
 	/**
-	 * This method is to add the recipe information into database
+	 * This method is to add the recipe information into database and return a
+	 * boolean to show the process
 	 * 
 	 * @param recipe
+	 * @return isSuccess / whether the method succeeds
 	 */
-	public void insertRecipe(Recipe recipe) {
+	public Boolean insertRecipe(Recipe recipe) {
 
 		Connection conn = this.getConn();
-		
-		//these booleans are to check whether each part has been added successfully
+
+		// these booleans are to check whether each part has been added
+		// successfully
+		Boolean isSuccess = false;
 		Boolean isSuccessRecipe = false;
 		Boolean isSuccessIngre = false;
 		Boolean isSuccessPrep = false;
@@ -81,7 +83,7 @@ public class DatabaseController implements Serializable {
 			String statementBasic = "insert into recipe( Name , PrepTime , AccountID , CookingTime , ServingPeople , Category ) "
 					+ "values(?,?,?,?,?,?)";
 			PreparedStatement sql;
-			
+
 			// set the information
 			sql = conn.prepareStatement(statementBasic);
 			sql.setString(1, recipe.getName());
@@ -118,15 +120,15 @@ public class DatabaseController implements Serializable {
 				sql.setDouble(4, ingrePointer.getWeight());
 				sql.setString(5, ingrePointer.getUnit());
 				// execute the statement and to check whether the sql works
-			
-			resultIngre += sql.executeUpdate();
+
+				resultIngre += sql.executeUpdate();
 
 			}
 			if (resultIngre == recipe.getIngredients().size()) {
 
 				isSuccessIngre = true;
 
-			} 
+			}
 
 			/*
 			 * 3rd step: to store the preparation steps
@@ -145,15 +147,20 @@ public class DatabaseController implements Serializable {
 				resultPrep += sql.executeUpdate();
 			}
 
+			// check whether preparationstep has been inserted succesfully
 			if (resultPrep == recipe.getPreparationStep().size()) {
 
-				isSuccessPrep = true ;
+				isSuccessPrep = true;
 
-			} 
+			}
 
 			// } else {
 			// System.out.println("The recipe already exists");
 			// }
+
+			if (isSuccessIngre && isSuccessIngre && isSuccessPrep) {
+				isSuccess = true;
+			}
 
 			/*
 			 * We need to add the ingredient into ingredient table when insert
@@ -172,6 +179,73 @@ public class DatabaseController implements Serializable {
 			e1.printStackTrace();
 		}
 
+		return isSuccess;
+	}
+
+	/**
+	 * Delete the recipe by recipeID and return a boolean to check the process
+	 * 
+	 * @param recipeID
+	 *            / the ID of recipe
+	 * @return isDeleted
+	 */
+	public Boolean deleteRecipe(int recipeID) {
+
+		Boolean isDeleted = true;
+		Connection conn = this.getConn();
+
+		try {
+			Statement state = conn.createStatement();
+
+			// Need to check whether the recipe is extant in the database
+			String strCheckBefore = "select * from recipe where RecipeID = '" + recipeID + "'";
+			ResultSet result = state.executeQuery(strCheckBefore);
+			if ( result.next() ) {
+				String strDelete = "delete from recipe where RecipeID = '" + recipeID + "'";
+				PreparedStatement sql = conn.prepareStatement(strDelete);
+				sql.executeUpdate();
+				String strDeleteIngre = "delete from ingredientusinginfo where RecipeID = '" + recipeID + "'";
+				sql = conn.prepareStatement(strDeleteIngre);
+				sql.executeUpdate();
+				String strDeletePrep = "delete from preparationstep where RecipeID = '" + recipeID + "'";
+				sql = conn.prepareStatement(strDeletePrep);
+				sql.executeUpdate();
+
+				// Check whether the recipe has been deleted
+
+				// 1st recipe form
+
+				String strCheckAfter = "select * from recipe where RecipeID = '" + recipeID + "'";
+				result = state.executeQuery(strCheckAfter);
+				if ( result.next() ) {
+					isDeleted = false;
+				}
+				// 2nd ingredientusinginfo form
+				String strCheckIngre = "select * from ingredientusinginfo where RecipeID = '" + recipeID + "'";
+				result = state.executeQuery(strCheckIngre);
+				if ( result.next() ) {
+					isDeleted = false;
+				}
+				// 3rd preparation step form
+				String strCheckPrep = "select * from preparationstep where RecipeID = '" + recipeID + "'";
+				result = state.executeQuery(strCheckPrep);
+				if ( result.next() ) {
+					isDeleted = false;
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		// close the connection
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return isDeleted;
 	}
 
 	/**
@@ -218,26 +292,27 @@ public class DatabaseController implements Serializable {
 	}
 
 	/**
-	 * To get the recipe from the database by name, because the name can be duplicate so we need an arraylist to store the recipes
+	 * To get the recipe from the database by name, because the name can be
+	 * duplicate so we need an arraylist to store the recipes
 	 * 
 	 * @param recipeName
 	 * @return
 	 */
 	public ArrayList<Recipe> searchRecipe(String recipeName) {
-		
+
 		ArrayList<Recipe> goalRecipe = new ArrayList<Recipe>();
 		int recipeID = 0;
 		Connection conn = this.getConn();
 
 		try {
-			
+
 			String statementSearchRe = "select * from recipe where Name='" + recipeName + "'";
 			Statement sql = conn.createStatement();
 			ResultSet searchResult = sql.executeQuery(statementSearchRe);
 			while (searchResult.next()) {
-				
+
 				Recipe recipe = new Recipe();
-				
+
 				// 1st:take out the basic information
 				recipeID = searchResult.getInt("RecipeID");
 				recipe.setRecipeID(recipeID);
@@ -246,7 +321,7 @@ public class DatabaseController implements Serializable {
 				recipe.setCategary(searchResult.getString("Category"));
 				recipe.setCookingTime(searchResult.getInt("CookingTime"));
 				recipe.setPreparationTime(searchResult.getInt("PrepTime"));
-				
+
 				recipe.setServingPpl(searchResult.getInt("ServingPeople"));
 				// 2nd : take out the ingredient information
 				if (recipeID != 0) {
@@ -257,11 +332,9 @@ public class DatabaseController implements Serializable {
 				if (recipeID != 0) {
 					recipe.setPreparationStep(searchPrep(recipeID));
 				}
-				
+
 				goalRecipe.add(recipe);
 			}
-
-			
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

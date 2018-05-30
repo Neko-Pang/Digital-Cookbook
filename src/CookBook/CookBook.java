@@ -208,5 +208,18 @@ public class CookBook {
 
 		}
 	}
+	
+	
+	/**
+	 * To delete the recipe from the cookbook and database
+	 * @param recipe
+	 * @return isDeleted
+	 */
+	public Boolean deleteRecipe(Recipe recipe){
+		
+		DatabaseController jDatabaseController = new DatabaseController();
+		Boolean isDeleted = jDatabaseController.deleteRecipe(recipe.getRecipeID());
+		return isDeleted;
+	}
 
 }
