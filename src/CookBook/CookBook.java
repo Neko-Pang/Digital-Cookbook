@@ -12,6 +12,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class CookBook {
+	
+	
+	DatabaseController jDatabaseController = DatabaseController.getInstance();
 	private ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 	private String name;
 
@@ -23,10 +26,23 @@ public class CookBook {
 	 */
 	public void add(Recipe recipe) {
 
-		DatabaseController jDatabaseController = new DatabaseController();
+		
 		jDatabaseController.insertRecipe(recipe);
 		recipes.add(recipe);
 
+	}
+	
+	/**
+	 * To update the recipe by a newly edited version
+	 * @param recipeID
+	 * @param newRecipe
+	 */
+	public void updateRecipe(Recipe originRecipe, Recipe newRecipe){
+		
+		newRecipe.setRecipeID(originRecipe.getRecipeID());
+		jDatabaseController.updateRecipe(originRecipe.getRecipeID(), newRecipe);
+		originRecipe = this.getRecipe(originRecipe.getRecipeID());
+		
 	}
 
 	public CookBook(String name) {
@@ -40,7 +56,7 @@ public class CookBook {
 	 * @return
 	 */
 	public ArrayList<Recipe> getRecipe(String name) {
-		DatabaseController jDatabaseController = new DatabaseController();
+		
 		ArrayList<Recipe> goalRecipes = new ArrayList<Recipe>();
 
 		//search the recipes directly from database
@@ -48,6 +64,19 @@ public class CookBook {
 
 		return goalRecipes;
 
+	}
+	
+	/**
+	 * This method is overloaded to get the recipe by ID from database
+	 * @param recipeID
+	 * @return
+	 */
+	public Recipe getRecipe(int recipeID){
+		
+		Recipe goalRecipe = new Recipe();
+		goalRecipe = jDatabaseController.searchRecipe(recipeID);
+		
+		return goalRecipe;
 	}
 
 	public void setRecipes(ArrayList<Recipe> recipes) {
@@ -106,23 +135,7 @@ public class CookBook {
 		return recalRecipe;
 	}
 
-	/**
-	 * take the recipe from the database and recalculate
-	 */
-	// public Recipe recalculate( String recipeName , int changedServingPpl){
-	//
-	// DatabaseController jdbc = new DatabaseController();
-	// Connection conn = jdbc.getConn();
-	// String sql = "select * from recipe where Name
-	// ='"+originRecipe.getName()+"'";
-	// Statement statement = conn.createStatement();
-	// ResultSet originSet = statement.executeQuery(sql);
-	//
-	// if(originSet.next()){
-	//
-	// }
-
-	// }
+	
 
 	/**
 	 * this method is to copy a new recipe of one existed recipe to do the
@@ -217,7 +230,6 @@ public class CookBook {
 	 */
 	public Boolean deleteRecipe(Recipe recipe){
 		
-		DatabaseController jDatabaseController = new DatabaseController();
 		Boolean isDeleted = jDatabaseController.deleteRecipe(recipe.getRecipeID());
 		return isDeleted;
 	}

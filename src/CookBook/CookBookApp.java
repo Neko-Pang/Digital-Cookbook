@@ -138,27 +138,29 @@ public class CookBookApp {
 	 */
 	public static void main(String[] args) {
 		CookBook cb = new CookBook("Chinese Cuisine");
-//		Recipe recipeGBJD = createGongBaoJiding();
-//		Recipe recipeHSR = createHongShaoRou();
-//		Recipe recipeSLF = createSuanLaFen();
+		Recipe recipeGBJD = createGongBaoJiding();
+		Recipe recipeHSR = createHongShaoRou();
+		Recipe recipeSLF = createSuanLaFen();
 //
 //		cb.add(recipeGBJD);
 //		cb.add(recipeHSR);
 //		cb.add(recipeSLF);
 
-		ArrayList<Recipe> recipe = cb.getRecipe("Hong Shao Rou");
+		ArrayList<Recipe> recipe = cb.getRecipe("Suan La Fen");
+		
 		
 		if (recipe.size() != 0) {
 			
 			Recipe recalRecipe = cb.recalculate(recipe.get(0), 6);
-			
-			Boolean test = cb.deleteRecipe(recipe.get(0));
+	
 			
 			for (int i = 0; i < recipe.size(); i++) {
 				System.out.println(recipe.get(i));
 			}
 			
-			System.out.println(recalRecipe+ "\n" + test);
+			System.out.println(recalRecipe);
+			
+			cb.updateRecipe(recipe.get(0), recipeHSR);
 		   
 		}
 	}

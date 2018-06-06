@@ -5,8 +5,22 @@ import java.lang.Thread.State;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class DatabaseController implements Serializable {
+import javax.naming.spi.DirStateFactory.Result;
 
+import com.mysql.jdbc.SingleByteCharsetConverter;
+
+/**
+ * This class is realized in singleton pattern
+ * @author rose
+ *
+ */
+public class DatabaseController implements Serializable {
+	
+	/**
+	 * the connection to database
+	 */
+	private static Connection conn;
+	
 	/**
 	 * the name of the program driver
 	 */
@@ -16,13 +30,30 @@ public class DatabaseController implements Serializable {
 	 * point to your database
 	 */
 	private String url = "jdbc:mysql://localhost:3306/cookbookdatabase?useSSL=false";
+	
 
 	/**
 	 * your username and the password of mysql
 	 */
 	private String dbUser = "root";
 	private String dbPass = "xiaoxia12";
-
+	
+	// Singleton Pattern
+	private static DatabaseController instance = null;
+	
+	private DatabaseController() {
+		this.conn = this.getConn();
+	}
+	
+	public static DatabaseController getInstance() {
+		
+		if(instance == null){
+			instance = new DatabaseController();
+		}
+		
+	    return instance;
+	}
+	
 	public Connection getConn() {
 		Connection conn = null;
 
@@ -45,6 +76,8 @@ public class DatabaseController implements Serializable {
 		return conn;
 	}
 
+	
+	
 	/**
 	 * This method is to add the recipe information into database and return a
 	 * boolean to show the process
@@ -54,7 +87,6 @@ public class DatabaseController implements Serializable {
 	 */
 	public Boolean insertRecipe(Recipe recipe) {
 
-		Connection conn = this.getConn();
 
 		// these booleans are to check whether each part has been added
 		// successfully
@@ -62,44 +94,17 @@ public class DatabaseController implements Serializable {
 		Boolean isSuccessRecipe = false;
 		Boolean isSuccessIngre = false;
 		Boolean isSuccessPrep = false;
-		int resultRecipe = 0;
-		int resultIngre = 0;
+
 		try {
 
-			Statement state = conn.createStatement();
 			/*
-			 * We decide that the recipe can using the same name now so we
-			 * needn't to check
+			 * 1st step: to store the basic information
 			 */
-
-			// to check whether the recipe has already be added to the database
-
-			// ResultSet resultSetOfCheck = state.executeQuery(statementCheck);
-			// if (!resultSetOfCheck.next()) {
-			/*
-			 * 1st step: to store basic information into database(not included
-			 * the preparation & ingredient info)
-			 */
-			String statementBasic = "insert into recipe( Name , PrepTime , AccountID , CookingTime , ServingPeople , Category ) "
-					+ "values(?,?,?,?,?,?)";
-			PreparedStatement sql;
-
-			// set the information
-			sql = conn.prepareStatement(statementBasic);
-			sql.setString(1, recipe.getName());
-			sql.setInt(2, recipe.getPreparationTime());
-			sql.setInt(3, recipe.getAccountID());
-			sql.setInt(4, recipe.getCookingTime());
-			sql.setInt(5, recipe.getServingPpl());
-			sql.setString(6, recipe.getCategary());
-			// execute the statement and to check whether the sql works
-			resultRecipe = sql.executeUpdate();
-			if (resultRecipe == 1) {
-				isSuccessRecipe = true;
-			}
-
+			isSuccessRecipe = this.insertRecipeBasicInfo(recipe);
+			
 			// Because the ID in database is auto_increment,we need to get
 			// the ID back from the database
+			Statement state = conn.createStatement();
 			String statementCheck = "select * from recipe where Name like '" + recipe.getName() + "';";
 			ResultSet resultSetOfCheck = state.executeQuery(statementCheck);
 			while (resultSetOfCheck.next()) {
@@ -109,56 +114,17 @@ public class DatabaseController implements Serializable {
 			/*
 			 * 2nd step: to store the ingredient using information
 			 */
-			String statementIngreInfo = "insert into ingredientusinginfo( Name , RecipeID , CookingWay , Weight , Unit) "
-					+ "values(?,?,?,?,?)";
-			sql = conn.prepareStatement(statementIngreInfo);
-			for (int i = 0; i < recipe.getIngredients().size(); i++) {
-				Ingredient ingrePointer = recipe.getIngredients().get(i);
-				sql.setString(1, ingrePointer.getName());
-				sql.setInt(2, recipe.getRecipeID());
-				sql.setString(3, ingrePointer.getCookingWay());
-				sql.setDouble(4, ingrePointer.getWeight());
-				sql.setString(5, ingrePointer.getUnit());
-				// execute the statement and to check whether the sql works
+			isSuccessIngre = this.insertRecipeIngreInfo(recipe);
 
-				resultIngre += sql.executeUpdate();
-
-			}
-			if (resultIngre == recipe.getIngredients().size()) {
-
-				isSuccessIngre = true;
-
-			}
-
+			
 			/*
 			 * 3rd step: to store the preparation steps
 			 */
-			int resultPrep = 0;
-			String statementPrepSteps = "insert into preparationstep(RecipeID , StepNo , PreparationContext) "
-					+ "values(?,?,?)";
-			sql = conn.prepareStatement(statementPrepSteps);
-			for (int i = 0; i < recipe.getPreparationStep().size(); i++) {
+			isSuccessPrep = this.insertRecipePrepStep(recipe);
 
-				String context = recipe.getPreparationStep().get(i);
-				int stepNo = i + 1;
-				sql.setString(3, context);
-				sql.setInt(2, stepNo);
-				sql.setInt(1, recipe.getRecipeID());
-				resultPrep += sql.executeUpdate();
-			}
+		
 
-			// check whether preparationstep has been inserted succesfully
-			if (resultPrep == recipe.getPreparationStep().size()) {
-
-				isSuccessPrep = true;
-
-			}
-
-			// } else {
-			// System.out.println("The recipe already exists");
-			// }
-
-			if (isSuccessIngre && isSuccessIngre && isSuccessPrep) {
+			if (isSuccessRecipe && isSuccessIngre && isSuccessPrep) {
 				isSuccess = true;
 			}
 
@@ -173,15 +139,224 @@ public class DatabaseController implements Serializable {
 
 			// close the connection
 			resultSetOfCheck.close();
-			conn.close();
+			
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
+		
+		
 		return isSuccess;
 	}
+	
+	/**
+	 * This method is to store the basic recipe information into database(recipe form)
+	 * @param recipe
+	 * @return
+	 */
+	public boolean insertRecipeBasicInfo(Recipe recipe){
+		
+		
+		boolean isSuccessRecipe = false;
+		int resultRecipe;
+		
+		
+		/*
+		 * 1st step: to store basic information into database(not included
+		 * the preparation & ingredient info)
+		 */
+		String statementBasic = "insert into recipe( Name , PrepTime , AccountID , CookingTime , ServingPeople , Category ) "
+				+ "values(?,?,?,?,?,?)";
+		PreparedStatement sql;
 
+		// set the information
+		try {
+			
+			sql = conn.prepareStatement(statementBasic);
+			sql.setString(1, recipe.getName());
+			sql.setInt(2, recipe.getPreparationTime());
+			sql.setInt(3, recipe.getAccountID());
+			sql.setInt(4, recipe.getCookingTime());
+			sql.setInt(5, recipe.getServingPpl());
+			sql.setString(6, recipe.getCategary());
+			// execute the statement and to check whether the sql works
+			resultRecipe = sql.executeUpdate();
+			if (resultRecipe == 1) {
+				isSuccessRecipe = true;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return isSuccessRecipe;
+	}
+	
+	/**
+	 * this method is to store the ingredient information into database (ingredientusiinginfo form )
+	 * @param recipe
+	 * @return
+	 */
+	public boolean insertRecipeIngreInfo(Recipe recipe){
+		
+		Boolean isSuccessIngre = false;
+		int resultIngre=0;
+		String statementIngreInfo = "insert into ingredientusinginfo( Name , RecipeID , CookingWay , Weight , Unit) "
+				+ "values(?,?,?,?,?)";
+		PreparedStatement sql;
+		try {
+			
+			sql = conn.prepareStatement(statementIngreInfo);
+			for (int i = 0; i < recipe.getIngredients().size(); i++) {
+				Ingredient ingrePointer = recipe.getIngredients().get(i);
+				sql.setString(1, ingrePointer.getName());
+				sql.setInt(2, recipe.getRecipeID());
+				sql.setString(3, ingrePointer.getCookingWay());
+				sql.setDouble(4, ingrePointer.getWeight());
+				sql.setString(5, ingrePointer.getUnit());
+				// execute the statement and to check whether the sql works
+
+				resultIngre += sql.executeUpdate();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if (resultIngre == recipe.getIngredients().size()) {
+
+			isSuccessIngre = true;
+
+		}
+		
+		
+		return isSuccessIngre;
+	}
+	
+	/**
+	 * this method is to store the preparation step into database(PreparationStep form)
+	 * @param recipe
+	 * @return
+	 */
+	public Boolean insertRecipePrepStep(Recipe recipe){
+		
+		int resultPrep = 0;
+		Boolean isSuccessPrep =false;
+		
+		String statementPrepSteps = "insert into preparationstep(RecipeID , StepNo , PreparationContext) "
+				+ "values(?,?,?)";
+		PreparedStatement sql;
+		
+		try {
+			sql = conn.prepareStatement(statementPrepSteps);
+			for (int i = 0; i < recipe.getPreparationStep().size(); i++) {
+
+				String context = recipe.getPreparationStep().get(i);
+				int stepNo = i + 1;
+				sql.setString(3, context);
+				sql.setInt(2, stepNo);
+				sql.setInt(1, recipe.getRecipeID());
+				resultPrep += sql.executeUpdate();
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
+		// check whether preparationstep has been inserted succesfully
+		if (resultPrep == recipe.getPreparationStep().size()) {
+
+			isSuccessPrep = true;
+
+		}
+		
+		
+		return  isSuccessPrep;
+	}
+	
+	
+	public void updateRecipe(int recipeID, Recipe newRecipe){
+		
+		
+		/*
+		 * 1st step: update the basic information
+		 */
+		this.updateRecipeBasicInfo(recipeID, newRecipe);
+		
+		
+		/*
+		 * 2nd step: update the ingredient information
+		 */
+		this.updateIngreInfo(recipeID, newRecipe);
+		
+		/*
+		 * 3rd step: update the preparation step
+		 */
+		this.updatePrepStep(recipeID, newRecipe);
+		
+	}
+	
+	
+	/**
+	 * This method is to update the basic information of a recipe by recipeID(Recipe Form)
+	 * @param recipeID / the ID
+	 * @param newRecipe / the newest edited recipe
+	 */
+	public void updateRecipeBasicInfo(int recipeID,Recipe newRecipe){
+		
+		
+		try {
+			
+			String updateStr = "update recipe set Name=? , PrepTime=? , AccountID = ? ,CookingTime = ? , ServingPeople = ? , Category = ? where "
+					+ "RecipeID = '" + recipeID +"'";
+			PreparedStatement statement = conn.prepareStatement(updateStr);
+			statement.setString(1, newRecipe.getName());
+			statement.setInt(2, newRecipe.getPreparationTime());
+			statement.setInt(3, newRecipe.getAccountID());
+			statement.setInt(4, newRecipe.getCookingTime());
+			statement.setInt(5, newRecipe.getServingPpl());
+			statement.setString(6, newRecipe.getCategary());
+			statement.execute();
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	/**
+	 * this method is to update the new ingredient information
+	 * @param recipeID
+	 * @param newRecipe
+	 */
+	public void updateIngreInfo(int recipeID, Recipe newRecipe){
+		
+		this.deleteRecipeIngreInfo(recipeID);
+		this.insertRecipeIngreInfo(newRecipe);
+	
+	}
+	
+	/**
+	 * this method is to update the new preparation steps
+	 * @param recipeID
+	 * @param newRecipe
+	 */
+	public void updatePrepStep(int recipeID, Recipe newRecipe){
+		
+		this.deleteRecipePrepStep(recipeID);
+		this.insertRecipePrepStep(newRecipe);
+		
+	}
+	
 	/**
 	 * Delete the recipe by recipeID and return a boolean to check the process
 	 * 
@@ -192,8 +367,7 @@ public class DatabaseController implements Serializable {
 	public Boolean deleteRecipe(int recipeID) {
 
 		Boolean isDeleted = true;
-		Connection conn = this.getConn();
-
+		
 		try {
 			Statement state = conn.createStatement();
 
@@ -201,53 +375,154 @@ public class DatabaseController implements Serializable {
 			String strCheckBefore = "select * from recipe where RecipeID = '" + recipeID + "'";
 			ResultSet result = state.executeQuery(strCheckBefore);
 			if ( result.next() ) {
-				String strDelete = "delete from recipe where RecipeID = '" + recipeID + "'";
-				PreparedStatement sql = conn.prepareStatement(strDelete);
-				sql.executeUpdate();
-				String strDeleteIngre = "delete from ingredientusinginfo where RecipeID = '" + recipeID + "'";
-				sql = conn.prepareStatement(strDeleteIngre);
-				sql.executeUpdate();
-				String strDeletePrep = "delete from preparationstep where RecipeID = '" + recipeID + "'";
-				sql = conn.prepareStatement(strDeletePrep);
-				sql.executeUpdate();
-
-				// Check whether the recipe has been deleted
-
-				// 1st recipe form
-
-				String strCheckAfter = "select * from recipe where RecipeID = '" + recipeID + "'";
-				result = state.executeQuery(strCheckAfter);
-				if ( result.next() ) {
-					isDeleted = false;
-				}
-				// 2nd ingredientusinginfo form
-				String strCheckIngre = "select * from ingredientusinginfo where RecipeID = '" + recipeID + "'";
-				result = state.executeQuery(strCheckIngre);
-				if ( result.next() ) {
-					isDeleted = false;
-				}
-				// 3rd preparation step form
-				String strCheckPrep = "select * from preparationstep where RecipeID = '" + recipeID + "'";
-				result = state.executeQuery(strCheckPrep);
-				if ( result.next() ) {
-					isDeleted = false;
-				}
+				//1st :delete basic information
+				isDeleted = isDeleted && this.deleteRecipeBasicInfo(recipeID);
+				
+				//2nd :delete ingredient using information
+				isDeleted = isDeleted && this.deleteRecipeIngreInfo(recipeID);
+				
+				//3rd :delete preparation step
+				isDeleted = isDeleted && this.deleteRecipePrepStep(recipeID);
+			
+				
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		// close the connection
+		
+		return isDeleted;
+	}
+	
+	/**
+	 * this method is to delete basic information of recipe from database (recipe form)
+	 * @param recipeID
+	 * @return
+	 */
+	public boolean deleteRecipeBasicInfo(int recipeID){
+		
+		boolean isDeleted = false;
+		
+		String strDelete = "delete from recipe where RecipeID = '" + recipeID + "'";
+		PreparedStatement sql;
+		
 		try {
-			conn.close();
+			sql = conn.prepareStatement(strDelete);
+			sql.executeUpdate();
+			isDeleted = true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		String strCheckAfter = "select * from recipe where RecipeID = '" + recipeID + "'";
+		
+		ResultSet result;
+		Statement state;
+		try {
+			
+			state = conn.createStatement();
+			result = state.executeQuery(strCheckAfter);
+			if ( result.next() ) {
+				isDeleted = false;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		return isDeleted;
 	}
-
+	
+	
+	/**
+	 * this method is to delete ingredient information from the database(ingredientusinginfo form)
+	 * @param recipeID
+	 * @return
+	 */
+	public boolean deleteRecipeIngreInfo(int recipeID){
+		boolean isDeleted = false;
+		
+		
+		//delete the information
+		String strDeleteIngre = "delete from ingredientusinginfo where RecipeID = '" + recipeID + "'";
+		PreparedStatement sql;
+		try {
+			sql = conn.prepareStatement(strDeleteIngre);
+			sql.executeUpdate();
+			isDeleted = true;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		// Check ingredientusinginfo form
+		String strCheckIngre = "select * from ingredientusinginfo where RecipeID = '" + recipeID + "'";
+		Statement state;
+		try {
+			
+			state = conn.createStatement();
+			ResultSet result = state.executeQuery(strCheckIngre);
+			if ( result.next() ) {
+				isDeleted = false;
+			}
+			
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
+		return isDeleted;
+	}
+	
+	/**
+	 * this method is to delete preparation step from database(PreparationStep form)
+	 * @param recipeID
+	 * @return
+	 */
+	public boolean deleteRecipePrepStep(int recipeID){
+	
+		boolean isDeleted = false;
+		String strDeletePrep = "delete from preparationstep where RecipeID = '" + recipeID + "'";
+		PreparedStatement sql;
+		
+		try {
+			sql = conn.prepareStatement(strDeletePrep);
+			sql.executeUpdate();
+			isDeleted = true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+		
+		//check whether delete is successful
+		String strCheckPrep = "select * from preparationstep where RecipeID = '" + recipeID + "'";
+		Statement state;
+		try {
+			
+			state = conn.createStatement();
+			ResultSet result = state.executeQuery(strCheckPrep);
+			if ( result.next() ) {
+				isDeleted = false;
+			}
+			
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
+		
+		return isDeleted;
+	}
+	
 	/**
 	 * From the recipe, we need to add the ingredient into the ingredient table
 	 * 
@@ -256,7 +531,7 @@ public class DatabaseController implements Serializable {
 	 */
 	public void insertIngre(Ingredient ingre) {
 
-		Connection conn = this.getConn();
+	
 		int result = 0;
 		try {
 			// We need to check whether the ingredient exists in the database
@@ -281,19 +556,13 @@ public class DatabaseController implements Serializable {
 			e.printStackTrace();
 		}
 
-		// close the connection
-		try {
-			conn.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 
 	}
-
+	
 	/**
 	 * To get the recipe from the database by name, because the name can be
-	 * duplicate so we need an arraylist to store the recipes
+	 * duplicated so we need an arraylist to store the recipes
 	 * 
 	 * @param recipeName
 	 * @return
@@ -302,7 +571,7 @@ public class DatabaseController implements Serializable {
 
 		ArrayList<Recipe> goalRecipe = new ArrayList<Recipe>();
 		int recipeID = 0;
-		Connection conn = this.getConn();
+		
 
 		try {
 
@@ -342,13 +611,6 @@ public class DatabaseController implements Serializable {
 
 		}
 
-		// We need to close the connection after the method ends
-		try {
-			conn.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
 		if (recipeID == 0) {
 			System.out.println("The recipe does not exist");
@@ -358,6 +620,55 @@ public class DatabaseController implements Serializable {
 	}
 
 	/**
+	 * This method is an overload one , to search recipe by recipeID
+	 * @param recipeID
+	 * @return
+	 */
+	public Recipe searchRecipe(int recipeID){
+		
+		Recipe recipe = new Recipe();
+
+		try {
+
+			String statementSearchRe = "select * from recipe where RecipeID='" + recipeID + "'";
+			Statement sql = conn.createStatement();
+			ResultSet searchResult = sql.executeQuery(statementSearchRe);
+			while (searchResult.next()) {
+
+
+				// 1st:take out the basic information
+				recipe.setRecipeID(recipeID);
+				recipe.setName(searchResult.getString("Name"));
+				recipe.setAccountID(searchResult.getInt("AccountID"));
+				recipe.setCategary(searchResult.getString("Category"));
+				recipe.setCookingTime(searchResult.getInt("CookingTime"));
+				recipe.setPreparationTime(searchResult.getInt("PrepTime"));
+
+				recipe.setServingPpl(searchResult.getInt("ServingPeople"));
+				// 2nd : take out the ingredient information
+				if (recipeID != 0) {
+					recipe.setIngredients(searchIngre(recipeID));
+				}
+
+				// 3rd : take out the preparation step information
+				if (recipeID != 0) {
+					recipe.setPreparationStep(searchPrep(recipeID));
+				}
+
+				
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+		}
+
+		return recipe;
+		
+	}
+	
+	/**
 	 * This method is to get the ingredient information from database by
 	 * recipeID
 	 * 
@@ -366,8 +677,6 @@ public class DatabaseController implements Serializable {
 	 */
 	public ArrayList<Ingredient> searchIngre(int RecipeID) {
 		ArrayList<Ingredient> goalIngre = new ArrayList<Ingredient>();
-
-		Connection conn = this.getConn();
 
 		try {
 			String statementSearchIn = "select * from ingredientusinginfo where RecipeID ='" + RecipeID + "'";
@@ -388,13 +697,6 @@ public class DatabaseController implements Serializable {
 			e.printStackTrace();
 		}
 
-		// close the connection
-		try {
-			conn.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
 		if (goalIngre.size() == 0) {
 			System.out.println("None ingredient information was found in the database");
@@ -415,8 +717,7 @@ public class DatabaseController implements Serializable {
 
 		ArrayList<String> goalPrep = new ArrayList<String>();
 
-		Connection conn = this.getConn();
-
+	
 		try {
 
 			// The sql statement
@@ -439,17 +740,12 @@ public class DatabaseController implements Serializable {
 			System.out.println("No preparation step information was found in the databse");
 		}
 
-		// close the connection
-		try {
-
-			conn.close();
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		return goalPrep;
 
 	}
+	
+	
+	
 
 }
