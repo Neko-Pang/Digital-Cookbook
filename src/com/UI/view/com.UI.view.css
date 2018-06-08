@@ -1,0 +1,13 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+
+.custom-button:hover{
+
+    -fx-background-color: #00bbff;
+
+}
+
+.scene{
+	-fx-background-color: #eeeeee;
+}
+

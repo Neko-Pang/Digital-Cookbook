@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="837.0" prefWidth="1249.0" snapToPixel="false" styleClass="scene" stylesheets="@com.UI.view.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.UI.controller.MainController">
+   <children>
+      <Hyperlink layoutX="880.0" layoutY="39.0" prefHeight="44.0" prefWidth="88.0" text="Login">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Hyperlink>
+      <Hyperlink layoutX="981.0" layoutY="39.0" prefHeight="44.0" prefWidth="241.0" text="No account? Sign in!" textFill="#171717">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Hyperlink>
+      <Text fill="#4e6bf8" layoutX="389.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Digital Cookbook" wrappingWidth="499.763671875">
+         <font>
+            <Font name="Bell MT" size="36.0" />
+         </font>
+      </Text>
+      <Text layoutX="632.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Powered by Macrohard" wrappingWidth="201.41015625">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <TextField alignment="CENTER" layoutX="342.0" layoutY="319.0" prefHeight="64.0" prefWidth="545.0" promptText="Type in  the name you want to search" />
+      <Button fx:id="goButton" layoutX="929.0" layoutY="319.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="98.0" styleClass="custom-button" text="GO">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
