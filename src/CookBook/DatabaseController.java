@@ -669,6 +669,65 @@ public class DatabaseController implements Serializable {
 	}
 	
 	/**
+	 * this method is to search recipe by accountID
+	 * @param ID
+	 * @return
+	 */
+	public ArrayList<Recipe> searchRecipeByAccount(int ID) {
+
+		ArrayList<Recipe> goalRecipe = new ArrayList<Recipe>();
+		int accountID = 0;
+		int recipeID = 0;
+
+		try {
+
+			String statementSearchRe = "select * from recipe where AccountID='" + accountID + "'";
+			Statement sql = conn.createStatement();
+			ResultSet searchResult = sql.executeQuery(statementSearchRe);
+			while (searchResult.next()) {
+
+				Recipe recipe = new Recipe();
+
+				// 1st:take out the basic information
+				accountID = ID;
+				recipeID = searchResult.getInt("RecipeID");
+				recipe.setRecipeID(recipeID);
+				recipe.setName(searchResult.getString("Name"));
+				recipe.setAccountID(accountID);
+				recipe.setCategary(searchResult.getString("Category"));
+				recipe.setCookingTime(searchResult.getInt("CookingTime"));
+				recipe.setPreparationTime(searchResult.getInt("PrepTime"));
+
+				recipe.setServingPpl(searchResult.getInt("ServingPeople"));
+				// 2nd : take out the ingredient information
+				if (recipeID != 0) {
+					recipe.setIngredients(searchIngre(recipeID));
+				}
+
+				// 3rd : take out the preparation step information
+				if (recipeID != 0) {
+					recipe.setPreparationStep(searchPrep(recipeID));
+				}
+
+				goalRecipe.add(recipe);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+		}
+
+
+		if (accountID == 0) {
+			System.out.println("The user does not exist");
+		}
+
+		return goalRecipe;
+	}
+	
+	
+	/**
 	 * This method is to get the ingredient information from database by
 	 * recipeID
 	 * 
@@ -746,6 +805,45 @@ public class DatabaseController implements Serializable {
 	}
 	
 	
+	
+	/**
+	 * This method is to get the specific user by Username
+	 * @param name
+	 * @return
+	 */
+	
+	public RegisteredUser searchUser(String name){
+		
+		RegisteredUser user = null;
+		int userID ;
+		
+		try {
+			String searchUser = "select * from user where Username = '"+ name +"'";
+			Statement state = conn.createStatement();
+			ResultSet result = state.executeQuery(searchUser);
+			
+			if(result.next()){
+				user = new RegisteredUser();
+				userID=result.getInt("AccountID");
+				user.setAccountID(userID);
+				user.setUserName(name);
+				user.setPassword(result.getString("password"));
+				
+				user.setOwnRecipes(searchRecipeByAccount(userID));
+				
+				
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		return user;
+	}
 	
 
 }

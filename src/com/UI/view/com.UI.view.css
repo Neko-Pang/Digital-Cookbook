@@ -3,11 +3,35 @@
 
 .custom-button:hover{
 
-    -fx-background-color: #00bbff;
+    -fx-background-color: #00ddff;
 
 }
 
 .scene{
-	-fx-background-color: #eeeeee;
+	-fx-background-color: #ffffff;
 }
 
+.Hbox{
+	-fx-background-color: #aaaaaa;
+}
+
+.Hbox:hover{
+	-fx-background-color: #00ddff;
+}
+
+.Hbox2{
+	-fx-background-color: #cccccc;
+}
+
+.Hbox2:hover{
+	-fx-background-color: #00ddff;
+}
+
+.ComfirmButton{
+	-fx-background-color: #4878C0;
+}
+
+.CancelButton{
+	
+	-fx-background-color: #dddddd;
+}

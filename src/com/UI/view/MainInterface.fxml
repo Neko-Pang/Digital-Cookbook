@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="837.0" prefWidth="1249.0" snapToPixel="false" styleClass="scene" stylesheets="@com.UI.view.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.UI.controller.MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="837.0" prefWidth="1249.0" styleClass="scene" stylesheets="@com.UI.view.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.UI.controller.MainController">
    <children>
-      <Hyperlink layoutX="880.0" layoutY="39.0" prefHeight="44.0" prefWidth="88.0" text="Login">
+      <Hyperlink fx:id="login" layoutX="885.0" layoutY="61.0" prefHeight="44.0" prefWidth="88.0" text="Login">
          <font>
             <Font size="23.0" />
          </font>
       </Hyperlink>
-      <Hyperlink layoutX="981.0" layoutY="39.0" prefHeight="44.0" prefWidth="241.0" text="No account? Sign in!" textFill="#171717">
+      <Hyperlink fx:id="signIn" layoutX="978.0" layoutY="61.0" prefHeight="44.0" prefWidth="241.0" stylesheets="@com.UI.view.css" text="No account? Sign in!" textFill="#171717">
          <font>
             <Font size="23.0" />
          </font>
       </Hyperlink>
-      <Text fill="#4e6bf8" layoutX="389.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Digital Cookbook" wrappingWidth="499.763671875">
+      <Text fill="#4e6bf8" layoutX="389.0" layoutY="228.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Digital Cookbook" wrappingWidth="499.763671875">
          <font>
             <Font name="Bell MT" size="36.0" />
          </font>
@@ -34,5 +35,60 @@
             <Font size="19.0" />
          </font>
       </Button>
+      <Hyperlink layoutX="297.0" layoutY="419.0" text="Chinese">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Hyperlink>
+      <Hyperlink layoutX="464.0" layoutY="419.0" text="Italian">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Hyperlink>
+      <Hyperlink layoutX="588.0" layoutY="419.0" text="Japanese">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Hyperlink>
+      <Hyperlink layoutX="748.0" layoutY="419.0" text="French ">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Hyperlink>
+      <Hyperlink layoutX="929.0" layoutY="419.0" text="More">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Hyperlink>
+      <Text layoutX="504.0" layoutY="518.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Maybe these you will like…" wrappingWidth="241.0">
+         <font>
+            <Font name="System Italic" size="20.0" />
+         </font>
+      </Text>
+      <HBox alignment="CENTER" blendMode="SRC_ATOP" layoutX="48.0" layoutY="576.0" prefHeight="206.0" prefWidth="200.0" styleClass="Hbox">
+         <children>
+            <Hyperlink fx:id="randomRecipe1" text="Hyperlink" textFill="#171717" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" blendMode="SRC_ATOP" layoutX="532.0" layoutY="576.0" prefHeight="206.0" prefWidth="200.0" styleClass="Hbox">
+         <children>
+            <Hyperlink text="Hyperlink" textFill="#171717" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" blendMode="SRC_ATOP" layoutX="773.0" layoutY="576.0" prefHeight="206.0" prefWidth="200.0" styleClass="Hbox2">
+         <children>
+            <Hyperlink text="Hyperlink" textFill="#171717" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" blendMode="SRC_ATOP" layoutX="1009.0" layoutY="576.0" prefHeight="206.0" prefWidth="200.0" styleClass="Hbox">
+         <children>
+            <Hyperlink text="Hyperlink" textFill="#171717" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" blendMode="SRC_ATOP" layoutX="289.0" layoutY="576.0" prefHeight="206.0" prefWidth="200.0" styleClass="Hbox2">
+         <children>
+            <Hyperlink text="Hyperlink" textFill="#171717" />
+         </children>
+      </HBox>
    </children>
 </AnchorPane>
