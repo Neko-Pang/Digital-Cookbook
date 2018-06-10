@@ -15,13 +15,23 @@
          </font>
       </Label>
       <Label layoutX="133.0" layoutY="128.0" prefHeight="42.0" prefWidth="340.0" text="Username should only include English characters and numbers, it should be no longer than 30 characters" textAlignment="CENTER" textFill="#909090" wrapText="true" />
-      <Label fx:id="usernameCheckHint" layoutX="247.0" layoutY="244.0" />
       <TextField fx:id="usernameText" alignment="CENTER" layoutX="124.0" layoutY="188.0" prefHeight="42.0" prefWidth="359.0" promptText="Type in your username" />
       <Label layoutX="133.0" layoutY="272.0" prefHeight="61.0" prefWidth="340.0" text="Password should only include English characters and numbers, It should be at most 16 characters and at least 8 characters" textAlignment="CENTER" textFill="#909090" wrapText="true" />
-      <TextField fx:id="passwordText" alignment="CENTER" layoutX="125.0" layoutY="342.0" prefHeight="42.0" prefWidth="359.0" promptText="Type in your password" />
-      <TextField fx:id="passwordRepeat" alignment="CENTER" layoutX="125.0" layoutY="403.0" prefHeight="42.0" prefWidth="359.0" promptText="Confirm your password" />
-      <Label fx:id="passwordCheckHint" layoutX="246.0" layoutY="467.0" text="Password is valid √" />
-      <Button fx:id="confrimButton" layoutX="156.0" layoutY="536.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="101.0" styleClass="ComfirmButton" text="Confirm" textFill="WHITE" />
+      <Button fx:id="confirmButton" layoutX="156.0" layoutY="536.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="101.0" styleClass="ComfirmButton" text="Confirm" textFill="WHITE" />
       <Button fx:id="cancelButton" layoutX="347.0" layoutY="536.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="101.0" styleClass="CancelButton" text="Cancel" textFill="WHITE" />
+      <TextFlow layoutX="214.0" layoutY="243.0" prefHeight="36.0" prefWidth="179.0" textAlignment="CENTER">
+         <children>
+            <Label fx:id="usernameCheckHint" alignment="CENTER_RIGHT" prefHeight="19.0" prefWidth="132.0" />
+            <Label fx:id="usernameCheckHint2" prefHeight="17.0" prefWidth="21.0" />
+         </children>
+      </TextFlow>
+      <TextFlow layoutX="153.0" layoutY="466.0" prefHeight="36.0" prefWidth="301.0">
+         <children>
+            <Label fx:id="passwordCheckHint" alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="17.0" prefWidth="195.0" />
+            <Label fx:id="passwordCheckHint2" contentDisplay="CENTER" prefHeight="17.0" prefWidth="32.0" />
+         </children>
+      </TextFlow>
+      <PasswordField fx:id="passwordText" alignment="CENTER" layoutX="124.0" layoutY="342.0" prefHeight="42.0" prefWidth="359.0" promptText="Type in your password" />
+      <PasswordField fx:id="passwordRepeat" alignment="CENTER" layoutX="124.0" layoutY="402.0" prefHeight="42.0" prefWidth="359.0" promptText="Confirm your password" />
    </children>
 </AnchorPane>
