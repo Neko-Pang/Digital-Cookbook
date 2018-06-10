@@ -575,7 +575,7 @@ public class DatabaseController implements Serializable {
 	public boolean deleteComment(int recipeID, int accountID, int commentID){
 		boolean isDeleted = false;
 		String strDeleteComment = "delete from comment where RecipeID = '" + recipeID + "'"
-				+ " and accountID = '" + accountID + "'"+ " and commentID = '" + commentID + "'";
+				+ " and AccountID = '" + accountID + "'"+ " and CommentID = '" + commentID + "'";
 		PreparedStatement sql;
 		try {
 			sql = conn.prepareStatement(strDeleteComment);
@@ -586,7 +586,7 @@ public class DatabaseController implements Serializable {
 		}
 		//Check whether deletion is successful
 		String strCheckComment = "select * from comment where RecipeID = '" + recipeID + "'"
-				+ " and accountID = '" + accountID + "'"+ " and commentID = '" + commentID + "'";
+				+ " and AccountID = '" + accountID + "'"+ " and CommentID = '" + commentID + "'";
 		Statement state;
 		try {
 			state = conn.createStatement();
@@ -654,7 +654,7 @@ public class DatabaseController implements Serializable {
 
 		try {
 
-			String statementSearchRe = "select * from recipe where Name='" + recipeName + "'";
+			String statementSearchRe = "select * from recipe where Name ='" + recipeName + "'";
 			Statement sql = conn.createStatement();
 			ResultSet searchResult = sql.executeQuery(statementSearchRe);
 			while (searchResult.next()) {
@@ -787,10 +787,11 @@ public class DatabaseController implements Serializable {
 		return goalRecipe;
 	}
 	
-	public Comment searchComment(int commentID){
+	public Comment searchComment(int commentID, int accountID, int recipeID){
 		Comment comment = new Comment();
 		try {
-			String statementSearchRe = "select * from comment where CommentID='" + commentID + "'";
+			String statementSearchRe = "select * from comment where CommentID ='" + commentID + "'"
+					+ " and AccountID = '" + accountID + "'"+ " and RecipeID = '" + recipeID + "'";
 			Statement sql = conn.createStatement();
 			ResultSet searchResult = sql.executeQuery(statementSearchRe);
 			while (searchResult.next()) {
@@ -805,12 +806,38 @@ public class DatabaseController implements Serializable {
 		return comment;
 	}
 	
+	public ArrayList<Comment> searchCommentByRecipe(int recipeID) {
+		ArrayList<Comment> resultComment = new ArrayList<Comment>();
+		int commentID = 0;
+		int accountID = 0;
+		try {
+			String statementSearchRe = "select * from comment where RecipeID ='" + recipeID + "'";
+			Statement sql = conn.createStatement();
+			ResultSet searchResult = sql.executeQuery(statementSearchRe);
+			while (searchResult.next()) {
+				Comment comment = new Comment();
+				accountID = searchResult.getInt("AccountID");
+				comment.setCommentID(commentID);
+				comment.setRecipeID(recipeID);
+				comment.setAccountID(accountID);
+				comment.setContext(searchResult.getString("Context"));	
+				resultComment.add(comment);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if (recipeID == 0) {
+			System.out.println("The recipe does not exist.");
+		}
+		return resultComment;
+	}
+	
 	public ArrayList<Comment> searchCommentByAccount(int accountID) {
 		ArrayList<Comment> resultComment = new ArrayList<Comment>();
 		int commentID = 0;
 		int recipeID = 0;
 		try {
-			String statementSearchRe = "select * from comment where AccountID='" + accountID + "'";
+			String statementSearchRe = "select * from comment where AccountID ='" + accountID + "'";
 			Statement sql = conn.createStatement();
 			ResultSet searchResult = sql.executeQuery(statementSearchRe);
 			while (searchResult.next()) {
