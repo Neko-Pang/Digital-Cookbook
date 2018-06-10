@@ -8,12 +8,7 @@
 
 <AnchorPane prefHeight="402.0" prefWidth="660.0" styleClass="scene" stylesheets="@com.UI.view.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.UI.controller.LoginViewController">
    <children>
-      <TextField alignment="CENTER" layoutX="171.0" layoutY="134.0" prefHeight="45.0" prefWidth="319.0" promptText="Type in your username">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </TextField>
-      <TextField alignment="CENTER" layoutX="171.0" layoutY="215.0" prefHeight="45.0" prefWidth="319.0" promptText="Type in your password">
+      <TextField fx:id="username" alignment="CENTER" layoutX="171.0" layoutY="134.0" prefHeight="45.0" prefWidth="319.0" promptText="Type in your username">
          <font>
             <Font size="17.0" />
          </font>
@@ -23,7 +18,12 @@
             <Font size="27.0" />
          </font>
       </Label>
-      <Button layoutX="204.0" layoutY="299.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="92.0" styleClass="ComfirmButton" text="Comfirm" textFill="WHITE" />
+      <Button fx:id="confirmButton" layoutX="204.0" layoutY="299.0" mnemonicParsing="false" onKeyPressed="#loginEnter" prefHeight="45.0" prefWidth="92.0" styleClass="ComfirmButton" text="Comfirm" textFill="WHITE" />
       <Button fx:id="cancel" layoutX="365.0" layoutY="299.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="92.0" styleClass="CancelButton" text="Cancel" textFill="WHITE" />
+      <PasswordField fx:id="password" alignment="CENTER" layoutX="171.0" layoutY="214.0" prefHeight="45.0" prefWidth="319.0" promptText="Type in your password">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </PasswordField>
    </children>
 </AnchorPane>

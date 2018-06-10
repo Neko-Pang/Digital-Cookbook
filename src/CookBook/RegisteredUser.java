@@ -3,7 +3,7 @@ package CookBook;
 import java.util.ArrayList;
 
 public class RegisteredUser {
-	
+
 	private String userName;
 	
 	private int accountID;
@@ -54,6 +54,60 @@ public class RegisteredUser {
 		this.ownRecipes = ownRecipes;
 	}
 	
-	
 
+	public void addOwnComments(Comment ownComments) {
+		this.ownComments.add(ownComments);
+	}
+
+	
+	public void addOwnRecipes(Recipe ownRecipes) {
+		
+		this.ownRecipes.add(ownRecipes);
+	
+	}
+	
+	
+	public RegisteredUser(){
+		
+	}
+	
+	
+	public RegisteredUser(String username, String password) {
+		this.userName = username;
+		this.password = password;
+	}
+	
+	@Override
+	public String toString() {
+		String userInfo = "Username: " + this.getUserName() + "\n"
+				+ "AccountID: " + this.getAccountID() + "\n"
+				+ "Password: " + this.getPassword() + "\n";
+
+		String strOwnRecipes = "Own recipes: \n";
+		
+		if(ownRecipes.size() != 0){
+			for (int i = 0; i < ownRecipes.size(); i++) {
+				Recipe recipePointer = ownRecipes.get(i);
+				strOwnRecipes = strOwnRecipes + "Recipe " + (i + 1) + ": " + recipePointer + "\n";
+			}
+		}
+		
+		String strOwnComments = "Own comments: \n";
+		
+		if(ownComments.size() != 0){
+			for (int i = 0; i < ownComments.size(); i++) {
+				Comment commentPointer = ownComments.get(i);
+				strOwnComments = strOwnComments + "Comment " + (i + 1) + ": " + commentPointer + "\n";
+			}
+		}
+		
+		return userInfo + strOwnRecipes + strOwnComments;
+	}
+
+
+	
+	
 }
+
+
+

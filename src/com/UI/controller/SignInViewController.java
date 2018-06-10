@@ -11,12 +11,14 @@ import javax.security.auth.callback.ConfirmationCallback;
 import com.mysql.jdbc.SocketMetadata.Helper;
 
 import CookBook.DatabaseController;
+import CookBook.RegisteredUser;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class SignInViewController extends Thread implements Initializable{
 	
@@ -43,9 +45,12 @@ public class SignInViewController extends Thread implements Initializable{
 	
 	private String password;
 	private String repeatPassword;
+	private String username;
 	private boolean passwordCheckLengthPass = false;
 	private boolean usernamePass = false;
 	private boolean passwordPass = false;
+	
+	public static Stage substage = new Stage();
 	
 	private boolean stopme = true;
 	
@@ -111,7 +116,7 @@ public class SignInViewController extends Thread implements Initializable{
 			usernamePass = false;
 		}
 		
-		
+		this.username = username;
 	}
 	
 	
@@ -195,6 +200,12 @@ public class SignInViewController extends Thread implements Initializable{
 
 	public void comfirm(){
 		
+		RegisteredUser newUser = new RegisteredUser();
+		newUser.setPassword(password);
+		newUser.setUserName(username);
+		DatabaseController jdbc = DatabaseController.getInstance();
+		
+		jdbc.insertUser(newUser);
 		MainController.getSubStage().close();
 		stopme = false;
 	}

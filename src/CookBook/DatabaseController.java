@@ -601,6 +601,10 @@ public class DatabaseController implements Serializable {
 				if (recipeID != 0) {
 					recipe.setPreparationStep(searchPrep(recipeID));
 				}
+				
+				if (recipeID != 0) {
+					recipe.setComments(searchCommentByRecipe(recipeID));
+				}
 
 				goalRecipe.add(recipe);
 			}
@@ -681,7 +685,7 @@ public class DatabaseController implements Serializable {
 
 		try {
 
-			String statementSearchRe = "select * from recipe where AccountID='" + accountID + "'";
+			String statementSearchRe = "select * from recipe where AccountID='" + ID + "'";
 			Statement sql = conn.createStatement();
 			ResultSet searchResult = sql.executeQuery(statementSearchRe);
 			while (searchResult.next()) {
@@ -804,6 +808,66 @@ public class DatabaseController implements Serializable {
 
 	}
 	
+	/**
+	 * store user information into database(user)
+	 * @param registeredUser
+	 * @return
+	 */
+	public boolean insertUser(RegisteredUser registeredUser) {
+		int result = 0;
+		boolean isSuccess = false;
+		String username = registeredUser.getUserName();
+		try {
+			// We need to check whether the user name exists in the database
+			String strSelectUser = "select * from user where Username='" + username + "'";
+			Statement sqlSearch = conn.createStatement();
+			ResultSet searchResult = sqlSearch.executeQuery(strSelectUser);
+			// Only when the user name does not exist in the database can the User be inserted
+			if (!searchResult.next()) {
+				String strInsertUser = "insert into user( Username , Password)" + "values(?,?)";
+				PreparedStatement sqlInsert = conn.prepareStatement(strInsertUser);
+				sqlInsert.setString(1, username);
+				sqlInsert.setString(2, registeredUser.getPassword());
+				result = sqlInsert.executeUpdate();
+				if (result == 1) {
+					
+					isSuccess = true;
+					
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return isSuccess;
+	}
+	
+	
+	
+	public boolean insertComment(Comment comment) {
+		int result = 0;
+		boolean isSuccess = false;
+		try {
+			// We need to check whether the user name exists in the database
+			String strSelectComment = "select * from comment where CommentID='" + comment.getCommentNo() + "'";
+			Statement sqlSearch = conn.createStatement();
+			ResultSet searchResult = sqlSearch.executeQuery(strSelectComment);
+			// Only when the user name does not exist in the database can the User be inserted
+			if (!searchResult.next()) {
+				String strInsertComment = "insert into comment( RecipeID , AccountID , Context)" + "values(?,?,?)";
+				PreparedStatement sqlInsert = conn.prepareStatement(strInsertComment);
+				sqlInsert.setInt(1, comment.getRecipeID());
+				sqlInsert.setInt(2, comment.getAccountID());
+				sqlInsert.setString(3, comment.getContext());
+				result = sqlInsert.executeUpdate();
+				if (result == 1) {
+					isSuccess = true;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return isSuccess;
+	}
 	
 	
 	/**
@@ -811,7 +875,6 @@ public class DatabaseController implements Serializable {
 	 * @param name
 	 * @return
 	 */
-	
 	public RegisteredUser searchUser(String name){
 		
 		RegisteredUser user = null;
@@ -830,7 +893,7 @@ public class DatabaseController implements Serializable {
 				user.setPassword(result.getString("password"));
 				
 				user.setOwnRecipes(searchRecipeByAccount(userID));
-				
+				user.setOwnComments(searchCommentByAccount(userID));
 				
 				
 			}
@@ -843,6 +906,57 @@ public class DatabaseController implements Serializable {
 		
 		
 		return user;
+	}
+	
+	
+	public ArrayList<Comment> searchCommentByRecipe(int recipeID) {
+		ArrayList<Comment> resultComment = new ArrayList<Comment>();
+		int accountID = 0;
+		try {
+			String statementSearchRe = "select * from comment where RecipeID ='" + recipeID + "'";
+			Statement sql = conn.createStatement();
+			ResultSet searchResult = sql.executeQuery(statementSearchRe);
+			while (searchResult.next()) {
+				Comment comment = new Comment();
+				accountID = searchResult.getInt("AccountID");
+				comment.setCommentNo(searchResult.getInt("CommentNo"));
+				comment.setRecipeID(recipeID);
+				comment.setAccountID(accountID);
+				comment.setContext(searchResult.getString("Context"));	
+				resultComment.add(comment);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if (recipeID == 0) {
+			System.out.println("The recipe does not exist.");
+		}
+		return resultComment;
+	}
+	
+	public ArrayList<Comment> searchCommentByAccount(int accountID) {
+		ArrayList<Comment> resultComment = new ArrayList<Comment>();
+		int recipeID = 0;
+		try {
+			String statementSearchRe = "select * from comment where AccountID ='" + accountID + "'";
+			Statement sql = conn.createStatement();
+			ResultSet searchResult = sql.executeQuery(statementSearchRe);
+			while (searchResult.next()) {
+				Comment comment = new Comment();
+				recipeID = searchResult.getInt("RecipeID");
+				comment.setCommentNo(searchResult.getInt("CommentNo"));
+				comment.setRecipeID(recipeID);
+				comment.setAccountID(accountID);
+				comment.setContext(searchResult.getString("Context"));	
+				resultComment.add(comment);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if (accountID == 0) {
+			System.out.println("The user does not exist.");
+		}
+		return resultComment;
 	}
 	
 

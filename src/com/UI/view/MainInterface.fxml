@@ -90,12 +90,12 @@
             <Hyperlink text="Hyperlink" textFill="#171717" />
          </children>
       </HBox>
-      <Label fx:id="welcomeLabel" layoutX="73.0" layoutY="70.0" prefHeight="27.0" prefWidth="138.0" visible="false">
+      <Label fx:id="welcomeLabel" layoutX="36.0" layoutY="70.0" prefHeight="27.0" prefWidth="522.0" textFill="#4066b2">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Hyperlink layoutX="264.0" layoutY="66.0" text="My Profile" visible="false">
+      <Hyperlink fx:id="profileLink" layoutX="71.0" layoutY="105.0" text="My Profile" visible="false">
          <font>
             <Font size="18.0" />
          </font>

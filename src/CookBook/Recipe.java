@@ -18,7 +18,8 @@ public class Recipe implements Serializable {
 	private ArrayList<String> preparationStep = new ArrayList<String>();
 	private int preparationTime;
 	private int cookingTime;
-
+	private ArrayList<Comment> comments = new ArrayList<Comment>();
+	
 	public Recipe(String name, String categary, int servingPpl) {
 
 		this.name = name;
@@ -98,9 +99,14 @@ public class Recipe implements Serializable {
 		this.accountID = accountID;
 	}
 
-	/*
-	 * 
-	 */
+	
+	public ArrayList<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(ArrayList<Comment> comments) {
+		this.comments = comments;
+	}
 
 	public void addIngredient(Ingredient ingredient) {
 		this.ingredients.add(ingredient);
