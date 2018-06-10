@@ -39,6 +39,17 @@ public class Comment {
 		this.context = context;
 	}
 	
+	public Comment(int accountID, int recipeID, String context) {
+		this.accountID = accountID;
+		this.recipeID = recipeID;
+		this.context = context;
+		this.commentID++;
+	}
+	
+	public Comment() {
+		
+	}
+	
 	@Override
 	public String toString() {
 		String str = "CommentID: " + this.getCommentID() + "\n"

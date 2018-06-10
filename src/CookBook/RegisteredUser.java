@@ -50,6 +50,14 @@ public class RegisteredUser {
 		return ownRecipes;
 	}
 
+	public void setOwnComments(ArrayList<Comment> ownComments) {
+		this.ownComments = ownComments;
+	}
+
+	public void setOwnRecipes(ArrayList<Recipe> ownRecipes) {
+		this.ownRecipes = ownRecipes;
+	}
+
 	public void addOwnRecipes(Recipe ownRecipes) {
 		this.ownRecipes.add(ownRecipes);
 	}
@@ -58,6 +66,10 @@ public class RegisteredUser {
 		this.userName = username;
 		this.password = password;
 		this.accountID++;
+	}
+	
+	public RegisteredUser() {
+		
 	}
 	
 	@Override

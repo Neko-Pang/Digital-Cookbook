@@ -572,6 +572,34 @@ public class DatabaseController implements Serializable {
 		return isDeleted;
 	}
 	
+	public boolean deleteComment(int recipeID, int accountID, int commentID){
+		boolean isDeleted = false;
+		String strDeleteComment = "delete from comment where RecipeID = '" + recipeID + "'"
+				+ " and accountID = '" + accountID + "'"+ " and commentID = '" + commentID + "'";
+		PreparedStatement sql;
+		try {
+			sql = conn.prepareStatement(strDeleteComment);
+			sql.executeUpdate();
+			isDeleted = true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		//Check whether deletion is successful
+		String strCheckComment = "select * from comment where RecipeID = '" + recipeID + "'"
+				+ " and accountID = '" + accountID + "'"+ " and commentID = '" + commentID + "'";
+		Statement state;
+		try {
+			state = conn.createStatement();
+			ResultSet result = state.executeQuery(strCheckComment);
+			if (result.next()) {
+				isDeleted = false;
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		return isDeleted;
+	}
+	
 	/**
 	 * From the recipe, we need to add the ingredient into the ingredient table
 	 * 
@@ -717,6 +745,116 @@ public class DatabaseController implements Serializable {
 
 		return recipe;
 		
+	}
+	
+	public ArrayList<Recipe> searchRecipeByAccount(int ID) {
+		ArrayList<Recipe> goalRecipe = new ArrayList<Recipe>();
+		int accountID = 0;
+		int recipeID = 0;
+
+		try {
+			String statementSearchRe = "select * from recipe where AccountID='" + accountID + "'";
+			Statement sql = conn.createStatement();
+			ResultSet searchResult = sql.executeQuery(statementSearchRe);
+			while (searchResult.next()) {
+				Recipe recipe = new Recipe();
+				// 1st:take out the basic information
+				accountID = ID;
+				recipeID = searchResult.getInt("RecipeID");
+				recipe.setRecipeID(recipeID);
+				recipe.setName(searchResult.getString("Name"));
+				recipe.setAccountID(accountID);
+				recipe.setCategary(searchResult.getString("Category"));
+				recipe.setCookingTime(searchResult.getInt("CookingTime"));
+				recipe.setPreparationTime(searchResult.getInt("PrepTime"));
+				recipe.setServingPpl(searchResult.getInt("ServingPeople"));
+				// 2nd : take out the ingredient information
+				if (recipeID != 0) {
+					recipe.setIngredients(searchIngre(recipeID));
+				}
+				// 3rd : take out the preparation step information
+				if (recipeID != 0) {
+					recipe.setPreparationStep(searchPrep(recipeID));
+				}
+				goalRecipe.add(recipe);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if (accountID == 0) {
+			System.out.println("The user does not exist");
+		}
+		return goalRecipe;
+	}
+	
+	public Comment searchComment(int commentID){
+		Comment comment = new Comment();
+		try {
+			String statementSearchRe = "select * from comment where CommentID='" + commentID + "'";
+			Statement sql = conn.createStatement();
+			ResultSet searchResult = sql.executeQuery(statementSearchRe);
+			while (searchResult.next()) {
+				comment.setCommentID(commentID);
+				comment.setAccountID(searchResult.getInt("AccountID"));
+				comment.setRecipeID(searchResult.getInt("RecipeID"));
+				comment.setContext(searchResult.getString("Context"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return comment;
+	}
+	
+	public ArrayList<Comment> searchCommentByAccount(int accountID) {
+		ArrayList<Comment> resultComment = new ArrayList<Comment>();
+		int commentID = 0;
+		int recipeID = 0;
+		try {
+			String statementSearchRe = "select * from comment where AccountID='" + accountID + "'";
+			Statement sql = conn.createStatement();
+			ResultSet searchResult = sql.executeQuery(statementSearchRe);
+			while (searchResult.next()) {
+				Comment comment = new Comment();
+				recipeID = searchResult.getInt("RecipeID");
+				comment.setCommentID(commentID);
+				comment.setRecipeID(recipeID);
+				comment.setAccountID(accountID);
+				comment.setContext(searchResult.getString("Context"));	
+				resultComment.add(comment);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if (accountID == 0) {
+			System.out.println("The user does not exist.");
+		}
+		return resultComment;
+	}
+	
+	public RegisteredUser searchUser(int accountID){
+		RegisteredUser registeredUser = new RegisteredUser();
+		try {
+			String statementSearchRe = "select * from user where AccountID='" + accountID + "'";
+			Statement sql = conn.createStatement();
+			ResultSet searchResult = sql.executeQuery(statementSearchRe);
+			while (searchResult.next()) {
+				// 1st:take out the basic information
+				registeredUser.setAccountID(accountID);
+				registeredUser.setUserName(searchResult.getString("Username"));
+				registeredUser.setPassword(searchResult.getString("Password"));
+				// 2nd : take out the ingredient information
+				if (accountID != 0) {
+					registeredUser.setOwnRecipes(searchRecipeByAccount(accountID));
+				}
+				// 3rd : take out the preparation step information
+				if (accountID != 0) {
+					registeredUser.setOwnComments(searchCommentByAccount(accountID));
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return registeredUser;
 	}
 	
 	/**
