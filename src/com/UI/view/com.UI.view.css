@@ -35,3 +35,22 @@
 	
 	-fx-background-color: #dddddd;
 }
+
+.upPane{
+	
+	-fx-background-color: #A8C0F0;
+}
+
+.Border{
+	
+	-fx-border-width: 1 ;
+	-fx-border-style: solid ;
+	-fx-border-color: #4878C0 ;
+	
+}
+
+.HyperLink:hover{
+	
+	-fx-underline:true 
+
+}

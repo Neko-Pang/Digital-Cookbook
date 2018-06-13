@@ -1,13 +1,11 @@
 package CookBook;
 
 import java.io.Serializable;
-import java.lang.Thread.State;
 import java.sql.*;
 import java.util.ArrayList;
 
-import javax.naming.spi.DirStateFactory.Result;
 
-import com.mysql.jdbc.SingleByteCharsetConverter;
+
 
 /**
  * This class is realized in singleton pattern
@@ -24,12 +22,12 @@ public class DatabaseController implements Serializable {
 	/**
 	 * the name of the program driver
 	 */
-	private String driver = "com.mysql.jdbc.Driver";
+	private String driver = "com.mysql.cj.jdbc.Driver";
 
 	/**
 	 * point to your database
 	 */
-	private String url = "jdbc:mysql://localhost:3306/cookbookdatabase?useSSL=false";
+	private String url = "jdbc:mysql://localhost:3306/cookbookdatabase?useSSL=false&serverTimezone=GMT";
 	
 
 	/**
@@ -912,14 +910,16 @@ public class DatabaseController implements Serializable {
 	public ArrayList<Comment> searchCommentByRecipe(int recipeID) {
 		ArrayList<Comment> resultComment = new ArrayList<Comment>();
 		int accountID = 0;
+		int commentNo = 0;
 		try {
-			String statementSearchRe = "select * from comment where RecipeID ='" + recipeID + "'";
+			String statementSearchRe = "select * from comment where RecipeID ='" + recipeID + "' by CommentNo asc";
 			Statement sql = conn.createStatement();
 			ResultSet searchResult = sql.executeQuery(statementSearchRe);
 			while (searchResult.next()) {
+				commentNo++;
 				Comment comment = new Comment();
 				accountID = searchResult.getInt("AccountID");
-				comment.setCommentNo(searchResult.getInt("CommentNo"));
+				comment.setCommentNo(commentNo);
 				comment.setRecipeID(recipeID);
 				comment.setAccountID(accountID);
 				comment.setContext(searchResult.getString("Context"));	

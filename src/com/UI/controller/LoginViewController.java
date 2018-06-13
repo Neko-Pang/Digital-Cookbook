@@ -140,6 +140,12 @@ public class LoginViewController implements Initializable {
 		
 	}
 	
+//	public static void setWelcome(MainController controller){
+//		
+//		controller.showWelcomeandProfile();
+//		
+//	}
+	
 	
 	
 }

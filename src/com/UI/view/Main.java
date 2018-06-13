@@ -10,14 +10,16 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application{
-
+	
+	public static Stage primaryStage = new Stage();
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		launch(args);
 	}
 
 	@Override
-	public void start(Stage primaryStage){
+	public void start(Stage stage){
 		// TODO Auto-generated method stub
 		
 		try {

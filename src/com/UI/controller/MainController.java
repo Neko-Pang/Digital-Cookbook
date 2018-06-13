@@ -8,6 +8,7 @@ import com.UI.view.Main;
 import com.sun.glass.ui.TouchInputSupport;
 
 import CookBook.CookBook;
+import CookBook.DatabaseController;
 import CookBook.Recipe;
 import CookBook.RegisteredUser;
 import javafx.application.Platform;
@@ -19,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.effect.Shadow;
 import javafx.stage.Stage;
 
 public class MainController extends Thread implements Initializable{
@@ -35,8 +37,18 @@ public class MainController extends Thread implements Initializable{
 	private Label welcomeLabel;
 	@FXML
 	private Hyperlink profileLink;
+	@FXML
+	private Hyperlink signout;
+	
+	public static DatabaseController jdbc = DatabaseController.getInstance();
 	
 	private static boolean isWelcomeandProfileShow = false;
+	
+	private static Stage subStage = new Stage();
+	
+	public static int currentRecipeID = 0;
+
+	public static RegisteredUser currentUser = null;
 	
 	public static boolean isWelcomeandProfileShow() {
 		return isWelcomeandProfileShow;
@@ -63,11 +75,6 @@ public class MainController extends Thread implements Initializable{
 	public void setProfileLink(Hyperlink profileLink) {
 		this.profileLink = profileLink;
 	}
-
-	private static Stage subStage = new Stage();
-	
-	
-	public static RegisteredUser currentUser = null;
 	
 	public static Stage getSubStage() {
 		return subStage;
@@ -87,13 +94,25 @@ public class MainController extends Thread implements Initializable{
 		
 		signIn.setOnAction(e ->showSignIn(subStage));
 		
+		randomRecipe1.setOnAction(e->showRecipe1());
+		
+		signout.setOnAction(e->signOut());
+		
+		if(currentUser != null){
+		
+			showWelcomeandProfile();
+		}
+		
 		this.start();
 	}
 	
 	public void givingRandomRecipe(){
+		
 		CookBook cB = new CookBook("test");
 		Recipe recipe = cB.getRecipe(1);
 		randomRecipe1.setText(recipe.getName()+ "\n\n" + recipe.getCategary()+"\n\nServingPeople: "+recipe.getServingPpl());
+		randomRecipe1.setUserData(recipe.getRecipeID());
+		
 	}
 	
 	public void showLogin(Stage subStage){
@@ -139,9 +158,48 @@ public class MainController extends Thread implements Initializable{
 		
 		this.welcomeLabel.setText("Welcome, "+ this.currentUser.getUserName());
 		this.profileLink.setVisible(true);
+		this.login.setVisible(false);
+		this.signIn.setVisible(false);
+		this.signout.setVisible(true);
+		
 		
 		
 	}
+	
+	public void signOut(){
+		
+		MainController.currentUser = null;
+		this.signout.setVisible(false);
+		this.login.setVisible(true);
+		this.signIn.setVisible(true);
+		this.welcomeLabel.setVisible(false);
+		this.profileLink.setVisible(false);
+		isWelcomeandProfileShow = false;
+		
+	}
+	
+	
+	public void showRecipe1(){
+		
+		try {
+			
+			currentRecipeID = (int)randomRecipe1.getUserData();
+			
+			//initialize the recipe interface
+			Parent root = FXMLLoader.load(getClass().getResource("/com/UI/view/RecipeView.fxml"));
+			Scene scene = new Scene(root,1249,837);
+			Main.primaryStage.setResizable(false);
+			Main.primaryStage.setScene(scene);
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
 	
 	@Override
 	public void run(){
@@ -155,10 +213,10 @@ public class MainController extends Thread implements Initializable{
 				e.printStackTrace();
 			}
 			
-			System.out.println(isWelcomeandProfileShow);
+			//System.out.println(isWelcomeandProfileShow);
 			
 			if(isWelcomeandProfileShow){
-				System.out.println("1");
+				
 				
 				/**
 				 * !!!!!!!!!!!!!!!

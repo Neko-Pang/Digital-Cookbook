@@ -63,8 +63,14 @@ public class Ingredient implements Serializable {
 	public String toString() {
 		// this string is collection of all ingredient
 		String totalInformation;
-
-		totalInformation = this.name + ": " + this.weight + " " + this.unit + " Cooking way: " + this.cookingWay + "\n";
+		
+		totalInformation = this.name + ": " + this.weight + " " + this.unit;
+		if(!this.cookingWay.equals("None")){
+			totalInformation = totalInformation + "     Cooking way: " + this.cookingWay + "\n";
+		}else{
+			totalInformation = totalInformation + "\n";
+		}
+		
 
 		return totalInformation;
 	}

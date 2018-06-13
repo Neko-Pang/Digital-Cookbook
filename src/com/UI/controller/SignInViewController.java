@@ -1,15 +1,10 @@
 package com.UI.controller;
 
-import java.awt.Color;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.security.auth.callback.ConfirmationCallback;
-
-import com.mysql.jdbc.SocketMetadata.Helper;
-
 import CookBook.DatabaseController;
 import CookBook.RegisteredUser;
 import javafx.fxml.FXML;
@@ -17,7 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
+
 import javafx.stage.Stage;
 
 public class SignInViewController extends Thread implements Initializable{

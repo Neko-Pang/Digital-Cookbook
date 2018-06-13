@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="837.0" prefWidth="1249.0" styleClass="scene" stylesheets="@com.UI.view.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.UI.controller.MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="837.0" prefWidth="1287.0" styleClass="scene" stylesheets="@com.UI.view.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.UI.controller.MainController">
    <children>
       <Hyperlink fx:id="login" layoutX="885.0" layoutY="61.0" prefHeight="44.0" prefWidth="88.0" text="Login">
          <font>
@@ -19,12 +19,12 @@
             <Font size="23.0" />
          </font>
       </Hyperlink>
-      <Text fill="#4e6bf8" layoutX="389.0" layoutY="228.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Digital Cookbook" wrappingWidth="499.763671875">
+      <Text fill="#4e6bf8" layoutX="394.0" layoutY="228.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Digital Cookbook" wrappingWidth="499.763671875">
          <font>
             <Font name="Bell MT" size="36.0" />
          </font>
       </Text>
-      <Text layoutX="632.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Powered by Macrohard" wrappingWidth="201.41015625">
+      <Text layoutX="771.0" layoutY="257.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Powered by Macrohard" wrappingWidth="201.41015625">
          <font>
             <Font size="18.0" />
          </font>
@@ -60,7 +60,7 @@
             <Font size="22.0" />
          </font>
       </Hyperlink>
-      <Text layoutX="504.0" layoutY="518.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Maybe these you will like…" wrappingWidth="241.0">
+      <Text layoutX="523.0" layoutY="520.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Maybe these you will like…" wrappingWidth="241.0">
          <font>
             <Font name="System Italic" size="20.0" />
          </font>
@@ -70,22 +70,22 @@
             <Hyperlink fx:id="randomRecipe1" text="Hyperlink" textFill="#171717" />
          </children>
       </HBox>
-      <HBox alignment="CENTER" blendMode="SRC_ATOP" layoutX="532.0" layoutY="576.0" prefHeight="206.0" prefWidth="200.0" styleClass="Hbox">
+      <HBox alignment="CENTER" blendMode="SRC_ATOP" layoutX="539.0" layoutY="576.0" prefHeight="206.0" prefWidth="200.0" styleClass="Hbox">
          <children>
             <Hyperlink text="Hyperlink" textFill="#171717" />
          </children>
       </HBox>
-      <HBox alignment="CENTER" blendMode="SRC_ATOP" layoutX="773.0" layoutY="576.0" prefHeight="206.0" prefWidth="200.0" styleClass="Hbox2">
+      <HBox alignment="CENTER" blendMode="SRC_ATOP" layoutX="785.0" layoutY="576.0" prefHeight="206.0" prefWidth="200.0" styleClass="Hbox2">
          <children>
             <Hyperlink text="Hyperlink" textFill="#171717" />
          </children>
       </HBox>
-      <HBox alignment="CENTER" blendMode="SRC_ATOP" layoutX="1009.0" layoutY="576.0" prefHeight="206.0" prefWidth="200.0" styleClass="Hbox">
+      <HBox alignment="CENTER" blendMode="SRC_ATOP" layoutX="1027.0" layoutY="576.0" prefHeight="206.0" prefWidth="200.0" styleClass="Hbox">
          <children>
             <Hyperlink text="Hyperlink" textFill="#171717" />
          </children>
       </HBox>
-      <HBox alignment="CENTER" blendMode="SRC_ATOP" layoutX="289.0" layoutY="576.0" prefHeight="206.0" prefWidth="200.0" styleClass="Hbox2">
+      <HBox alignment="CENTER" blendMode="SRC_ATOP" layoutX="297.0" layoutY="576.0" prefHeight="206.0" prefWidth="200.0" styleClass="Hbox2">
          <children>
             <Hyperlink text="Hyperlink" textFill="#171717" />
          </children>
@@ -98,6 +98,11 @@
       <Hyperlink fx:id="profileLink" layoutX="71.0" layoutY="105.0" text="My Profile" visible="false">
          <font>
             <Font size="18.0" />
+         </font>
+      </Hyperlink>
+      <Hyperlink fx:id="signout" alignment="CENTER" layoutX="978.0" layoutY="62.0" prefHeight="35.0" prefWidth="216.0" text="Sign out" visible="false">
+         <font>
+            <Font size="23.0" />
          </font>
       </Hyperlink>
    </children>
