@@ -54,3 +54,19 @@
 	-fx-underline:true 
 
 }
+
+.BorderRadius{
+	
+	-fx-background-radius: 25px;
+	
+	-fx-border-radius: 25 ;
+	
+}
+
+.BorderRadiusUp{
+	-fx-border-radius: 25 25 0 0 ;
+}
+
+.BorderRadiusDown{
+	-fx-border-radius: 0 0 25 25 ;
+}

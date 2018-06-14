@@ -2,10 +2,12 @@ package com.UI.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.UI.view.Main;
 
+import CookBook.Comment;
 import CookBook.Ingredient;
 import CookBook.Recipe;
 import javafx.fxml.FXML;
@@ -39,9 +41,7 @@ public class RecipeViewController implements Initializable{
 	@FXML
 	private Label userLabel;
 	@FXML
-	private AnchorPane ingredientPane;
-	@FXML
-	private AnchorPane prepStepPane;
+	private VBox prepStepVbox;
 	@FXML
 	private TextArea commentField;
 	@FXML
@@ -54,7 +54,13 @@ public class RecipeViewController implements Initializable{
 	private Button backBtn;
 	@FXML
 	private VBox ingredientVBox;
+	@FXML
+	private VBox commentVbox;
+	@FXML
+	private Label commentHint;
 	
+	
+	public static final String RecipeResource = "/com/UI/view/RecipeView.fxml" ;
 	
 	private Recipe currentRecipe = null;
 	
@@ -67,6 +73,9 @@ public class RecipeViewController implements Initializable{
 		servingPplLabel.setText(String.valueOf(currentRecipe.getServingPpl()));
 		prepTimeLabel.setText(String.valueOf(currentRecipe.getPreparationTime())+" min");
 		cookingTimeLabel.setText(String.valueOf(currentRecipe.getCookingTime())+" min");
+		loginHyperlink.setOnAction(e->backToMainInterface());
+		backBtn.setOnAction(e->backToMainInterface());
+		
 		
 		if(currentRecipe.getAccountID() == 0){
 			userLabel.setText("Default Recipe");
@@ -74,18 +83,12 @@ public class RecipeViewController implements Initializable{
 			userLabel.setText(MainController.currentUser.getUserName());
 		}
 		
-		for(int i = 0; i < currentRecipe.getIngredients().size();i++){
-			Ingredient ingredient = currentRecipe.getIngredients().get(i);
-			setIngredientLabel(ingredient,i);
-			ingredientPane.setMinHeight(23+63*(i+1)+10);
-		}
 		
 		
-		for (int i = 0; i < currentRecipe.getPreparationStep().size(); i++) {
-			String prepStep = String.valueOf(i+1) + ": " + currentRecipe.getPreparationStep().get(i);
-			setPrepStepLabel(prepStep, i);
-			prepStepPane.setMinHeight(23+80*(i+1)+30);
-		}
+		setIngredientLabel();
+	
+		
+		setPrepStepLabel();
 		
 		if(MainController.currentUser == null){
 			loginHint.setVisible(true);	
@@ -95,74 +98,108 @@ public class RecipeViewController implements Initializable{
 			commentConfirmBtn.setVisible(true);
 		}
 		
-		backBtn.setOnAction(e->backToMainInterface());
-		
+			
+		setComment(currentRecipe.getComments());
 	}
 
 	
-	public void setIngredientLabel(Ingredient ingredient,int n){
+	public void setIngredientLabel(){
 		
-		AnchorPane pane = new AnchorPane();
-		Label ingredientLabel1 = new Label(ingredient.getName());
-		
-		Label ingredientLabel3 = new Label(ingredient.getWeight()+ " " +ingredient.getUnit());
-		pane.setMinSize(948, 88);
-		pane.setMaxSize(948, 88);
-		ingredientLabel1.setMinSize(133,44);
-		ingredientLabel1.setLayoutX(22);
-		ingredientLabel1.setLayoutY(22);
-		ingredientLabel1.setTextFill(Color.rgb(75, 75, 173));
-		ingredientLabel1.setFont(Font.font(22));
-		ingredientLabel1.setAlignment(Pos.CENTER_LEFT);
-		
-		if(ingredient.cookingWay.equals("None")){
-			Label ingredientLabel2 = new Label(ingredient.getCookingWay());
-			ingredientLabel2.setMinSize(373,44);
-			ingredientLabel2.setLayoutX(288);
-			ingredientLabel2.setLayoutY(22);
-			ingredientLabel2.setTextFill(Color.rgb(75, 75, 173));
-			ingredientLabel2.setFont(Font.font(22));
-			ingredientLabel2.setAlignment(Pos.CENTER);
-			pane.getChildren().add(ingredientLabel2);
+		for (int i = 0; i < currentRecipe.getIngredients().size(); i++) {
+			
+			Ingredient ingredient = currentRecipe.getIngredients().get(i);
+			AnchorPane pane = new AnchorPane();
+			Label ingredientLabel1 = new Label(ingredient.getName());
+			pane.getStyleClass().add("Border");
+			Label ingredientLabel3 = new Label(ingredient.getWeight() + " " + ingredient.getUnit());
+			pane.setMinSize(948, 88);
+			pane.setMaxSize(948, 88);
+			ingredientLabel1.setMinSize(133, 44);
+			ingredientLabel1.setLayoutX(22);
+			ingredientLabel1.setLayoutY(22);
+			ingredientLabel1.setTextFill(Color.rgb(75, 75, 173));
+			ingredientLabel1.setFont(Font.font(22));
+			ingredientLabel1.setAlignment(Pos.CENTER_LEFT);
+
+			if (!ingredient.cookingWay.equals("None")) {
+				Label ingredientLabel2 = new Label(ingredient.getCookingWay());
+				ingredientLabel2.setMinSize(373, 44);
+				ingredientLabel2.setLayoutX(288);
+				ingredientLabel2.setLayoutY(22);
+				ingredientLabel2.setTextFill(Color.rgb(75, 75, 173));
+				ingredientLabel2.setFont(Font.font(22));
+				ingredientLabel2.setAlignment(Pos.CENTER);
+				pane.getChildren().add(ingredientLabel2);
+			}
+
+			ingredientLabel3.setMinSize(133, 44);
+			ingredientLabel3.setLayoutX(779);
+			ingredientLabel3.setLayoutY(18);
+			ingredientLabel3.setTextFill(Color.rgb(75, 75, 173));
+			ingredientLabel3.setFont(Font.font(22));
+			ingredientLabel3.setAlignment(Pos.CENTER_RIGHT);
+
+			if( (i+1) == currentRecipe.getIngredients().size()){
+				
+				pane.getStyleClass().add("BorderRadiusDown");
+				
+			}
+			
+			pane.getChildren().addAll(ingredientLabel1, ingredientLabel3);
+			ingredientVBox.getChildren().add(pane);
+
+			
 		}
 		
-		ingredientLabel3.setMinSize(133,44);
-		ingredientLabel3.setLayoutX(779);
-		ingredientLabel3.setLayoutY(18);
-		ingredientLabel3.setTextFill(Color.rgb(75, 75, 173));
-		ingredientLabel3.setFont(Font.font(22));
-		ingredientLabel3.setAlignment(Pos.CENTER_RIGHT);
-		
-		pane.getChildren().addAll(ingredientLabel1,ingredientLabel3);
-		ingredientVBox.getChildren().add(pane);
-	
+		prepStepVbox.setLayoutY(525 + 88 * (currentRecipe.getIngredients().size() + 2) + 60);
 	}
 	
-	public void setPrepStepLabel(String str, int n){
+	public void setPrepStepLabel(){
 		
-		Label prepLabel = new Label(str);
-		prepLabel.setMinSize(934, 80);
-		prepLabel.setMaxWidth(934);
-		prepLabel.setWrapText(true);
-		prepLabel.setLayoutX(7);
-		prepLabel.setLayoutY(23+80*n);
-		prepLabel.setTextFill(Color.rgb(75, 75, 173));
-		prepLabel.setFont(Font.font(22));
-		prepLabel.setAlignment(Pos.CENTER_LEFT);
-		prepStepPane.getChildren().add(prepLabel);
+		
+		for (int i = 0; i < currentRecipe.getPreparationStep().size(); i++) {
+			
+			String prepStep = String.valueOf(i+1) + ": " + currentRecipe.getPreparationStep().get(i);
+			AnchorPane prepStepPane = new AnchorPane();
+			prepStepPane.getStyleClass().add("Border");
+			prepStepPane.setMinSize(948, 120);
+			Label prepLabel = new Label(prepStep);
+			prepLabel.setMinSize(922, 100);
+			prepLabel.setMaxWidth(934);
+			prepLabel.setWrapText(true);
+			prepLabel.setLayoutX(14);
+			prepLabel.setLayoutY(10);
+			prepLabel.setWrapText(true);
+			prepLabel.setTextFill(Color.rgb(75, 75, 173));
+			prepLabel.setFont(Font.font(22));
+			prepLabel.setAlignment(Pos.CENTER_LEFT);
+			
+			if( (i+1) == currentRecipe.getPreparationStep().size()){
+				prepStepPane.getStyleClass().add("BorderRadiusDown");
+			}
+			
+			prepStepPane.getChildren().add(prepLabel);
+			prepStepVbox.getChildren().add(prepStepPane);
+			
+		}
+		commentVbox.setLayoutY(prepStepVbox.getLayoutY()+ 60 + 88 + 120*(currentRecipe.getPreparationStep().size()+1));
+		
+	}
+	
+	public void setComment(ArrayList<Comment> comments){
+		
+		if( comments.size() == 0 ){
+			
+			commentHint.setVisible(true);
+
+		}else{
+			//AnchorPane commentPane = new AnchorPane();//			commentVbox.getChildren();
+		}
 		
 	}
 	
 	public void backToMainInterface(){
-		
-		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/com/UI/view/Maininterface.fxml"));
-			Scene scene = new Scene(root,1249,837);
-			Main.primaryStage.setScene(scene);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			Main.primaryStage.setScene(MainController.MainScene);
 	}
 }
 

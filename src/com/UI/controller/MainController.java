@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javax.security.auth.Refreshable;
+
 import com.UI.view.Main;
 import com.sun.glass.ui.TouchInputSupport;
 
@@ -23,7 +25,7 @@ import javafx.scene.control.Label;
 import javafx.scene.effect.Shadow;
 import javafx.stage.Stage;
 
-public class MainController extends Thread implements Initializable{
+public class MainController implements Initializable{
 
 	@FXML
 	private Button goButton;
@@ -42,23 +44,15 @@ public class MainController extends Thread implements Initializable{
 	
 	public static DatabaseController jdbc = DatabaseController.getInstance();
 	
-	private static boolean isWelcomeandProfileShow = false;
+	public static Scene MainScene;
+	
+	public static final String MainResourse = "/com/UI/view/MainInterface.fxml";
 	
 	private static Stage subStage = new Stage();
 	
 	public static int currentRecipeID = 0;
 
 	public static RegisteredUser currentUser = null;
-	
-	public static boolean isWelcomeandProfileShow() {
-		return isWelcomeandProfileShow;
-	}
-	
-	
-	public static void setWelcomeandProfileShow(boolean isWelcomeandProfileShow) {
-		MainController.isWelcomeandProfileShow = isWelcomeandProfileShow;
-	}
-
 
 	public  Label getWelcomeLabel() {
 		return welcomeLabel;
@@ -98,12 +92,6 @@ public class MainController extends Thread implements Initializable{
 		
 		signout.setOnAction(e->signOut());
 		
-		if(currentUser != null){
-		
-			showWelcomeandProfile();
-		}
-		
-		this.start();
 	}
 	
 	public void givingRandomRecipe(){
@@ -156,13 +144,12 @@ public class MainController extends Thread implements Initializable{
 	
 	public void showWelcomeandProfile(){
 		
+		System.out.println("1");
 		this.welcomeLabel.setText("Welcome, "+ this.currentUser.getUserName());
 		this.profileLink.setVisible(true);
 		this.login.setVisible(false);
 		this.signIn.setVisible(false);
 		this.signout.setVisible(true);
-		
-		
 		
 	}
 	
@@ -174,7 +161,6 @@ public class MainController extends Thread implements Initializable{
 		this.signIn.setVisible(true);
 		this.welcomeLabel.setVisible(false);
 		this.profileLink.setVisible(false);
-		isWelcomeandProfileShow = false;
 		
 	}
 	
@@ -186,8 +172,9 @@ public class MainController extends Thread implements Initializable{
 			currentRecipeID = (int)randomRecipe1.getUserData();
 			
 			//initialize the recipe interface
-			Parent root = FXMLLoader.load(getClass().getResource("/com/UI/view/RecipeView.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource(RecipeViewController.RecipeResource));
 			Scene scene = new Scene(root,1249,837);
+			scene.getStylesheets().add(getClass().getResource(Main.cssResource).toExternalForm());
 			Main.primaryStage.setResizable(false);
 			Main.primaryStage.setScene(scene);
 			
@@ -201,42 +188,43 @@ public class MainController extends Thread implements Initializable{
 	}
 	
 	
-	@Override
-	public void run(){
-		
-		while(true){
-			
-			try {
-				Thread.sleep(200);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			//System.out.println(isWelcomeandProfileShow);
-			
-			if(isWelcomeandProfileShow){
-				
-				
-				/**
-				 * !!!!!!!!!!!!!!!
-				 * !!!!!!!!!!!!!!!
-				 * !!!!!!!!!!!!!!!
-				 * When we need to start a thread in fx application and
-				 * if this thread is related to fx application, 
-				 * Platform.runLater() is the best choice
-				 */
-				Platform.runLater(()->showWelcomeandProfile());
-				
-				
-				
-				
-			}else{
-
-			}
-			
-		}
-		
-		
-	}
+	
+//	@Override
+//	public void run(){
+//		
+//		while(true){
+//			
+//			try {
+//				Thread.sleep(200);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			
+//			//System.out.println(isWelcomeandProfileShow);
+//			
+//			if(isWelcomeandProfileShow){
+//				
+//				
+//				/**
+//				 * !!!!!!!!!!!!!!!
+//				 * !!!!!!!!!!!!!!!
+//				 * !!!!!!!!!!!!!!!
+//				 * When we need to start a thread in fx application and
+//				 * if this thread is related to fx application, 
+//				 * Platform.runLater() is the best choice
+//				 */
+//				Platform.runLater(()->showWelcomeandProfile());
+//				
+//				
+//				
+//				
+//			}else{
+//
+//			}
+//			
+//		}
+//		
+//		
+//	}
 }

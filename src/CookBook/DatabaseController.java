@@ -912,7 +912,7 @@ public class DatabaseController implements Serializable {
 		int accountID = 0;
 		int commentNo = 0;
 		try {
-			String statementSearchRe = "select * from comment where RecipeID ='" + recipeID + "' by CommentNo asc";
+			String statementSearchRe = "select * from comment where RecipeID ='" + recipeID + "' order by CommentNo asc";
 			Statement sql = conn.createStatement();
 			ResultSet searchResult = sql.executeQuery(statementSearchRe);
 			while (searchResult.next()) {

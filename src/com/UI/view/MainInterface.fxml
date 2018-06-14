@@ -35,32 +35,7 @@
             <Font size="19.0" />
          </font>
       </Button>
-      <Hyperlink layoutX="297.0" layoutY="419.0" text="Chinese">
-         <font>
-            <Font size="22.0" />
-         </font>
-      </Hyperlink>
-      <Hyperlink layoutX="464.0" layoutY="419.0" text="Italian">
-         <font>
-            <Font size="22.0" />
-         </font>
-      </Hyperlink>
-      <Hyperlink layoutX="588.0" layoutY="419.0" text="Japanese">
-         <font>
-            <Font size="22.0" />
-         </font>
-      </Hyperlink>
-      <Hyperlink layoutX="748.0" layoutY="419.0" text="French ">
-         <font>
-            <Font size="22.0" />
-         </font>
-      </Hyperlink>
-      <Hyperlink layoutX="929.0" layoutY="419.0" text="More">
-         <font>
-            <Font size="22.0" />
-         </font>
-      </Hyperlink>
-      <Text layoutX="523.0" layoutY="520.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Maybe these you will like…" wrappingWidth="241.0">
+      <Text layoutX="519.0" layoutY="464.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Maybe these you will like…" wrappingWidth="241.0">
          <font>
             <Font name="System Italic" size="20.0" />
          </font>
@@ -70,7 +45,7 @@
             <Hyperlink fx:id="randomRecipe1" text="Hyperlink" textFill="#171717" />
          </children>
       </HBox>
-      <HBox alignment="CENTER" blendMode="SRC_ATOP" layoutX="539.0" layoutY="576.0" prefHeight="206.0" prefWidth="200.0" styleClass="Hbox">
+      <HBox alignment="CENTER" blendMode="SRC_ATOP" layoutX="540.0" layoutY="576.0" prefHeight="206.0" prefWidth="200.0" styleClass="Hbox">
          <children>
             <Hyperlink text="Hyperlink" textFill="#171717" />
          </children>

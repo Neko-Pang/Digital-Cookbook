@@ -18,6 +18,7 @@ public class BackMessageController implements Initializable{
 	@FXML
 	private Button confirm;
 	
+	public static final String BackResourse = "/com/UI/view/BackMessage.fxml";
 	
 	public Label getLoginHint() {
 		return loginHint;

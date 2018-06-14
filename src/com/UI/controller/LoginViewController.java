@@ -1,14 +1,14 @@
 package com.UI.controller;
 
-import java.awt.event.KeyEvent;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.UI.view.Main;
+
 import CookBook.DatabaseController;
 import CookBook.RegisteredUser;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -33,7 +33,6 @@ public class LoginViewController implements Initializable {
 	DatabaseController jdbc = DatabaseController.getInstance();
 	private static boolean isUserExist = false;
 	private static boolean isPasswordCorrect = false;
-	
 	
 	private static Stage substage = new Stage();
 	
@@ -65,10 +64,6 @@ public class LoginViewController implements Initializable {
 	}
 	
 
-	
-
-
-
 	public static Stage getSubstage() {
 		return substage;
 	}
@@ -83,6 +78,7 @@ public class LoginViewController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		
+
 		cancel.setOnAction( e->stage.close());
 		confirmButton.setOnAction(e -> confirm());
 		
@@ -112,8 +108,23 @@ public class LoginViewController implements Initializable {
 				
 				MainController.currentUser = user;
 				isPasswordCorrect = true;
-				MainController.setWelcomeandProfileShow(true);
-				System.out.println(MainController.isWelcomeandProfileShow());
+				
+				try {
+					
+					FXMLLoader loader = new FXMLLoader(getClass().getResource(MainController.MainResourse));
+					Parent root = loader.load();
+					Scene refresh = new Scene(root,1249,837);
+					MainController.MainScene = refresh;
+					MainController mController = (MainController) loader.getController();
+					mController.showWelcomeandProfile();
+					Main.primaryStage.setScene(refresh);
+		
+					
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+					
 			}else{
 				isPasswordCorrect = false;
 			}
@@ -123,9 +134,8 @@ public class LoginViewController implements Initializable {
 			
 		}
 		
-		System.out.println(MainController.currentUser);
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/com/UI/view/BackMessage.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
 			Scene scene = new Scene(root,328,223);
 			substage.setScene(scene);
 			substage.setResizable(false);
@@ -140,11 +150,6 @@ public class LoginViewController implements Initializable {
 		
 	}
 	
-//	public static void setWelcome(MainController controller){
-//		
-//		controller.showWelcomeandProfile();
-//		
-//	}
 	
 	
 	

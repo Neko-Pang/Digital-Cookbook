@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.media.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
@@ -44,9 +46,9 @@
          <content>
             <AnchorPane prefHeight="1798.0" prefWidth="1249.0" stylesheets="@com.UI.view.css">
                <children>
-                  <VBox layoutX="151.0" layoutY="112.0" prefHeight="354.0" prefWidth="950.0" styleClass="Border">
+                  <VBox layoutX="151.0" layoutY="112.0" prefHeight="354.0" prefWidth="950.0">
                      <children>
-                        <AnchorPane minHeight="88.0" prefHeight="88.0" prefWidth="320.0" styleClass="Border">
+                        <AnchorPane minHeight="88.0" prefHeight="88.0" prefWidth="320.0">
                            <children>
                               <Label fx:id="recipeNameLabel" alignment="CENTER" layoutX="270.0" minHeight="50.0" prefHeight="68.0" prefWidth="411.0" textFill="#4b4bad">
                                  <font>
@@ -54,6 +56,13 @@
                                  </font>
                               </Label>
                            </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <styleClass>
+                              <String fx:value="Border" />
+                              <String fx:value="BorderRadiusUp" />
+                           </styleClass>
                         </AnchorPane>
                         <HBox prefHeight="74.0" prefWidth="642.0">
                            <children>
@@ -116,7 +125,7 @@
                                  </children></AnchorPane>
                            </children>
                         </HBox>
-                        <AnchorPane minHeight="88.0" prefHeight="88.0" prefWidth="946.0" styleClass="Border">
+                        <AnchorPane minHeight="88.0" prefHeight="88.0" prefWidth="946.0">
                            <children>
                               <Label layoutX="6.0" layoutY="1.0" text="Update User:" textFill="#4b4bad">
                                  <font>
@@ -129,13 +138,75 @@
                                  </font>
                               </Label>
                            </children>
+                           <styleClass>
+                              <String fx:value="Border" />
+                              <String fx:value="BorderRadiusDown" />
+                           </styleClass>
                         </AnchorPane>
                      </children>
+                     <styleClass>
+                        <String fx:value="Border" />
+                        <String fx:value="BorderRadius" />
+                     </styleClass>
                   </VBox>
-                  <AnchorPane fx:id="ingredientPane" layoutX="186.0" layoutY="36.0" prefHeight="70.0" prefWidth="950.0" styleClass="Border" />
-                  <AnchorPane fx:id="commentPane" layoutX="214.0" layoutY="863.0" prefHeight="617.0" prefWidth="948.0" styleClass="Border">
+                  <VBox fx:id="ingredientVBox" layoutX="151.0" layoutY="525.0" prefHeight="170.0" prefWidth="950.0">
                      <children>
-                        <AnchorPane layoutX="-115.0" layoutY="173.0" minHeight="220.0" prefHeight="220.0" prefWidth="948.0" styleClass="Border">
+                        <AnchorPane minHeight="88.0" prefHeight="85.0" prefWidth="948.0">
+                           <children>
+                              <Label alignment="CENTER" layoutX="399.0" layoutY="15.0" prefHeight="35.0" prefWidth="150.0" text="Ingredients" textFill="#4b4bab">
+                                 <font>
+                                    <Font name="Matura MT Script Capitals" size="29.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <styleClass>
+                              <String fx:value="Border" />
+                              <String fx:value="BorderRadiusUp" />
+                           </styleClass>
+                        </AnchorPane>
+                     </children>
+                     <styleClass>
+                        <String fx:value="Border" />
+                        <String fx:value="BorderRadius" />
+                     </styleClass>
+                  </VBox>
+                  <VBox fx:id="prepStepVbox" layoutX="151.0" layoutY="761.0" prefHeight="177.0" prefWidth="950.0">
+                     <children>
+                        <AnchorPane minHeight="88.0" minWidth="948.0" prefHeight="88.0" prefWidth="948.0">
+                           <children>
+                              <Label layoutX="365.0" layoutY="17.0" minHeight="50.0" minWidth="150.0" text="Preparation Step" textFill="#4b4bab">
+                                 <font>
+                                    <Font name="Matura MT Script Capitals" size="29.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <styleClass>
+                              <String fx:value="Border" />
+                              <String fx:value="BorderRadiusUp" />
+                           </styleClass>
+                        </AnchorPane>
+                     </children>
+                     <styleClass>
+                        <String fx:value="Border" />
+                        <String fx:value="BorderRadius" />
+                     </styleClass>
+                  </VBox>
+                  <VBox fx:id="commentVbox" layoutX="151.0" layoutY="1037.0" minWidth="948.0" prefHeight="478.0" prefWidth="948.0">
+                     <children>
+                        <AnchorPane minHeight="88.0" prefHeight="88.0" prefWidth="950.0">
+                           <children>
+                              <Label layoutX="400.0" layoutY="17.0" minHeight="50.0" minWidth="150.0" text="Comment" textFill="#4b4bab">
+                                 <font>
+                                    <Font name="Matura MT Script Capitals" size="29.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <styleClass>
+                              <String fx:value="Border" />
+                              <String fx:value="BorderRadiusUp" />
+                           </styleClass>
+                        </AnchorPane>
+                        <AnchorPane minHeight="220.0" prefHeight="249.0" prefWidth="946.0" styleClass="Border">
                            <children>
                               <Label fx:id="loginHint" layoutX="177.0" layoutY="86.0" prefHeight="49.0" prefWidth="491.0" text="If you want to give a comment to this recipe , Please login first !" visible="false" wrapText="true">
                                  <font>
@@ -157,42 +228,25 @@
                                     <Font size="17.0" />
                                  </font>
                               </Button>
-                              <AnchorPane layoutX="76.0" layoutY="2.0" minHeight="88.0" prefHeight="88.0" prefWidth="950.0" styleClass="Border">
-                                 <children>
-                                    <Label layoutX="400.0" layoutY="17.0" minHeight="50.0" minWidth="150.0" text="Comment" textFill="#4b4bab">
-                                       <font>
-                                          <Font name="Matura MT Script Capitals" size="29.0" />
-                                       </font>
-                                    </Label>
-                                    <AnchorPane fx:id="prepStepPane" layoutX="174.0" layoutY="4.0" prefHeight="122.0" prefWidth="642.0" styleClass="Border" />
-                                 </children>
-                              </AnchorPane>
                            </children>
                         </AnchorPane>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane layoutX="527.0" layoutY="1171.0" minHeight="88.0" prefHeight="88.0" prefWidth="642.0" styleClass="Border">
-                     <children>
-                        <Label layoutX="365.0" layoutY="17.0" minHeight="50.0" minWidth="150.0" text="Preparation Step" textFill="#4b4bab">
-                           <font>
-                              <Font name="Matura MT Script Capitals" size="29.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </AnchorPane>
-                  <VBox fx:id="ingredientVBox" layoutX="151.0" layoutY="525.0" prefHeight="170.0" prefWidth="950.0" styleClass="Border">
-                     <children>
-                        <AnchorPane minHeight="85.0" prefHeight="85.0" prefWidth="948.0" styleClass="Border">
+                        <AnchorPane fx:id="commentPane" prefHeight="139.0" prefWidth="946.0">
                            <children>
-                              <Label alignment="CENTER" layoutX="399.0" layoutY="15.0" prefHeight="35.0" prefWidth="150.0" text="Ingredients" textFill="#4b4bab">
+                              <Label fx:id="commentHint" alignment="CENTER" layoutX="280.0" layoutY="36.0" prefHeight="67.0" prefWidth="386.0" text="No comment yet!   Comment Now!" textFill="#4b4bad" visible="false">
                                  <font>
-                                    <Font name="Matura MT Script Capitals" size="29.0" />
+                                    <Font size="20.0" />
                                  </font>
                               </Label>
                            </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="121.0" prefWidth="948.0" />
+                           <styleClass>
+                              <String fx:value="Border" />
+                              <String fx:value="BorderRadiusDown" />
+                           </styleClass></AnchorPane>
                      </children>
+                     <styleClass>
+                        <String fx:value="Border" />
+                        <String fx:value="BorderRadius" />
+                     </styleClass>
                   </VBox>
                </children>
             </AnchorPane>
