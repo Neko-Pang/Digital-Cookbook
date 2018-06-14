@@ -103,7 +103,7 @@ public class DatabaseController implements Serializable {
 			// Because the ID in database is auto_increment,we need to get
 			// the ID back from the database
 			Statement state = conn.createStatement();
-			String statementCheck = "select * from recipe where Name like '" + recipe.getName() + "';";
+			String statementCheck = "select * from recipe where Name like '" + recipe.getName() + "' order by recipeID asc;";
 			ResultSet resultSetOfCheck = state.executeQuery(statementCheck);
 			while (resultSetOfCheck.next()) {
 				recipe.setRecipeID(resultSetOfCheck.getInt("RecipeID"));
