@@ -939,10 +939,9 @@ public class DatabaseController implements Serializable {
 			Statement sql = conn.createStatement();
 			ResultSet searchResult = sql.executeQuery(statementSearchRe);
 			while (searchResult.next()) {
-				commentNo++;
 				Comment comment = new Comment();
 				accountID = searchResult.getInt("AccountID");
-				comment.setCommentNo(commentNo);
+				comment.setCommentNo(searchResult.getInt("CommentNo"));
 				comment.setRecipeID(recipeID);
 				comment.setAccountID(accountID);
 				comment.setContext(searchResult.getString("Content"));	
@@ -982,5 +981,39 @@ public class DatabaseController implements Serializable {
 		return resultComment;
 	}
 	
-
+	/**
+	 * Delete the comment
+	 * @param recipeID
+	 * @param accountID
+	 * @param commentID
+	 * @return
+	 */
+	public boolean deleteComment(int recipeID, int accountID, int commentNo){
+		boolean isDeleted = false;
+		String strDeleteComment = "delete from comment where RecipeID = '" + recipeID + "'"
+				+ " and AccountID = '" + accountID + "'"+ " and CommentNo = '" + commentNo + "'";
+		PreparedStatement sql;
+		try {
+			sql = conn.prepareStatement(strDeleteComment);
+			sql.executeUpdate();
+			isDeleted = true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		//Check whether deletion is successful
+		String strCheckComment = "select * from comment where RecipeID = '" + recipeID + "'"
+				+ " and AccountID = '" + accountID + "'"+ " and CommentID = '" + commentNo + "'";
+		Statement state;
+		try {
+			state = conn.createStatement();
+			ResultSet result = state.executeQuery(strCheckComment);
+			if (result.next()) {
+				isDeleted = false;
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		return isDeleted;
+	}
+	
 }

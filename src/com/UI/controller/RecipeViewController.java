@@ -61,6 +61,8 @@ public class RecipeViewController implements Initializable{
 	private Label commentHint;
 	@FXML
 	private AnchorPane commentPane;
+	@FXML
+	private Hyperlink profileLink;
 	
 	
 	public static final String RecipeResource = "/com/UI/view/RecipeView.fxml" ;
@@ -80,6 +82,12 @@ public class RecipeViewController implements Initializable{
 		loginHyperlink.setOnAction(e->backToMainInterface());
 		backBtn.setOnAction(e->backToMainInterface());
 		commentConfirmBtn.setOnAction(e->giveComment());
+		
+		if(MainController.currentUser != null){
+			
+			profileLink.setVisible(true);
+			
+		}
 		
 		if(currentRecipe.getAccountID() == 0){
 			userLabel.setText("Default Recipe");
@@ -233,12 +241,20 @@ public class RecipeViewController implements Initializable{
 				commentPane.setMinHeight(120*(i+1));
 				commentPane.setMaxHeight(120*(i+1));
 				
-				if( MainController.currentUser.getAccountID() == comment.getAccountID() ){
-					
-					Hyperlink deleteLink = new Hyperlink("delete");
-					
+				if (MainController.currentUser != null) {
+					if (MainController.currentUser.getAccountID() == comment.getAccountID()) {
+
+						Hyperlink deleteLink = new Hyperlink("delete");
+						deleteLink.setTextFill(Color.rgb(255, 0, 20));
+						deleteLink.setLayoutX(800);
+						deleteLink.setLayoutY(60 + 120 * i);
+						deleteLink.setFont(Font.font(17));
+						deleteLink.getStyleClass().add("HyperLink:hover");
+						deleteLink.setOnAction(e->deleteComment(comment));
+						commentPane.getChildren().add(deleteLink);
+					}
+
 				}
-				
 			}
 		}
 		
@@ -267,6 +283,19 @@ public class RecipeViewController implements Initializable{
 		
 	}
 	
+	public void deleteComment(Comment comment){
+		
+		MainController.jdbc.deleteComment(comment.getRecipeID(), comment.getAccountID(), comment.getCommentNo());
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource(RecipeResource));
+			Scene scene = new Scene(root,1249,837);
+			Main.primaryStage.setScene(scene);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	
 	public void backToMainInterface(){
 			Main.primaryStage.setScene(MainController.MainScene);

@@ -30,12 +30,7 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Label layoutX="825.0" layoutY="33.0" prefHeight="32.0" prefWidth="263.0" text="Label">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Hyperlink alignment="CENTER" layoutX="1100.0" layoutY="31.0" prefHeight="32.0" prefWidth="133.0" text="My Profile" textFill="#2d2c32">
+            <Hyperlink fx:id="profileLink" alignment="CENTER" layoutX="1100.0" layoutY="31.0" prefHeight="32.0" prefWidth="133.0" text="My Profile" textFill="#2d2c32" visible="false">
                <font>
                   <Font size="18.0" />
                </font>
@@ -191,7 +186,7 @@
                         <String fx:value="BorderRadius" />
                      </styleClass>
                   </VBox>
-                  <VBox fx:id="commentVbox" layoutX="151.0" layoutY="1037.0" minWidth="948.0" prefHeight="478.0" prefWidth="948.0">
+                  <VBox fx:id="commentVbox" layoutX="151.0" layoutY="1037.0" minWidth="948.0" prefHeight="449.0" prefWidth="948.0">
                      <children>
                         <AnchorPane minHeight="88.0" prefHeight="88.0" prefWidth="950.0">
                            <children>
@@ -230,9 +225,9 @@
                               </Button>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="commentPane" prefHeight="139.0" prefWidth="946.0">
+                        <AnchorPane fx:id="commentPane" prefHeight="120.0" prefWidth="946.0">
                            <children>
-                              <Label fx:id="commentHint" alignment="CENTER" layoutX="280.0" layoutY="36.0" prefHeight="67.0" prefWidth="386.0" text="No comment yet!   Comment Now!" textFill="#4b4bad" visible="false">
+                              <Label fx:id="commentHint" alignment="CENTER" layoutX="280.0" layoutY="24.0" prefHeight="67.0" prefWidth="386.0" text="No comment yet!   Comment Now!" textFill="#4b4bad" visible="false">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
