@@ -10,6 +10,7 @@ import com.UI.view.Main;
 import CookBook.Comment;
 import CookBook.Ingredient;
 import CookBook.Recipe;
+import CookBook.RegisteredUser;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -58,6 +59,8 @@ public class RecipeViewController implements Initializable{
 	private VBox commentVbox;
 	@FXML
 	private Label commentHint;
+	@FXML
+	private AnchorPane commentPane;
 	
 	
 	public static final String RecipeResource = "/com/UI/view/RecipeView.fxml" ;
@@ -68,6 +71,7 @@ public class RecipeViewController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		currentRecipe = MainController.jdbc.searchRecipe(MainController.currentRecipeID);
+		System.out.println(currentRecipe);
 		recipeNameLabel.setText(currentRecipe.getName());
 		categoryLabel.setText(currentRecipe.getCategary());
 		servingPplLabel.setText(String.valueOf(currentRecipe.getServingPpl()));
@@ -75,7 +79,7 @@ public class RecipeViewController implements Initializable{
 		cookingTimeLabel.setText(String.valueOf(currentRecipe.getCookingTime())+" min");
 		loginHyperlink.setOnAction(e->backToMainInterface());
 		backBtn.setOnAction(e->backToMainInterface());
-		
+		commentConfirmBtn.setOnAction(e->giveComment());
 		
 		if(currentRecipe.getAccountID() == 0){
 			userLabel.setText("Default Recipe");
@@ -83,11 +87,8 @@ public class RecipeViewController implements Initializable{
 			userLabel.setText(MainController.currentUser.getUserName());
 		}
 		
-		
-		
 		setIngredientLabel();
 	
-		
 		setPrepStepLabel();
 		
 		if(MainController.currentUser == null){
@@ -97,8 +98,7 @@ public class RecipeViewController implements Initializable{
 			commentField.setVisible(true);
 			commentConfirmBtn.setVisible(true);
 		}
-		
-			
+				
 		setComment(currentRecipe.getComments());
 	}
 
@@ -154,6 +154,13 @@ public class RecipeViewController implements Initializable{
 		prepStepVbox.setLayoutY(525 + 88 * (currentRecipe.getIngredients().size() + 2) + 60);
 	}
 	
+	
+	
+	
+	
+	/**
+	 * To show the preparation steps
+	 */
 	public void setPrepStepLabel(){
 		
 		
@@ -186,6 +193,10 @@ public class RecipeViewController implements Initializable{
 		
 	}
 	
+	/**
+	 * To show the comments
+	 * @param comments
+	 */
 	public void setComment(ArrayList<Comment> comments){
 		
 		if( comments.size() == 0 ){
@@ -193,10 +204,69 @@ public class RecipeViewController implements Initializable{
 			commentHint.setVisible(true);
 
 		}else{
-			//AnchorPane commentPane = new AnchorPane();//			commentVbox.getChildren();
+			
+			for (int i = 0; i < comments.size();i ++) {
+				
+				Comment comment = comments.get(i);
+				RegisteredUser commentOwner = MainController.jdbc.searchUser(comment.getAccountID());
+				Label nameLabel = new Label(commentOwner.getUserName()+":");
+				nameLabel.setAlignment(Pos.CENTER_LEFT);
+				nameLabel.setFont(Font.font(17));
+				nameLabel.setMinSize(536, 32);
+				nameLabel.setLayoutX(36);
+				nameLabel.setLayoutY(28+120*i);
+				nameLabel.setTextFill(Color.rgb(75, 75, 173));
+				
+				commentPane.getChildren().add(nameLabel);
+				Label contextLabel = new Label(comment.getContext());
+				contextLabel.setAlignment(Pos.CENTER_LEFT);
+				contextLabel.setFont(Font.font(17));
+				contextLabel.setMinSize(536, 32);
+				contextLabel.setLayoutX(97);
+				contextLabel.setLayoutY(60+120*i);
+				contextLabel.setAlignment(Pos.CENTER);
+				
+				contextLabel.setTextFill(Color.rgb(75, 75, 173));
+				contextLabel.getStyleClass().add("Border");
+				contextLabel.getStyleClass().add("BorderRadius");
+				commentPane.getChildren().add(contextLabel);
+				commentPane.setMinHeight(120*(i+1));
+				commentPane.setMaxHeight(120*(i+1));
+				
+				if( MainController.currentUser.getAccountID() == comment.getAccountID() ){
+					
+					Hyperlink deleteLink = new Hyperlink("delete");
+					
+				}
+				
+			}
 		}
 		
 	}
+	
+	
+	/**
+	 * this method is to give the confirmed comment to the database
+	 */
+	public void giveComment(){
+		
+		Comment comment = new Comment();
+		String context = commentField.getText();
+		comment.setContext(context);
+		comment.setRecipeID(currentRecipe.getRecipeID());
+		comment.setAccountID(MainController.currentUser.getAccountID());
+		MainController.jdbc.insertComment(comment);
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource(RecipeResource));
+			Scene scene = new Scene(root,1249,837);
+			Main.primaryStage.setScene(scene);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
 	
 	public void backToMainInterface(){
 			Main.primaryStage.setScene(MainController.MainScene);

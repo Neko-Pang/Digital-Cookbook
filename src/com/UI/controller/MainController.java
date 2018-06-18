@@ -77,7 +77,8 @@ public class MainController implements Initializable{
 	public static void setSubStage(Stage subStage) {
 		MainController.subStage = subStage;
 	}
-
+	
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
@@ -94,14 +95,16 @@ public class MainController implements Initializable{
 		
 	}
 	
+	
 	public void givingRandomRecipe(){
 		
 		CookBook cB = new CookBook("test");
-		Recipe recipe = cB.getRecipe(1);
+		Recipe recipe = cB.getRecipe(3);
 		randomRecipe1.setText(recipe.getName()+ "\n\n" + recipe.getCategary()+"\n\nServingPeople: "+recipe.getServingPpl());
 		randomRecipe1.setUserData(recipe.getRecipeID());
 		
 	}
+	
 	
 	public void showLogin(Stage subStage){
 		

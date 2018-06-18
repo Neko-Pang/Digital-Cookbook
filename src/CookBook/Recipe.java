@@ -155,10 +155,15 @@ public class Recipe implements Serializable {
 		String strCookingTime = "Cooking Time: " + this.preparationTime + "\n";
 
 		// To give the serving people of the recipe
-		String strServingPeople = "Serving People:" + this.servingPpl;
-
+		String strServingPeople = "Serving People:" + this.servingPpl + "\n";
+		
+		String strComments = "Comments: \n";
+		for (int i = 0; i < comments.size(); i++) {
+			String string  = comments.get(i).getContext()+"\n";
+			strComments = strComments + string;
+		}
 		// Return all the recipe information
 		return strNameandCategory + strRecipeID + strIngredients + strPreparationStep + strPreparationTime
-				+ strCookingTime + strServingPeople;
+				+ strCookingTime + strServingPeople + strComments;
 	}
 }

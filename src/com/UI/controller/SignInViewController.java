@@ -51,6 +51,10 @@ public class SignInViewController extends Thread implements Initializable{
 	
 	DatabaseController jdbc = DatabaseController.getInstance();
 	
+	
+	
+	
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
@@ -63,6 +67,9 @@ public class SignInViewController extends Thread implements Initializable{
 		this.start();
 		
 	}
+	
+	
+	
 	
 	
 	/**
@@ -115,6 +122,10 @@ public class SignInViewController extends Thread implements Initializable{
 	}
 	
 	
+	
+	/**
+	 * 
+	 */
 	public void passwordCheck(){
 		
 		String password = passwordText.getText();
@@ -191,8 +202,12 @@ public class SignInViewController extends Thread implements Initializable{
 		
 		System.out.println(repeatPassword);
 	}
+	
+	
 
-
+	/**
+	 * 
+	 */
 	public void comfirm(){
 		
 		RegisteredUser newUser = new RegisteredUser();
