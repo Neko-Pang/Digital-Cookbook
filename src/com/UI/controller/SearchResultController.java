@@ -30,7 +30,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class SearchResultController implements Initializable {
+public class SearchResultController implements Initializable
+{
 
 	@FXML
 	private TextField searchBox;
@@ -100,7 +101,8 @@ public class SearchResultController implements Initializable {
 	public static ArrayList<Recipe> goalRecipe1 = new ArrayList<Recipe>();
 
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+	public void initialize(URL location, ResourceBundle resources)
+	{
 		// TODO Auto-generated method stub\
 
 		goButton.setOnAction(e -> searchResult());
@@ -113,125 +115,149 @@ public class SearchResultController implements Initializable {
 
 		signout.setOnAction(e -> signOut());
 
-		nextPage.setOnAction(e -> {
-			System.out.println(currentRecipeList.size());
+		nextPage.setOnAction(e ->
+		{
+
 			i = i + 5;
 			n = n + 1;
-			if (currentRecipeList.size() > i) {
-				if (currentRecipeList.size() > (i)) {
+			if (currentRecipeList.size() > i)
+			{
+				if (currentRecipeList.size() > (i))
+				{
 					currentRecipe = currentRecipeList.get(i);
 					recipe1.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary()
-							+ "\n\nServingPeople: " + currentRecipe.getServingPpl() + currentRecipe.getRecipeID());
+							+ "\n\nServingPeople: " + currentRecipe.getServingPpl());
 					hbox1.setVisible(true);
 				}
-				if (currentRecipeList.size() > (i + 1)) {
+				if (currentRecipeList.size() > (i + 1))
+				{
 					currentRecipe = currentRecipeList.get(this.i + 1);
 					recipe2.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary()
-							+ "\n\nServingPeople: " + currentRecipe.getServingPpl() + currentRecipe.getRecipeID());
+							+ "\n\nServingPeople: " + currentRecipe.getServingPpl());
 					hbox2.setVisible(true);
 
 				}
-				if (currentRecipeList.size() > (i + 2)) {
+				if (currentRecipeList.size() > (i + 2))
+				{
 					currentRecipe = currentRecipeList.get(this.i + 2);
 					recipe3.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary()
-							+ "\n\nServingPeople: " + currentRecipe.getServingPpl() + currentRecipe.getRecipeID());
+							+ "\n\nServingPeople: " + currentRecipe.getServingPpl());
 					hbox3.setVisible(true);
 
 				}
-				if (currentRecipeList.size() > (i + 3)) {
+				if (currentRecipeList.size() > (i + 3))
+				{
 					currentRecipe = currentRecipeList.get(this.i + 3);
 					recipe4.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary()
-							+ "\n\nServingPeople: " + currentRecipe.getServingPpl() + currentRecipe.getRecipeID());
+							+ "\n\nServingPeople: " + currentRecipe.getServingPpl());
 					hbox4.setVisible(true);
 
 				}
-				if (currentRecipeList.size() > (i + 4)) {
+				if (currentRecipeList.size() > (i + 4))
+				{
 					currentRecipe = currentRecipeList.get(this.i + 4);
 					recipe5.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary()
-							+ "\n\nServingPeople: " + currentRecipe.getServingPpl() + currentRecipe.getRecipeID());
+							+ "\n\nServingPeople: " + currentRecipe.getServingPpl());
 					hbox5.setVisible(true);
 
 				}
-				if (currentRecipeList.size() <= (i + 1)) {
+				if (currentRecipeList.size() <= (i + 1))
+				{
 					hbox2.setVisible(false);
 					hbox3.setVisible(false);
 					hbox4.setVisible(false);
 					hbox5.setVisible(false);
 				}
-				if (currentRecipeList.size() <= (i + 2)) {
+				if (currentRecipeList.size() <= (i + 2))
+				{
 					hbox3.setVisible(false);
 					hbox4.setVisible(false);
 					hbox5.setVisible(false);
 				}
-				if (currentRecipeList.size() <= (i + 3)) {
+				if (currentRecipeList.size() <= (i + 3))
+				{
 					hbox4.setVisible(false);
 					hbox5.setVisible(false);
 				}
-				if (currentRecipeList.size() <= (i + 4)) {
+				if (currentRecipeList.size() <= (i + 4))
+				{
 					hbox5.setVisible(false);
 				}
 			}
-			if (currentRecipeList.size() < i) {
-				i = i - 5;
-			}
-			p = String.valueOf(n + "/" + m);
-			page.setText(p);
-		});
-
-		lastPage.setOnAction(e -> {
-			if (i >= 5) {
+			if (currentRecipeList.size() < i)
+			{
 				i = i - 5;
 				n = n - 1;
-				if (currentRecipeList.size() > (i)) {
+			}
+			p = String.valueOf(n + "/" + m);
+			page.setText(p);
+		});
+
+		lastPage.setOnAction(e ->
+		{
+			if (i >= 5)
+			{
+				i = i - 5;
+				n = n - 1;
+				if (currentRecipeList.size() > (i))
+				{
 					currentRecipe = currentRecipeList.get(i);
 					recipe1.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary()
-							+ "\n\nServingPeople: " + currentRecipe.getServingPpl() + currentRecipe.getRecipeID());
+							+ "\n\nServingPeople: " + currentRecipe.getServingPpl());
 					hbox1.setVisible(true);
 				}
-				if (currentRecipeList.size() > (i + 1)) {
+				if (currentRecipeList.size() > (i + 1))
+				{
 					currentRecipe = currentRecipeList.get(this.i + 1);
 					recipe2.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary()
-							+ "\n\nServingPeople: " + currentRecipe.getServingPpl() + currentRecipe.getRecipeID());
+							+ "\n\nServingPeople: " + currentRecipe.getServingPpl());
 					hbox2.setVisible(true);
 
 				}
-				if (currentRecipeList.size() > (i + 2)) {
+				if (currentRecipeList.size() > (i + 2))
+				{
 					currentRecipe = currentRecipeList.get(this.i + 2);
 					recipe3.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary()
-							+ "\n\nServingPeople: " + currentRecipe.getServingPpl() + currentRecipe.getRecipeID());
+							+ "\n\nServingPeople: " + currentRecipe.getServingPpl());
 					hbox3.setVisible(true);
 
 				}
-				if (currentRecipeList.size() > (i + 3)) {
+				if (currentRecipeList.size() > (i + 3))
+				{
 					currentRecipe = currentRecipeList.get(this.i + 3);
 					recipe4.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary()
-							+ "\n\nServingPeople: " + currentRecipe.getServingPpl() + currentRecipe.getRecipeID());
+							+ "\n\nServingPeople: " + currentRecipe.getServingPpl());
 					hbox4.setVisible(true);
 
 				}
-				if (currentRecipeList.size() > (i + 4)) {
+				if (currentRecipeList.size() > (i + 4))
+				{
 					currentRecipe = currentRecipeList.get(this.i + 4);
 					recipe5.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary()
-							+ "\n\nServingPeople: " + currentRecipe.getServingPpl() + currentRecipe.getRecipeID());
+							+ "\n\nServingPeople: " + currentRecipe.getServingPpl());
 					hbox5.setVisible(true);
 
 				}
-				if (currentRecipeList.size() <= (i + 1)) {
+				if (currentRecipeList.size() <= (i + 1))
+				{
 					hbox2.setVisible(false);
 					hbox3.setVisible(false);
 					hbox4.setVisible(false);
 					hbox5.setVisible(false);
 				}
-				if (currentRecipeList.size() <= (i + 2)) {
+				if (currentRecipeList.size() <= (i + 2))
+				{
 					hbox3.setVisible(false);
 					hbox4.setVisible(false);
 					hbox5.setVisible(false);
 				}
-				if (currentRecipeList.size() <= (i + 3)) {
+				if (currentRecipeList.size() <= (i + 3))
+				{
 					hbox4.setVisible(false);
 					hbox5.setVisible(false);
 				}
-				if (currentRecipeList.size() <= (i + 4)) {
+				if (currentRecipeList.size() <= (i + 4))
+				{
 					hbox5.setVisible(false);
 				}
 			}
@@ -239,63 +265,73 @@ public class SearchResultController implements Initializable {
 			page.setText(p);
 		});
 
-		if (currentRecipeList.size() > (i)) {
+		if (currentRecipeList.size() > (i))
+		{
 			currentRecipe = currentRecipeList.get(i);
 			recipe1.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary() + "\n\nServingPeople: "
-					+ currentRecipe.getServingPpl() + currentRecipe.getRecipeID());
+					+ currentRecipe.getServingPpl());
 			hbox1.setVisible(true);
 		}
-		if (currentRecipeList.size() > (i + 1)) {
+		if (currentRecipeList.size() > (i + 1))
+		{
 			currentRecipe = currentRecipeList.get(this.i + 1);
 			recipe2.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary() + "\n\nServingPeople: "
-					+ currentRecipe.getServingPpl() + currentRecipe.getRecipeID());
+					+ currentRecipe.getServingPpl());
 			hbox2.setVisible(true);
 
 		}
-		if (currentRecipeList.size() > (i + 2)) {
+		if (currentRecipeList.size() > (i + 2))
+		{
 			currentRecipe = currentRecipeList.get(this.i + 2);
 			recipe3.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary() + "\n\nServingPeople: "
-					+ currentRecipe.getServingPpl() + currentRecipe.getRecipeID());
+					+ currentRecipe.getServingPpl());
 			hbox3.setVisible(true);
 
 		}
-		if (currentRecipeList.size() > (i + 3)) {
+		if (currentRecipeList.size() > (i + 3))
+		{
 			currentRecipe = currentRecipeList.get(this.i + 3);
 			recipe4.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary() + "\n\nServingPeople: "
-					+ currentRecipe.getServingPpl() + currentRecipe.getRecipeID());
+					+ currentRecipe.getServingPpl());
 			hbox4.setVisible(true);
 
 		}
-		if (currentRecipeList.size() > (i + 4)) {
+		if (currentRecipeList.size() > (i + 4))
+		{
 			currentRecipe = currentRecipeList.get(this.i + 4);
 			recipe5.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary() + "\n\nServingPeople: "
-					+ currentRecipe.getServingPpl() + currentRecipe.getRecipeID());
+					+ currentRecipe.getServingPpl());
 			hbox5.setVisible(true);
 
 		}
-		if (currentRecipeList.size() <= (i)) {
+		if (currentRecipeList.size() <= (i))
+		{
 			hbox1.setVisible(false);
 			hbox2.setVisible(false);
 			hbox3.setVisible(false);
 			hbox4.setVisible(false);
 			hbox5.setVisible(false);
 		}
-		if (currentRecipeList.size() <= (i + 1)) {
+		if (currentRecipeList.size() <= (i + 1))
+		{
 			hbox2.setVisible(false);
 			hbox3.setVisible(false);
 			hbox4.setVisible(false);
 			hbox5.setVisible(false);
 		}
-		if (currentRecipeList.size() <= (i + 2)) {
+		if (currentRecipeList.size() <= (i + 2))
+		{
 			hbox3.setVisible(false);
 			hbox4.setVisible(false);
 			hbox5.setVisible(false);
 		}
-		if (currentRecipeList.size() <= (i + 3)) {
+		if (currentRecipeList.size() <= (i + 3))
+		{
 			hbox4.setVisible(false);
 			hbox5.setVisible(false);
 		}
-		if (currentRecipeList.size() <= (i + 4)) {
+		if (currentRecipeList.size() <= (i + 4))
+		{
 			hbox5.setVisible(false);
 		}
 		System.out.println(currentRecipeList.size());
@@ -306,27 +342,34 @@ public class SearchResultController implements Initializable {
 		recipe5.setOnAction(e -> showRecipe(i + 4));
 
 		m = currentRecipeList.size() / 5;
-		if (currentRecipeList.size() % 5 != 0) {
+		if (currentRecipeList.size() % 5 != 0)
+		{
 			m = m + 1;
 		}
 		n = 1;
+		if (m == 0)
+		{
+			n = 0;
+		}
 		p = String.valueOf(n + "/" + m);
 		page.setText(p);
 
-		if(MainController.currentUser != null){
-			
+		if (MainController.currentUser != null)
+		{
+
 			login.setVisible(false);
 			signIn.setVisible(false);
 			signout.setVisible(true);
-			
+
 		}
-		
-		
+
 	}
 
-	public void showRecipe(int i) {
+	public void showRecipe(int i)
+	{
 
-		try {
+		try
+		{
 			currentRecipe = currentRecipeList.get(i);
 			MainController.backPoint = 1;
 			// initialize the recipe interface
@@ -336,16 +379,19 @@ public class SearchResultController implements Initializable {
 			Main.primaryStage.setResizable(false);
 			Main.primaryStage.setScene(scene);
 
-		} catch (IOException e) {
+		} catch (IOException e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 	}
 
-	public void searchResult() {
+	public void searchResult()
+	{
 
-		try {
+		try
+		{
 			ArrayList<Recipe> goalRecipe2 = new ArrayList<Recipe>();
 			goalRecipe2 = MainController.jdbc.searchRecipe(this.searchBox.getText());
 			currentRecipeList = goalRecipe2;
@@ -356,22 +402,26 @@ public class SearchResultController implements Initializable {
 			Main.primaryStage.setResizable(false);
 			Main.primaryStage.setScene(scene);
 
-		} catch (IOException e) {
+		} catch (IOException e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 	}
 
-	public void backToMainInterfaceOrSearchReuslt() {
+	public void backToMainInterfaceOrSearchReuslt()
+	{
 		Main.primaryStage.setScene(SearchResultController.ResultScene);
 	}
 
-	public void showLogin(Stage subStage) {
+	public void showLogin(Stage subStage)
+	{
 
 		subStage.setTitle("Login");
 		MainController.loginPoint = 1;
-		try {
+		try
+		{
 
 			Parent root = FXMLLoader.load(getClass().getResource("/com/UI/view/LoginView.fxml"));
 			Scene scene = new Scene(root, 660, 402);
@@ -379,32 +429,37 @@ public class SearchResultController implements Initializable {
 			subStage.setResizable(false);
 			subStage.showAndWait();
 
-		} catch (IOException e) {
+		} catch (IOException e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 	}
 
-	public void showSignIn(Stage substage) {
+	public void showSignIn(Stage substage)
+	{
 
 		substage.setTitle("Sign in");
 
-		try {
+		try
+		{
 			Parent root = FXMLLoader.load(getClass().getResource("/com/UI/view/SignInView.fxml"));
 			Scene scene = new Scene(root, 592, 684);
 			substage.setScene(scene);
 			substage.setResizable(false);
 			substage.showAndWait();
 
-		} catch (IOException e) {
+		} catch (IOException e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 	}
 
-	public void signOut() {
+	public void signOut()
+	{
 
 		MainController.currentUser = null;
 		this.signout.setVisible(false);
@@ -414,7 +469,8 @@ public class SearchResultController implements Initializable {
 
 	}
 
-	public void backToMainInterface() {
+	public void backToMainInterface()
+	{
 		Main.primaryStage.setScene(MainController.MainScene);
 	}
 
