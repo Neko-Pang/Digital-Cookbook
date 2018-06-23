@@ -339,6 +339,7 @@ public class DatabaseController implements Serializable {
 	public void updateIngreInfo(int recipeID, Recipe newRecipe){
 		
 		this.deleteRecipeIngreInfo(recipeID);
+		newRecipe.setRecipeID(recipeID);
 		this.insertRecipeIngreInfo(newRecipe);
 	
 	}
@@ -351,6 +352,7 @@ public class DatabaseController implements Serializable {
 	public void updatePrepStep(int recipeID, Recipe newRecipe){
 		
 		this.deleteRecipePrepStep(recipeID);
+		newRecipe.setRecipeID(recipeID);
 		this.insertRecipePrepStep(newRecipe);
 		
 	}
@@ -628,16 +630,16 @@ public class DatabaseController implements Serializable {
 	 */
 	public Recipe searchRecipe(int recipeID){
 		
-		Recipe recipe = new Recipe();
+		Recipe recipe = null;
 
 		try {
-
+			
 			String statementSearchRe = "select * from recipe where RecipeID='" + recipeID + "'";
 			Statement sql = conn.createStatement();
 			ResultSet searchResult = sql.executeQuery(statementSearchRe);
 			while (searchResult.next()) {
 
-
+				recipe = new Recipe();
 				// 1st:take out the basic information
 				recipe.setRecipeID(recipeID);
 				recipe.setName(searchResult.getString("Name"));
@@ -679,7 +681,6 @@ public class DatabaseController implements Serializable {
 	public ArrayList<Recipe> searchRecipeByAccount(int ID) {
 
 		ArrayList<Recipe> goalRecipe = new ArrayList<Recipe>();
-		int accountID = 0;
 		int recipeID = 0;
 
 		try {
@@ -692,11 +693,10 @@ public class DatabaseController implements Serializable {
 				Recipe recipe = new Recipe();
 
 				// 1st:take out the basic information
-				accountID = ID;
 				recipeID = searchResult.getInt("RecipeID");
 				recipe.setRecipeID(recipeID);
 				recipe.setName(searchResult.getString("Name"));
-				recipe.setAccountID(accountID);
+				recipe.setAccountID(ID);
 				recipe.setCategary(searchResult.getString("Category"));
 				recipe.setCookingTime(searchResult.getInt("CookingTime"));
 				recipe.setPreparationTime(searchResult.getInt("PrepTime"));
@@ -710,7 +710,7 @@ public class DatabaseController implements Serializable {
 				// 3rd : take out the preparation step information
 				if (recipeID != 0) {
 					recipe.setPreparationStep(searchPrep(recipeID));
-					recipe.setComments(searchCommentByAccount(accountID));
+					recipe.setComments(searchCommentByAccount(ID));
 				}
 
 				goalRecipe.add(recipe);
@@ -723,7 +723,7 @@ public class DatabaseController implements Serializable {
 		}
 
 
-		if (accountID == 0) {
+		if (ID == 0) {
 			System.out.println("The user does not exist");
 		}
 
@@ -761,9 +761,9 @@ public class DatabaseController implements Serializable {
 		}
 
 
-		if (goalIngre.size() == 0) {
-			System.out.println("None ingredient information was found in the database");
-		}
+//		if (goalIngre.size() == 0) {
+//			System.out.println("None ingredient information was found in the database");
+//		}
 		return goalIngre;
 
 	}
@@ -799,9 +799,9 @@ public class DatabaseController implements Serializable {
 			e.printStackTrace();
 		}
 
-		if (goalPrep.size() == 0) {
-			System.out.println("No preparation step information was found in the databse");
-		}
+//		if (goalPrep.size() == 0) {
+//			System.out.println("No preparation step information was found in the databse");
+//		}
 
 		
 		return goalPrep;
@@ -829,11 +829,17 @@ public class DatabaseController implements Serializable {
 				sqlInsert.setString(1, username);
 				sqlInsert.setString(2, registeredUser.getPassword());
 				result = sqlInsert.executeUpdate();
+	
 				if (result == 1) {
 					
 					isSuccess = true;
 					
 				}
+			}
+			
+			searchResult = sqlSearch.executeQuery(strSelectUser);
+			if (searchResult.next()) {
+				registeredUser.setAccountID(searchResult.getInt("AccountID"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -933,7 +939,6 @@ public class DatabaseController implements Serializable {
 	public ArrayList<Comment> searchCommentByRecipe(int recipeID) {
 		ArrayList<Comment> resultComment = new ArrayList<Comment>();
 		int accountID = 0;
-		int commentNo = 0;
 		try {
 			String statementSearchRe = "select * from comment where RecipeID ='" + recipeID + "' order by CommentNo asc";
 			Statement sql = conn.createStatement();
@@ -1002,7 +1007,7 @@ public class DatabaseController implements Serializable {
 		}
 		//Check whether deletion is successful
 		String strCheckComment = "select * from comment where RecipeID = '" + recipeID + "'"
-				+ " and AccountID = '" + accountID + "'"+ " and CommentID = '" + commentNo + "'";
+				+ " and AccountID = '" + accountID + "'"+ " and CommentNo = '" + commentNo + "'";
 		Statement state;
 		try {
 			state = conn.createStatement();

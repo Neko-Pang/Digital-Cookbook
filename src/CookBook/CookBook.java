@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class CookBook {
 	
 	
-	DatabaseController jDatabaseController = DatabaseController.getInstance();
+	public static DatabaseController jDatabaseController = DatabaseController.getInstance();
 	private ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 	private String name;
 
@@ -37,12 +37,12 @@ public class CookBook {
 	 * @param recipeID
 	 * @param newRecipe
 	 */
-	public void updateRecipe(Recipe originRecipe, Recipe newRecipe){
+	public Recipe updateRecipe(Recipe originRecipe, Recipe newRecipe){
 		
 		newRecipe.setRecipeID(originRecipe.getRecipeID());
 		jDatabaseController.updateRecipe(originRecipe.getRecipeID(), newRecipe);
 		originRecipe = this.getRecipe(originRecipe.getRecipeID());
-		
+		return originRecipe;
 	}
 
 	public CookBook(String name) {
@@ -77,6 +77,11 @@ public class CookBook {
 		goalRecipe = jDatabaseController.searchRecipe(recipeID);
 		
 		return goalRecipe;
+	}
+	
+	
+	public ArrayList<Recipe> getRecipes() {
+		return recipes;
 	}
 
 	public void setRecipes(ArrayList<Recipe> recipes) {
@@ -231,6 +236,12 @@ public class CookBook {
 	public Boolean deleteRecipe(Recipe recipe){
 		
 		Boolean isDeleted = jDatabaseController.deleteRecipe(recipe.getRecipeID());
+		for(int i = 0; i < recipes.size();i++){
+			Recipe testRecipe = recipes.get(i);
+			if(testRecipe.getRecipeID()==recipe.getRecipeID()){
+				this.recipes.remove(testRecipe);
+			}
+		}
 		return isDeleted;
 	}
 

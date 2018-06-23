@@ -21,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -31,6 +32,8 @@ public class RecipeViewController implements Initializable{
 
 	@FXML
 	private Label recipeNameLabel;
+	@FXML
+	private TextField searchBar;
 	@FXML
 	private Label categoryLabel;
 	@FXML
@@ -54,6 +57,8 @@ public class RecipeViewController implements Initializable{
 	@FXML
 	private Button backBtn;
 	@FXML
+	private Button goBtn;
+	@FXML
 	private VBox ingredientVBox;
 	@FXML
 	private VBox commentVbox;
@@ -65,23 +70,37 @@ public class RecipeViewController implements Initializable{
 	private Hyperlink profileLink;
 	
 	
+	public static ArrayList<Recipe> goalRecipe1 = new ArrayList<Recipe>();	
+	
 	public static final String RecipeResource = "/com/UI/view/RecipeView.fxml" ;
 	
 	private Recipe currentRecipe = null;
 	
+	public int i = 0;
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
+		goalRecipe1 = SearchResultController.goalRecipe1;
 		currentRecipe = MainController.jdbc.searchRecipe(MainController.currentRecipeID);
-		System.out.println(currentRecipe);
+		
+		if(MainController.currentRecipeID == 0) {
+			currentRecipe = SearchResultController.currentRecipe;
+		}
+		goBtn.setOnAction(e->searchResult());
 		recipeNameLabel.setText(currentRecipe.getName());
 		categoryLabel.setText(currentRecipe.getCategary());
 		servingPplLabel.setText(String.valueOf(currentRecipe.getServingPpl()));
 		prepTimeLabel.setText(String.valueOf(currentRecipe.getPreparationTime())+" min");
 		cookingTimeLabel.setText(String.valueOf(currentRecipe.getCookingTime())+" min");
 		loginHyperlink.setOnAction(e->backToMainInterface());
-		backBtn.setOnAction(e->backToMainInterface());
+		
 		commentConfirmBtn.setOnAction(e->giveComment());
+		profileLink.setOnAction(e->showProfile());
+		if(MainController.backPoint == 0){
+			backBtn.setOnAction(e->backToMainInterface());
+		}else{
+			backBtn.setOnAction(e->searchResult());
+		}
 		
 		if(MainController.currentUser != null){
 			
@@ -94,6 +113,8 @@ public class RecipeViewController implements Initializable{
 		}else{
 			userLabel.setText(MainController.currentUser.getUserName());
 		}
+		
+		i = SearchResultController.i;
 		
 		setIngredientLabel();
 	
@@ -111,6 +132,23 @@ public class RecipeViewController implements Initializable{
 	}
 
 	
+	
+	private void showProfile() {
+		
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("/com/UI/view/ProfileView.fxml"));
+			Scene scene = new Scene(root,1249,837);
+			scene.getStylesheets().add(getClass().getResource(Main.cssResource).toExternalForm());
+			Main.primaryStage.setResizable(false);
+			Main.primaryStage.setScene(scene);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+
 	public void setIngredientLabel(){
 		
 		for (int i = 0; i < currentRecipe.getIngredients().size(); i++) {
@@ -272,6 +310,7 @@ public class RecipeViewController implements Initializable{
 		comment.setRecipeID(currentRecipe.getRecipeID());
 		comment.setAccountID(MainController.currentUser.getAccountID());
 		MainController.jdbc.insertComment(comment);
+		MainController.currentUser = MainController.jdbc.searchUser(MainController.currentUser.getAccountID());
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource(RecipeResource));
 			Scene scene = new Scene(root,1249,837);
@@ -300,6 +339,28 @@ public class RecipeViewController implements Initializable{
 	public void backToMainInterface(){
 			Main.primaryStage.setScene(MainController.MainScene);
 	}
+
+	public void searchResult() {
+
+		try {
+			ArrayList<Recipe> goalRecipe2 = new ArrayList<Recipe>();
+			goalRecipe2 = MainController.jdbc.searchRecipe(searchBar.getText());
+			SearchResultController.currentRecipeList = MainController.jdbc.searchRecipe(MainController.RecipeSearch);
+			// initialize the recipe interface
+			Parent root = FXMLLoader.load(getClass().getResource(SearchResultController.RecipeResource));
+			Scene scene = new Scene(root, 1249, 837);
+			scene.getStylesheets().add(getClass().getResource(Main.cssResource).toExternalForm());
+			Main.primaryStage.setResizable(false);
+			Main.primaryStage.setScene(scene);
+
+			SearchResultController.i = i;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
 }
 
 

@@ -2,6 +2,8 @@ package CookBook;
 
 import java.util.ArrayList;
 
+import com.UI.controller.MainController;
+
 public class RegisteredUser {
 
 	private String userName;
@@ -76,6 +78,14 @@ public class RegisteredUser {
 		this.userName = username;
 		this.password = password;
 	}
+	
+	
+	public void register(){
+		DatabaseController jdbc = DatabaseController.getInstance();
+		jdbc.insertUser(this);
+		
+	}
+	
 	
 	@Override
 	public String toString() {

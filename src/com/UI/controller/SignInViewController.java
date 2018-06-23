@@ -213,9 +213,7 @@ public class SignInViewController extends Thread implements Initializable{
 		RegisteredUser newUser = new RegisteredUser();
 		newUser.setPassword(password);
 		newUser.setUserName(username);
-		DatabaseController jdbc = DatabaseController.getInstance();
-		
-		jdbc.insertUser(newUser);
+		newUser.register();
 		MainController.getSubStage().close();
 		stopme = false;
 	}

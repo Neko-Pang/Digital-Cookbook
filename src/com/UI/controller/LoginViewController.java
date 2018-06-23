@@ -110,15 +110,23 @@ public class LoginViewController implements Initializable {
 				isPasswordCorrect = true;
 				
 				try {
-					
-					FXMLLoader loader = new FXMLLoader(getClass().getResource(MainController.MainResourse));
-					Parent root = loader.load();
-					Scene refresh = new Scene(root,1249,837);
-					MainController.MainScene = refresh;
-					MainController mController = (MainController) loader.getController();
-					mController.showWelcomeandProfile();
-					Main.primaryStage.setScene(refresh);
-		
+					if (MainController.loginPoint == 0) {
+						FXMLLoader loader = new FXMLLoader(getClass().getResource(MainController.MainResourse));
+						Parent root = loader.load();
+						Scene refresh = new Scene(root, 1249, 837);
+						MainController.MainScene = refresh;
+						MainController mController = (MainController) loader.getController();
+						mController.showWelcomeandProfile();
+						Main.primaryStage.setScene(refresh);
+					}else{
+						
+						Parent root = FXMLLoader.load(getClass().getResource(SearchResultController.RecipeResource));
+						Scene scene = new Scene(root, 1249, 837);
+						scene.getStylesheets().add(getClass().getResource(Main.cssResource).toExternalForm());
+						Main.primaryStage.setResizable(false);
+						Main.primaryStage.setScene(scene);
+						
+					}
 					
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
