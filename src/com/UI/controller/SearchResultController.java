@@ -131,7 +131,7 @@ public class SearchResultController implements Initializable
 				}
 				if (currentRecipeList.size() > (i + 1))
 				{
-					currentRecipe = currentRecipeList.get(this.i + 1);
+					currentRecipe = currentRecipeList.get(i + 1);
 					recipe2.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary()
 							+ "\n\nServingPeople: " + currentRecipe.getServingPpl());
 					hbox2.setVisible(true);
@@ -139,7 +139,7 @@ public class SearchResultController implements Initializable
 				}
 				if (currentRecipeList.size() > (i + 2))
 				{
-					currentRecipe = currentRecipeList.get(this.i + 2);
+					currentRecipe = currentRecipeList.get(i + 2);
 					recipe3.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary()
 							+ "\n\nServingPeople: " + currentRecipe.getServingPpl());
 					hbox3.setVisible(true);
@@ -147,7 +147,7 @@ public class SearchResultController implements Initializable
 				}
 				if (currentRecipeList.size() > (i + 3))
 				{
-					currentRecipe = currentRecipeList.get(this.i + 3);
+					currentRecipe = currentRecipeList.get(i + 3);
 					recipe4.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary()
 							+ "\n\nServingPeople: " + currentRecipe.getServingPpl());
 					hbox4.setVisible(true);
@@ -155,7 +155,7 @@ public class SearchResultController implements Initializable
 				}
 				if (currentRecipeList.size() > (i + 4))
 				{
-					currentRecipe = currentRecipeList.get(this.i + 4);
+					currentRecipe = currentRecipeList.get(i + 4);
 					recipe5.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary()
 							+ "\n\nServingPeople: " + currentRecipe.getServingPpl());
 					hbox5.setVisible(true);
@@ -208,7 +208,7 @@ public class SearchResultController implements Initializable
 				}
 				if (currentRecipeList.size() > (i + 1))
 				{
-					currentRecipe = currentRecipeList.get(this.i + 1);
+					currentRecipe = currentRecipeList.get(i + 1);
 					recipe2.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary()
 							+ "\n\nServingPeople: " + currentRecipe.getServingPpl());
 					hbox2.setVisible(true);
@@ -216,7 +216,7 @@ public class SearchResultController implements Initializable
 				}
 				if (currentRecipeList.size() > (i + 2))
 				{
-					currentRecipe = currentRecipeList.get(this.i + 2);
+					currentRecipe = currentRecipeList.get(i + 2);
 					recipe3.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary()
 							+ "\n\nServingPeople: " + currentRecipe.getServingPpl());
 					hbox3.setVisible(true);
@@ -224,7 +224,7 @@ public class SearchResultController implements Initializable
 				}
 				if (currentRecipeList.size() > (i + 3))
 				{
-					currentRecipe = currentRecipeList.get(this.i + 3);
+					currentRecipe = currentRecipeList.get(i + 3);
 					recipe4.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary()
 							+ "\n\nServingPeople: " + currentRecipe.getServingPpl());
 					hbox4.setVisible(true);
@@ -232,7 +232,7 @@ public class SearchResultController implements Initializable
 				}
 				if (currentRecipeList.size() > (i + 4))
 				{
-					currentRecipe = currentRecipeList.get(this.i + 4);
+					currentRecipe = currentRecipeList.get(i + 4);
 					recipe5.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary()
 							+ "\n\nServingPeople: " + currentRecipe.getServingPpl());
 					hbox5.setVisible(true);
@@ -264,7 +264,7 @@ public class SearchResultController implements Initializable
 			p = String.valueOf(n + "/" + m);
 			page.setText(p);
 		});
-
+		i = 0;
 		if (currentRecipeList.size() > (i))
 		{
 			currentRecipe = currentRecipeList.get(i);
@@ -274,7 +274,7 @@ public class SearchResultController implements Initializable
 		}
 		if (currentRecipeList.size() > (i + 1))
 		{
-			currentRecipe = currentRecipeList.get(this.i + 1);
+			currentRecipe = currentRecipeList.get(i + 1);
 			recipe2.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary() + "\n\nServingPeople: "
 					+ currentRecipe.getServingPpl());
 			hbox2.setVisible(true);
@@ -282,7 +282,7 @@ public class SearchResultController implements Initializable
 		}
 		if (currentRecipeList.size() > (i + 2))
 		{
-			currentRecipe = currentRecipeList.get(this.i + 2);
+			currentRecipe = currentRecipeList.get(i + 2);
 			recipe3.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary() + "\n\nServingPeople: "
 					+ currentRecipe.getServingPpl());
 			hbox3.setVisible(true);
@@ -290,7 +290,7 @@ public class SearchResultController implements Initializable
 		}
 		if (currentRecipeList.size() > (i + 3))
 		{
-			currentRecipe = currentRecipeList.get(this.i + 3);
+			currentRecipe = currentRecipeList.get(i + 3);
 			recipe4.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary() + "\n\nServingPeople: "
 					+ currentRecipe.getServingPpl());
 			hbox4.setVisible(true);
@@ -298,7 +298,7 @@ public class SearchResultController implements Initializable
 		}
 		if (currentRecipeList.size() > (i + 4))
 		{
-			currentRecipe = currentRecipeList.get(this.i + 4);
+			currentRecipe = currentRecipeList.get(i + 4);
 			recipe5.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary() + "\n\nServingPeople: "
 					+ currentRecipe.getServingPpl());
 			hbox5.setVisible(true);
