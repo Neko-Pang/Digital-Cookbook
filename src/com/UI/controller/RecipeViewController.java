@@ -4,10 +4,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.concurrent.ForkJoinPool.ManagedBlocker;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.UI.view.Main;
 
 import CookBook.Comment;
+import CookBook.CookBook;
 import CookBook.Ingredient;
 import CookBook.Recipe;
 import CookBook.RegisteredUser;
@@ -68,6 +72,14 @@ public class RecipeViewController implements Initializable{
 	private AnchorPane commentPane;
 	@FXML
 	private Hyperlink profileLink;
+	@FXML
+	private TextField recalText;
+	@FXML
+	private Button recalculate;
+	@FXML
+	private Button deleteBtn;
+	@FXML
+	private Button editBtn;
 	
 	
 	public static ArrayList<Recipe> goalRecipe1 = new ArrayList<Recipe>();	
@@ -81,10 +93,19 @@ public class RecipeViewController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		goalRecipe1 = SearchResultController.goalRecipe1;
-		currentRecipe = MainController.jdbc.searchRecipe(MainController.currentRecipeID);
+		currentRecipe = MainController.currentRecipe;
 		
-		if(MainController.currentRecipeID == 0) {
+		if(MainController.currentRecipe == null) {
 			currentRecipe = SearchResultController.currentRecipe;
+		}
+		
+		if(MainController.currentUser != null){
+			if(currentRecipe.getAccountID() == MainController.currentUser.getAccountID()){
+			
+				deleteBtn.setVisible(true);
+				editBtn.setVisible(true);
+			
+			}
 		}
 		goBtn.setOnAction(e->searchResult());
 		recipeNameLabel.setText(currentRecipe.getName());
@@ -96,8 +117,13 @@ public class RecipeViewController implements Initializable{
 		
 		commentConfirmBtn.setOnAction(e->giveComment());
 		profileLink.setOnAction(e->showProfile());
+		
 		if(MainController.backPoint == 0){
 			backBtn.setOnAction(e->backToMainInterface());
+		}else if(MainController.backPoint == 2){
+			
+			backBtn.setOnAction(e->backToProfile());
+			
 		}else{
 			backBtn.setOnAction(e->searchResult());
 		}
@@ -111,7 +137,7 @@ public class RecipeViewController implements Initializable{
 		if(currentRecipe.getAccountID() == 0){
 			userLabel.setText("Default Recipe");
 		}else{
-			userLabel.setText(MainController.currentUser.getUserName());
+			userLabel.setText(MainController.jdbc.searchUser(currentRecipe.getAccountID()).getUserName());
 		}
 		
 		i = SearchResultController.i;
@@ -129,6 +155,10 @@ public class RecipeViewController implements Initializable{
 		}
 				
 		setComment(currentRecipe.getComments());
+		
+		recalculate.setOnAction(e->recalculate());
+		
+		deleteBtn.setOnAction(e->deleteRecipe());
 	}
 
 	
@@ -311,6 +341,7 @@ public class RecipeViewController implements Initializable{
 		comment.setAccountID(MainController.currentUser.getAccountID());
 		MainController.jdbc.insertComment(comment);
 		MainController.currentUser = MainController.jdbc.searchUser(MainController.currentUser.getAccountID());
+		MainController.currentRecipe = MainController.jdbc.searchRecipe(MainController.currentRecipe.getRecipeID());
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource(RecipeResource));
 			Scene scene = new Scene(root,1249,837);
@@ -325,6 +356,7 @@ public class RecipeViewController implements Initializable{
 	public void deleteComment(Comment comment){
 		
 		MainController.jdbc.deleteComment(comment.getRecipeID(), comment.getAccountID(), comment.getCommentNo());
+		MainController.currentRecipe = MainController.jdbc.searchRecipe(MainController.currentRecipe.getRecipeID());
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource(RecipeResource));
 			Scene scene = new Scene(root,1249,837);
@@ -354,6 +386,61 @@ public class RecipeViewController implements Initializable{
 			Main.primaryStage.setScene(scene);
 
 			SearchResultController.i = i;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+	public void recalculate(){
+		
+		String str = recalText.getText();
+		Pattern pattern = Pattern.compile("[0-9]{1,}");
+		Matcher matcher = pattern.matcher(str);
+		if(matcher.matches()){
+			int changedServingPpl = Integer.parseInt(str);
+			CookBook cB = new CookBook("recal");
+			Recipe recipe = cB.recalculate(currentRecipe, changedServingPpl);
+			MainController.currentRecipe = recipe;
+			try {
+				Parent root = FXMLLoader.load(getClass().getResource(RecipeResource));
+				Scene scene = new Scene(root,1249,837);
+				Main.primaryStage.setScene(scene);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
+	}
+	
+	public void deleteRecipe(){
+		
+		MainController.jdbc.deleteRecipe(currentRecipe.getRecipeID());
+		MainController.currentUser = MainController.jdbc.searchUser(MainController.currentUser.getAccountID());
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("/com/UI/view/ProfileView.fxml"));
+			Scene scene = new Scene(root, 1249, 837);
+			scene.getStylesheets().add(getClass().getResource(Main.cssResource).toExternalForm());
+			Main.primaryStage.setResizable(false);
+			Main.primaryStage.setScene(scene);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void backToProfile() {
+
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("/com/UI/view/ProfileView.fxml"));
+			Scene scene = new Scene(root, 1249, 837);
+			scene.getStylesheets().add(getClass().getResource(Main.cssResource).toExternalForm());
+			Main.primaryStage.setResizable(false);
+			Main.primaryStage.setScene(scene);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

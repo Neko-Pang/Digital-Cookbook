@@ -2,7 +2,10 @@ package com.UI.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import javax.security.auth.Refreshable;
 
@@ -34,6 +37,14 @@ public class MainController implements Initializable {
 	@FXML
 	private Hyperlink randomRecipe1;
 	@FXML
+	private Hyperlink randomRecipe2;
+	@FXML
+	private Hyperlink randomRecipe3;
+	@FXML
+	private Hyperlink randomRecipe4;
+	@FXML
+	private Hyperlink randomRecipe5;
+	@FXML
 	private Hyperlink login;
 	@FXML
 	private Hyperlink signIn;
@@ -56,7 +67,7 @@ public class MainController implements Initializable {
 
 	private static Stage subStage = new Stage();
 
-	public static int currentRecipeID = 0;
+	public static Recipe currentRecipe = null;
 
 	public static String currentRecipeName = null;
 
@@ -102,8 +113,11 @@ public class MainController implements Initializable {
 
 		signIn.setOnAction(e -> showSignIn(subStage));
 
-		randomRecipe1.setOnAction(e -> showRecipe1());
-
+		randomRecipe1.setOnAction(e -> showRecipe1(randomRecipe1));
+		randomRecipe2.setOnAction(e -> showRecipe1(randomRecipe2));
+		randomRecipe3.setOnAction(e -> showRecipe1(randomRecipe3));
+		randomRecipe4.setOnAction(e -> showRecipe1(randomRecipe4));
+		randomRecipe5.setOnAction(e -> showRecipe1(randomRecipe5));
 		signout.setOnAction(e -> signOut());
 
 		profileLink.setOnAction(e -> showProfile());
@@ -114,6 +128,11 @@ public class MainController implements Initializable {
 
 		});
 
+		if(currentUser != null){
+			
+			showWelcomeandProfile();
+		}
+		
 		Image backgroundImage = new Image("/Picture/background.jpg");
 
 		backgroundImageView.setImage(backgroundImage);
@@ -122,11 +141,38 @@ public class MainController implements Initializable {
 	public void givingRandomRecipe() {
 
 		CookBook cB = new CookBook("test");
-		Recipe recipe = cB.getRecipe(3);
+		ArrayList<Integer> allRecipe = jdbc.getAllRecipeID();
+		Set<Integer> set = new HashSet<Integer>();
+		while(set.size()<5){
+			
+			set.add(allRecipe.get((int)(Math.random()*allRecipe.size())));
+		
+		}
+		Recipe recipe1,recipe2,recipe3,recipe4,recipe5;
+		Object[] ints = set.toArray();
+		
+		recipe1 = jdbc.searchRecipe((int)ints[0]);
 		randomRecipe1.setText(
-				recipe.getName() + "\n\n" + recipe.getCategary() + "\n\nServingPeople: " + recipe.getServingPpl());
-		randomRecipe1.setUserData(recipe.getRecipeID());
-
+				recipe1.getName() + "\n\n" + recipe1.getCategary() + "\n\nServingPeople: " + recipe1.getServingPpl());
+		randomRecipe1.setUserData(recipe1.getRecipeID());
+		recipe2 = jdbc.searchRecipe((int)ints[1]);
+		randomRecipe2.setText(
+				recipe2.getName() + "\n\n" + recipe2.getCategary() + "\n\nServingPeople: " + recipe2.getServingPpl());
+		randomRecipe2.setUserData(recipe2.getRecipeID());
+		recipe3 = jdbc.searchRecipe((int)ints[2]);
+		randomRecipe3.setText(
+				recipe3.getName() + "\n\n" + recipe3.getCategary() + "\n\nServingPeople: " + recipe3.getServingPpl());
+		randomRecipe3.setUserData(recipe3.getRecipeID());
+		recipe4 = jdbc.searchRecipe((int)ints[3]);
+		randomRecipe4.setText(
+				recipe4.getName() + "\n\n" + recipe4.getCategary() + "\n\nServingPeople: " + recipe4.getServingPpl());
+		randomRecipe4.setUserData(recipe4.getRecipeID());
+		recipe5 = jdbc.searchRecipe((int)ints[4]);
+		randomRecipe5.setText(
+				recipe5.getName() + "\n\n" + recipe5.getCategary() + "\n\nServingPeople: " + recipe5.getServingPpl());
+		randomRecipe5.setUserData(recipe5.getRecipeID());
+		
+		
 	}
 
 	public void showLogin(Stage subStage) {
@@ -188,11 +234,11 @@ public class MainController implements Initializable {
 
 	}
 
-	public void showRecipe1() {
+	public void showRecipe1(Hyperlink link) {
 
 		try {
 
-			currentRecipeID = (int) randomRecipe1.getUserData();
+			currentRecipe = jdbc.searchRecipe((int) link.getUserData());
 			this.backPoint = 0;
 			// initialize the recipe interface
 			Parent root = FXMLLoader.load(getClass().getResource(RecipeViewController.RecipeResource));

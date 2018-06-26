@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -9,38 +11,46 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="837.0" prefWidth="1249.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.UI.controller.ProfileController">
    <children>
-      <ScrollPane minHeight="837.0" prefHeight="2000.0" prefWidth="1249.0">
-        <content>
-          <AnchorPane fx:id="profilePane" prefHeight="837.0" prefWidth="1249.0" stylesheets="@com.UI.view.css">
-               <children>
-                  <Label fx:id="profileLabel" alignment="CENTER" layoutX="113.0" layoutY="49.0" prefHeight="59.0" prefWidth="1023.0" textFill="#4878c0">
-                     <font>
-                        <Font size="32.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="ownRecipes" layoutX="107.0" layoutY="165.0" prefHeight="55.0" prefWidth="662.0" textFill="#4878c0">
-                     <font>
-                        <Font name="Tarzan Regular" size="26.0" />
-                     </font>
-                  </Label>
-                  <Hyperlink layoutX="992.0" layoutY="165.0" prefHeight="55.0" prefWidth="182.0" styleClass="HyperLink" text="  +  create new recipe">
-                     <font>
-                        <Font size="17.0" />
-                     </font>
-                  </Hyperlink>
-                  <Label fx:id="ownComment" layoutX="107.0" layoutY="375.0" prefHeight="55.0" prefWidth="662.0" textFill="#4878c0">
-                     <font>
-                        <Font name="Tarzan Regular" size="26.0" />
-                     </font>
-                  </Label>
-                  <Button fx:id="backBtn" layoutX="1033.0" layoutY="79.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="100.0" styleClass="ComfirmButton" text="Back" textFill="WHITE">
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                  </Button>
-               </children>
-            </AnchorPane>
-        </content>
-      </ScrollPane>
+      <AnchorPane prefHeight="2000.0" prefWidth="1243.0">
+         <children>
+            <ImageView fx:id="backgroundView" fitHeight="837.0" fitWidth="1240.0" pickOnBounds="true" preserveRatio="true" />
+            <ScrollPane fx:id="scrollPane" layoutY="-1.0" minHeight="768.0" prefHeight="837.0" prefWidth="1249.0">
+              <content>
+                <AnchorPane fx:id="profilePane" prefHeight="850.0" prefWidth="1243.0" stylesheets="@com.UI.view.css">
+                     <children>
+                        <Label fx:id="profileLabel" alignment="CENTER" layoutX="113.0" layoutY="49.0" prefHeight="59.0" prefWidth="1023.0" textFill="#4878c0">
+                           <font>
+                              <Font size="32.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="ownRecipes" layoutX="107.0" layoutY="165.0" prefHeight="55.0" prefWidth="662.0" textFill="#4878c0">
+                           <font>
+                              <Font name="Tarzan Regular" size="26.0" />
+                           </font>
+                        </Label>
+                        <Hyperlink layoutX="992.0" layoutY="165.0" prefHeight="55.0" prefWidth="182.0" styleClass="HyperLink" text="  +  create new recipe">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                        </Hyperlink>
+                        <Label fx:id="ownComment" layoutX="107.0" layoutY="375.0" prefHeight="55.0" prefWidth="662.0" textFill="#4878c0">
+                           <font>
+                              <Font name="Tarzan Regular" size="26.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="backBtn" layoutX="1033.0" layoutY="79.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="100.0" styleClass="ComfirmButton" text="Back" textFill="WHITE">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+              </content>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </ScrollPane>
+         </children>
+      </AnchorPane>
    </children>
 </VBox>

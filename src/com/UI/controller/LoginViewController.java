@@ -111,13 +111,15 @@ public class LoginViewController implements Initializable {
 				
 				try {
 					if (MainController.loginPoint == 0) {
+						
 						FXMLLoader loader = new FXMLLoader(getClass().getResource(MainController.MainResourse));
 						Parent root = loader.load();
 						Scene refresh = new Scene(root, 1249, 837);
 						MainController.MainScene = refresh;
-						MainController mController = (MainController) loader.getController();
-						mController.showWelcomeandProfile();
+//						MainController mController = (MainController) loader.getController();
+//						mController.showWelcomeandProfile();
 						Main.primaryStage.setScene(refresh);
+						
 					}else{
 						
 						Parent root = FXMLLoader.load(getClass().getResource(SearchResultController.RecipeResource));

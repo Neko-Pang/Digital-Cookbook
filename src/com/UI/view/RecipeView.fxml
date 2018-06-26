@@ -243,6 +243,22 @@
                         <String fx:value="BorderRadius" />
                      </styleClass>
                   </VBox>
+                  <Button fx:id="recalculate" layoutX="439.0" layoutY="41.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="140.0" styleClass="ComfirmButton" text="Recalculate " textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="deleteBtn" layoutX="932.0" layoutY="41.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="140.0" text="delete" visible="false">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Button>
+                  <TextField fx:id="recalText" layoutX="206.0" layoutY="40.0" prefHeight="49.0" prefWidth="202.0" promptText="Changed Serving People(ie: 6)" />
+                  <Button fx:id="editBtn" layoutX="736.0" layoutY="42.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="140.0" text="edit" visible="false">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Button>
                </children>
             </AnchorPane>
          </content>

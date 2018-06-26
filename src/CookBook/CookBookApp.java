@@ -143,9 +143,10 @@ public class CookBookApp {
 		Recipe recipeSLF = createSuanLaFen();
 //
 		cb.add(recipeGBJD);
+		cb.add(recipeGBJD);
 		cb.add(recipeHSR);
 		cb.add(recipeSLF);
-
+		cb.add(recipeSLF);
 		ArrayList<Recipe> recipe = cb.getRecipe("Suan La Fen");
 		
 		

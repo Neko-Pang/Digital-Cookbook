@@ -34,7 +34,7 @@ public class DatabaseController implements Serializable {
 	 * your username and the password of mysql
 	 */
 	private String dbUser = "root";
-	private String dbPass = "zkw123456"
+	private String dbPass = "xiaoxia12"
 			+ "";
 	
 	// Singleton Pattern
@@ -1020,6 +1020,32 @@ public class DatabaseController implements Serializable {
 			e1.printStackTrace();
 		}
 		return isDeleted;
+	}
+	
+	
+	public ArrayList<Integer> getAllRecipeID(){
+		String str = "select * from recipe";
+		ArrayList<Integer> idList = new ArrayList<Integer>();
+		
+		try {
+			Statement sql = conn.createStatement();
+			ResultSet result = sql.executeQuery(str);
+			
+			while(result.next()){
+				
+				idList.add(result.getInt("RecipeID"));
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		return idList;
+		
 	}
 	
 }

@@ -78,7 +78,7 @@ public class SearchResultController implements Initializable
 
 	public static Scene ResultScene;
 
-	private static Stage subStage = new Stage();
+//	private static Stage subStage = new Stage();
 
 	public static final String RecipeResource = "/com/UI/view/SearchResult.fxml";
 
@@ -109,9 +109,9 @@ public class SearchResultController implements Initializable
 
 		backBtn.setOnAction(e -> backToMainInterface());
 
-		login.setOnAction(e -> showLogin(subStage));
+		login.setOnAction(e -> showLogin(MainController.getSubStage()));
 
-		signIn.setOnAction(e -> showSignIn(subStage));
+		signIn.setOnAction(e -> showSignIn(MainController.getSubStage()));
 
 		signout.setOnAction(e -> signOut());
 
@@ -410,10 +410,21 @@ public class SearchResultController implements Initializable
 
 	}
 
-	public void backToMainInterfaceOrSearchReuslt()
-	{
-		Main.primaryStage.setScene(SearchResultController.ResultScene);
-	}
+//	public void backToMainInterfaceOrSearchReuslt()
+//	{
+//		FXMLLoader loader = new FXMLLoader(getClass().getResource(MainController.MainResourse));
+//		Parent root;
+//		try {
+//			root = loader.load();
+//			Scene refresh = new Scene(root, 1249, 837);
+//			
+//			Main.primaryStage.setScene(refresh);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	
+//	}
 
 	public void showLogin(Stage subStage)
 	{
@@ -471,7 +482,19 @@ public class SearchResultController implements Initializable
 
 	public void backToMainInterface()
 	{
-		Main.primaryStage.setScene(MainController.MainScene);
+		FXMLLoader loader = new FXMLLoader(getClass().getResource(MainController.MainResourse));
+		Parent root;
+		try {
+			root = loader.load();
+			Scene refresh = new Scene(root, 1249, 837);
+			
+			Main.primaryStage.setScene(refresh);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
+	
+	
 }
