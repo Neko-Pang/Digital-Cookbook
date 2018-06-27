@@ -35,6 +35,16 @@
                   <Font size="18.0" />
                </font>
             </Hyperlink>
+            <Hyperlink fx:id="loginLink" layoutX="908.0" layoutY="32.0" prefHeight="42.0" prefWidth="72.0" text="Login" textFill="WHITE">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Hyperlink>
+            <Hyperlink fx:id="signinLink" layoutX="1066.0" layoutY="32.0" prefHeight="42.0" prefWidth="110.0" text="Sign in" textFill="WHITE">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Hyperlink>
          </children>
       </Pane>
       <ScrollPane prefHeight="3000.0" prefWidth="1167.0">
@@ -203,7 +213,7 @@
                         </AnchorPane>
                         <AnchorPane minHeight="220.0" prefHeight="249.0" prefWidth="946.0" styleClass="Border">
                            <children>
-                              <Label fx:id="loginHint" layoutX="177.0" layoutY="86.0" prefHeight="49.0" prefWidth="491.0" text="If you want to give a comment to this recipe , Please login first !" visible="false" wrapText="true">
+                              <Label fx:id="loginHint" layoutX="228.0" layoutY="86.0" prefHeight="49.0" prefWidth="491.0" text="If you want to give a comment to this recipe , Please login first !" visible="false" wrapText="true">
                                  <font>
                                     <Font size="17.0" />
                                  </font>

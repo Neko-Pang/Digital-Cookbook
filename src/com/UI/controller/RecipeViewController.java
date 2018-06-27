@@ -21,7 +21,9 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -30,6 +32,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 
 public class RecipeViewController implements Initializable{
@@ -80,6 +83,10 @@ public class RecipeViewController implements Initializable{
 	private Button deleteBtn;
 	@FXML
 	private Button editBtn;
+	@FXML
+	private Hyperlink signinLink;
+	@FXML
+	private Hyperlink loginLink;
 	
 	
 	public static ArrayList<Recipe> goalRecipe1 = new ArrayList<Recipe>();	
@@ -88,6 +95,7 @@ public class RecipeViewController implements Initializable{
 	
 	private Recipe currentRecipe = null;
 	
+//	public static Stage substage = new Stage();
 	public int i = 0;
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -100,6 +108,9 @@ public class RecipeViewController implements Initializable{
 		}
 		
 		if(MainController.currentUser != null){
+			profileLink.setVisible(true);
+			loginLink.setVisible(false);
+			signinLink.setVisible(false);
 			if(currentRecipe.getAccountID() == MainController.currentUser.getAccountID()){
 			
 				deleteBtn.setVisible(true);
@@ -128,11 +139,6 @@ public class RecipeViewController implements Initializable{
 			backBtn.setOnAction(e->searchResult());
 		}
 		
-		if(MainController.currentUser != null){
-			
-			profileLink.setVisible(true);
-			
-		}
 		
 		if(currentRecipe.getAccountID() == 0){
 			userLabel.setText("Default Recipe");
@@ -148,7 +154,6 @@ public class RecipeViewController implements Initializable{
 		
 		if(MainController.currentUser == null){
 			loginHint.setVisible(true);	
-			loginHyperlink.setVisible(true);
 		}else{
 			commentField.setVisible(true);
 			commentConfirmBtn.setVisible(true);
@@ -159,6 +164,10 @@ public class RecipeViewController implements Initializable{
 		recalculate.setOnAction(e->recalculate());
 		
 		deleteBtn.setOnAction(e->deleteRecipe());
+		
+		loginLink.setOnAction(e->showLogin(LoginViewController.getStage()));
+		
+		signinLink.setOnAction(e->showSignIn(LoginViewController.getStage()));
 	}
 
 	
@@ -298,6 +307,8 @@ public class RecipeViewController implements Initializable{
 				contextLabel.setAlignment(Pos.CENTER_LEFT);
 				contextLabel.setFont(Font.font(17));
 				contextLabel.setMinSize(536, 32);
+				contextLabel.setMaxWidth(536);
+				contextLabel.setWrapText(true);
 				contextLabel.setLayoutX(97);
 				contextLabel.setLayoutY(60+120*i);
 				contextLabel.setAlignment(Pos.CENTER);
@@ -336,19 +347,60 @@ public class RecipeViewController implements Initializable{
 		
 		Comment comment = new Comment();
 		String context = commentField.getText();
-		comment.setContext(context);
-		comment.setRecipeID(currentRecipe.getRecipeID());
-		comment.setAccountID(MainController.currentUser.getAccountID());
-		MainController.jdbc.insertComment(comment);
-		MainController.currentUser = MainController.jdbc.searchUser(MainController.currentUser.getAccountID());
-		MainController.currentRecipe = MainController.jdbc.searchRecipe(MainController.currentRecipe.getRecipeID());
-		try {
-			Parent root = FXMLLoader.load(getClass().getResource(RecipeResource));
-			Scene scene = new Scene(root,1249,837);
-			Main.primaryStage.setScene(scene);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (context.length() != 0 && context.length() <= 140) {
+			comment.setContext(context);
+			comment.setRecipeID(currentRecipe.getRecipeID());
+			comment.setAccountID(MainController.currentUser.getAccountID());
+			MainController.jdbc.insertComment(comment);
+			MainController.currentUser = MainController.jdbc.searchUser(MainController.currentUser.getAccountID());
+			MainController.currentRecipe = MainController.jdbc.searchRecipe(MainController.currentRecipe.getRecipeID());
+
+			try {
+				Parent root = FXMLLoader.load(getClass().getResource(RecipeResource));
+				Scene scene = new Scene(root, 1249, 837);
+				Main.primaryStage.setScene(scene);
+
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else if(context.length() == 0){
+			
+			Stage substage = new Stage();
+			Parent root;
+			BackMessageController.message = "Your comment is empty, please write something!";
+			BackMessageController.messageType = 1;
+			BackMessageController.stage = substage;
+			try {
+				root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
+				Scene scene = new Scene(root,328,223);
+				substage.setScene(scene);
+				substage.setResizable(false);
+				substage.showAndWait();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		}else if(context.length() > 120){
+			
+			Stage substage = new Stage();
+			Parent root;
+			BackMessageController.message = "Your comment is too long, please make your comment in 120 characters!";
+			BackMessageController.messageType = 1;
+			BackMessageController.stage = substage;
+			try {
+				root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
+				Scene scene = new Scene(root,328,223);
+				substage.setScene(scene);
+				substage.setResizable(false);
+				substage.showAndWait();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 		
 	}
@@ -441,6 +493,44 @@ public class RecipeViewController implements Initializable{
 			scene.getStylesheets().add(getClass().getResource(Main.cssResource).toExternalForm());
 			Main.primaryStage.setResizable(false);
 			Main.primaryStage.setScene(scene);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+	
+	public void showLogin(Stage subStage) {
+
+		subStage.setTitle("Login");
+		MainController.loginPoint = 2;
+		try {
+
+			Parent root = FXMLLoader.load(getClass().getResource("/com/UI/view/LoginView.fxml"));
+			Scene scene = new Scene(root, 660, 402);
+			subStage.setScene(scene);
+			subStage.setResizable(false);
+			subStage.showAndWait();
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public void showSignIn(Stage substage) {
+
+		substage.setTitle("Sign in");
+
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("/com/UI/view/SignInView.fxml"));
+			Scene scene = new Scene(root, 592, 684);
+			substage.setScene(scene);
+			substage.setResizable(false);
+			substage.showAndWait();
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

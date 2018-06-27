@@ -116,13 +116,19 @@ public class LoginViewController implements Initializable {
 						Parent root = loader.load();
 						Scene refresh = new Scene(root, 1249, 837);
 						MainController.MainScene = refresh;
-//						MainController mController = (MainController) loader.getController();
-//						mController.showWelcomeandProfile();
 						Main.primaryStage.setScene(refresh);
 						
-					}else{
+					}else if(MainController.loginPoint == 1){
 						
 						Parent root = FXMLLoader.load(getClass().getResource(SearchResultController.RecipeResource));
+						Scene scene = new Scene(root, 1249, 837);
+						scene.getStylesheets().add(getClass().getResource(Main.cssResource).toExternalForm());
+						Main.primaryStage.setResizable(false);
+						Main.primaryStage.setScene(scene);
+						
+					}else if(MainController.loginPoint == 2){
+						
+						Parent root = FXMLLoader.load(getClass().getResource(RecipeViewController.RecipeResource));
 						Scene scene = new Scene(root, 1249, 837);
 						scene.getStylesheets().add(getClass().getResource(Main.cssResource).toExternalForm());
 						Main.primaryStage.setResizable(false);
@@ -144,7 +150,20 @@ public class LoginViewController implements Initializable {
 			
 		}
 		
+		if (LoginViewController.isUserExist()) {
+			if (LoginViewController.isPasswordCorrect()) {
+				BackMessageController.message = "Login successfully";
+			} else {
+				BackMessageController.message = "The password is not correct!";
+			}
+		} else {
+			BackMessageController.message = "User not exist!";
+		}
+
+		
 		try {
+			BackMessageController.messageType = 0;
+			BackMessageController.stage = this.substage;
 			Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
 			Scene scene = new Scene(root,328,223);
 			substage.setScene(scene);

@@ -224,7 +224,18 @@ public class ProfileController implements Initializable{
 	
 	public void backToMain(){
 		
-		Main.primaryStage.setScene(MainController.MainScene);
+		
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(MainController.MainResourse));
+			Parent root = loader.load();
+			Scene refresh = new Scene(root, 1249, 837);
+			MainController.MainScene = refresh;
+			Main.primaryStage.setScene(refresh);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 	}
 	

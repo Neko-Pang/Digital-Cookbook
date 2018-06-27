@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
+import javafx.stage.Stage;
 
 public class BackMessageController implements Initializable{
 	
@@ -17,6 +18,13 @@ public class BackMessageController implements Initializable{
 	
 	@FXML
 	private Button confirm;
+	
+	
+	public static int messageType;
+	
+	public static String message;
+	
+	public static Stage stage;
 	
 	public static final String BackResourse = "/com/UI/view/BackMessage.fxml";
 	
@@ -48,19 +56,12 @@ public class BackMessageController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		
-		if(LoginViewController.isUserExist()){
-			if(LoginViewController.isPasswordCorrect()){
-				loginHint.setText("Login successfully");
-			}else{
-				loginHint.setText("The password is not correct!");
-			}
-		}else{
-			loginHint.setText("User not exist!");
-		}
 		
-		confirm.setOnAction(e->confirmEvent());
-
-	
+		loginHint.setText(message);
+		
+		
+		confirm.setOnAction(e -> confirmEvent());
+		
 	}
 	
 	public void loginEnter(javafx.scene.input.KeyEvent event){
@@ -73,11 +74,13 @@ public class BackMessageController implements Initializable{
 	public void confirmEvent(){
 		
 		
-		LoginViewController.getSubstage().close();
+		stage.close();
 		
-		if(LoginViewController.isPasswordCorrect()){
-		
-			LoginViewController.getStage().close();
+		if (messageType == 0) {
+			if (LoginViewController.isPasswordCorrect()) {
+
+				LoginViewController.getStage().close();
+			}
 		}
 	}
 	

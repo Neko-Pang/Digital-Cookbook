@@ -576,7 +576,7 @@ public class DatabaseController implements Serializable {
 
 		try {
 
-			String statementSearchRe = "select * from recipe where Name='" + recipeName + "'";
+			String statementSearchRe = "select * from recipe where Name like '%" + recipeName + "%'";
 			Statement sql = conn.createStatement();
 			ResultSet searchResult = sql.executeQuery(statementSearchRe);
 			while (searchResult.next()) {
