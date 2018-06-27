@@ -17,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class LoginViewController implements Initializable {
@@ -34,9 +35,7 @@ public class LoginViewController implements Initializable {
 	private static boolean isUserExist = false;
 	private static boolean isPasswordCorrect = false;
 	
-	private static Stage substage = new Stage();
-	
-	private static Stage stage = MainController.getSubStage();
+	private static Stage stage = Main.subStage1;
 	
 	public static Stage getStage() {
 		return stage;
@@ -64,14 +63,6 @@ public class LoginViewController implements Initializable {
 	}
 	
 
-	public static Stage getSubstage() {
-		return substage;
-	}
-
-
-	public static void setSubstage(Stage substage) {
-		LoginViewController.substage = substage;
-	}
 
 
 	@Override
@@ -162,13 +153,15 @@ public class LoginViewController implements Initializable {
 
 		
 		try {
+			
+			
 			BackMessageController.messageType = 0;
-			BackMessageController.stage = this.substage;
+			BackMessageController.stage = Main.subStage2;
 			Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
 			Scene scene = new Scene(root,328,223);
-			substage.setScene(scene);
-			substage.setResizable(false);
-			substage.showAndWait();
+			Main.subStage2.setScene(scene);
+			Main.subStage2.setResizable(false);
+			Main.subStage2.showAndWait();
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

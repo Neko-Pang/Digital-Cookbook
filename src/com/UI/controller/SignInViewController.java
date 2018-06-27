@@ -5,6 +5,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import com.UI.view.Main;
+
 import CookBook.DatabaseController;
 import CookBook.RegisteredUser;
 import javafx.fxml.FXML;
@@ -45,14 +48,11 @@ public class SignInViewController extends Thread implements Initializable{
 	private boolean usernamePass = false;
 	private boolean passwordPass = false;
 	
-	public static Stage substage = new Stage();
+	public static Stage substage = Main.subStage1;
 	
 	private boolean stopme = true;
 	
 	DatabaseController jdbc = DatabaseController.getInstance();
-	
-	
-	
 	
 	
 	@Override

@@ -347,7 +347,7 @@ public class RecipeViewController implements Initializable{
 		
 		Comment comment = new Comment();
 		String context = commentField.getText();
-		if (context.length() != 0 && context.length() <= 140) {
+		if (context.length() != 0 && context.length() <= 100) {
 			comment.setContext(context);
 			comment.setRecipeID(currentRecipe.getRecipeID());
 			comment.setAccountID(MainController.currentUser.getAccountID());
@@ -366,36 +366,34 @@ public class RecipeViewController implements Initializable{
 			}
 		}else if(context.length() == 0){
 			
-			Stage substage = new Stage();
 			Parent root;
 			BackMessageController.message = "Your comment is empty, please write something!";
 			BackMessageController.messageType = 1;
-			BackMessageController.stage = substage;
+			BackMessageController.stage = Main.subStage3;
 			try {
 				root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
 				Scene scene = new Scene(root,328,223);
-				substage.setScene(scene);
-				substage.setResizable(false);
-				substage.showAndWait();
+				Main.subStage3.setScene(scene);
+				Main.subStage3.setResizable(false);
+				Main.subStage3.showAndWait();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
 			
-		}else if(context.length() > 120){
+		}else if(context.length() > 100){
 			
-			Stage substage = new Stage();
 			Parent root;
-			BackMessageController.message = "Your comment is too long, please make your comment in 120 characters!";
+			BackMessageController.message = "Your comment is too long, please make your comment in 100 characters!";
 			BackMessageController.messageType = 1;
-			BackMessageController.stage = substage;
+			BackMessageController.stage = Main.subStage3;
 			try {
 				root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
 				Scene scene = new Scene(root,328,223);
-				substage.setScene(scene);
-				substage.setResizable(false);
-				substage.showAndWait();
+				Main.subStage3.setScene(scene);
+				Main.subStage3.setResizable(false);
+				Main.subStage3.showAndWait();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -195,9 +195,11 @@ public class ProfileController implements Initializable{
 				
 				Label commentLink = new Label(comment.getContext());
 				commentLink.setTextFill(Color.rgb(75, 75, 173));
-				commentLink.setFont(Font.font(22));
+				commentLink.setFont(Font.font(17));
 				commentLink.setAlignment(Pos.CENTER);
 				commentLink.setMinSize(656, 90);
+				commentLink.setMaxWidth(656);
+				commentLink.setWrapText(true);
 				commentLink.setLayoutX(306);
 				commentLink.setLayoutY(Y+ 110*i);
 				commentLink.getStyleClass().add("Border");

@@ -28,6 +28,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.effect.Shadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class MainController implements Initializable {
@@ -65,7 +66,7 @@ public class MainController implements Initializable {
 
 	public static final String MainResourse = "/com/UI/view/MainInterface.fxml";
 
-	private static Stage subStage = new Stage();
+	private static Stage subStage = Main.subStage1;
 
 	public static Recipe currentRecipe = null;
 
@@ -136,6 +137,7 @@ public class MainController implements Initializable {
 		Image backgroundImage = new Image("/Picture/background.jpg");
 
 		backgroundImageView.setImage(backgroundImage);
+	
 	}
 
 	public void givingRandomRecipe() {
@@ -197,7 +199,6 @@ public class MainController implements Initializable {
 	public void showSignIn(Stage substage) {
 
 		substage.setTitle("Sign in");
-
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/com/UI/view/SignInView.fxml"));
 			Scene scene = new Scene(root, 592, 684);
@@ -322,7 +323,6 @@ public class MainController implements Initializable {
 	// }else{
 	//
 	// }
-	//
 	// }
 	//
 	//

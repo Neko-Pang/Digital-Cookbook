@@ -3,11 +3,14 @@ package com.UI.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.UI.view.Main;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class BackMessageController implements Initializable{
@@ -24,7 +27,7 @@ public class BackMessageController implements Initializable{
 	
 	public static String message;
 	
-	public static Stage stage;
+	public static Stage stage ;
 	
 	public static final String BackResourse = "/com/UI/view/BackMessage.fxml";
 	
@@ -56,7 +59,8 @@ public class BackMessageController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		
-		
+	
+
 		loginHint.setText(message);
 		
 		
