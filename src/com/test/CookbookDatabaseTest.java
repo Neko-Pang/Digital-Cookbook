@@ -31,7 +31,7 @@ public class CookbookDatabaseTest{
 		cb = new CookBookApp();
 		testRecipe = cb.createGongBaoJiding();
 		testRecipe2 = cb.createHongShaoRou();
-		user = new RegisteredUser("testuser129", "12345678");
+		user = new RegisteredUser("testuser133", "12345678");
 	}
 	
 	/**

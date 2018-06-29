@@ -32,7 +32,8 @@ public class UserTest {
 	@Test
 	public void AAtestToString() {
 
-		System.out.println(testuser);
+		RegisteredUser user = jdbc.searchUser(3);
+		System.out.println(user);
 
 	}
 

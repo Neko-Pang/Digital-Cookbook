@@ -22,7 +22,8 @@ create table if not exists Recipe(
         PrepTime int,
         AccountID int,
         CookingTime int,
-        ServerPeople int
+        ServerPeople int,
+        Category varchar(45)
 );
 
 
@@ -35,20 +36,17 @@ create table if not exists PreparationStep(
 );
         
 create table if not exists  User(
-		AccountID int primary key,
+		AccountID int primary key auto_increment,
         Username varchar(45) not null,
         password varchar(45) not null
         
 );
 
 create table if not exists Comment(
-		RecipeID int,
+		
+        CommentNo int auto_increment,
+        RecipeID int,
         AccountID int,
-        CommentNo int,
         Content text,
-        primary key(RecipeID, AccountID, CommentNo)
+        primary key(CommentNo,RecipeID, AccountID)
 );
-
-#alter table recipe add Category varchar(45)
-#alter table recipe auto_increment=1
-#alter table IngredientUsingInfo change Name Name varchar(45) not null
