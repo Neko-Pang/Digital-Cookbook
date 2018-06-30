@@ -124,6 +124,8 @@ public class AddEditRecipeController implements Initializable
 
 			confirmButton.setOnAction(e -> uploadRecipe());
 			cancelButton.setOnAction(e -> cancel());
+			buttonVBox.setLayoutX(162);
+			buttonVBox.setLayoutY(1198);
 		} else
 		{
 			ingreAddButton.setOnAction(e -> addIngre());
@@ -620,6 +622,8 @@ public class AddEditRecipeController implements Initializable
 			AnchorPane prepStepPane = new AnchorPane();
 			prepStepPane.setId("prepAP" + Integer.toString(i + 1));
 			prepStepPane.getStyleClass().add("Border");
+			prepStepPane.setMinSize(948, 88);
+			prepStepPane.setMaxSize(948, 88);
 			Label prepLabel = new Label(Integer.toString(i + 1) + ": " + addingPrepStep.get(i));
 			prepLabel.setMinSize(922, 100);
 			prepLabel.setMaxWidth(934);
@@ -674,7 +678,8 @@ public class AddEditRecipeController implements Initializable
 				downButton.setAlignment(Pos.BOTTOM_RIGHT);
 				prepStepPane.getChildren().addAll(downButton);
 			}
-			
+			prepDeleteButton.setOnAction(e -> deletePrep(prepStepPane.getId()));
+			prepEditButton.setOnAction(e -> editPrep(prepStepPane.getId(),prepStepPane));
 			prepStepVBox.getChildren().add(prepStepPane);
 			buttonVBox.setLayoutY(prepRootVBox.getLayoutY() + 60 + 88 + 120 * (addingPrepStep.size() + 1));
 			if (i == (addingPrepStep.size() - 1))
