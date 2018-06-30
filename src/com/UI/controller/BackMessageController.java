@@ -113,13 +113,15 @@ public class BackMessageController implements Initializable{
 		}
 		message = null;
 	}
+	
+	
 	public void confirmCancel()
 	{
 		stage.close();
 		confirm.setVisible(true);
 		confirmForCancel.setVisible(false);
 		cancel.setVisible(false);
-		
+
 		try 
 		{
 			Parent root = FXMLLoader.load(getClass().getResource("/com/UI/view/ProfileView.fxml"));

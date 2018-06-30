@@ -672,7 +672,7 @@ public class AddEditRecipeController implements Initializable
 				downButton.setLayoutX(-48);
 				downButton.setLayoutY(40);
 				downButton.setAlignment(Pos.BOTTOM_RIGHT);
-				prepStepPane.getChildren().addAll(prepLabel, prepDeleteButton, prepEditButton, upButton, downButton);
+				prepStepPane.getChildren().addAll(downButton);
 			}
 			
 			prepStepVBox.getChildren().add(prepStepPane);

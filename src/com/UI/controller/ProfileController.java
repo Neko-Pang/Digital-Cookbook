@@ -48,6 +48,7 @@ public class ProfileController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
+		MainController.currentUser = MainController.jdbc.searchUser(MainController.currentUser.getAccountID());
 		profileLabel.setText(MainController.currentUser.getUserName()+"' s    Profile");
 		ownRecipes.setText(MainController.currentUser.getUserName()+"' s recipes:");
 		showOwnRecipe();

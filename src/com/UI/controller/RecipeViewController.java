@@ -82,8 +82,6 @@ public class RecipeViewController implements Initializable{
 	@FXML
 	private Button deleteBtn;
 	@FXML
-	private Button editBtn;
-	@FXML
 	private Hyperlink signinLink;
 	@FXML
 	private Hyperlink loginLink;
@@ -114,7 +112,6 @@ public class RecipeViewController implements Initializable{
 			if(currentRecipe.getAccountID() == MainController.currentUser.getAccountID()){
 			
 				deleteBtn.setVisible(true);
-				editBtn.setVisible(true);
 			
 			}
 		}

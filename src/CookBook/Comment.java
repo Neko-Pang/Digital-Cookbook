@@ -1,6 +1,8 @@
 package CookBook;
 
-public class Comment {
+import java.io.Serializable;
+
+public class Comment implements Serializable{
 
 	private int commentNo;
 	private int accountID;
