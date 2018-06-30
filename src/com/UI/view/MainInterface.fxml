@@ -17,33 +17,23 @@
          <viewport>
             <Rectangle2D height="700.0" width="1200.0" />
          </viewport></ImageView>
-      <Hyperlink fx:id="login" layoutX="885.0" layoutY="61.0" prefHeight="44.0" prefWidth="88.0" text="Login">
-         <font>
-            <Font name="System Bold Italic" size="23.0" />
-         </font>
-      </Hyperlink>
-      <Hyperlink fx:id="signIn" layoutX="978.0" layoutY="61.0" prefHeight="44.0" prefWidth="241.0" stylesheets="@com.UI.view.css" text="No account? Sign in!" textFill="#171717">
-         <font>
-            <Font name="System Bold Italic" size="23.0" />
-         </font>
-      </Hyperlink>
-      <Text fill="#4f6ef7" layoutX="394.0" layoutY="228.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Digital Cookbook" wrappingWidth="499.763671875">
+      <Text fill="#4f6ef7" layoutX="394.0" layoutY="271.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Digital Cookbook" wrappingWidth="499.763671875">
          <font>
             <Font name="Bell MT Bold" size="36.0" />
          </font>
       </Text>
-      <Text layoutX="771.0" layoutY="257.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Powered by Macrohard" wrappingWidth="201.41015625">
+      <Text layoutX="776.0" layoutY="300.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Powered by Macrohard" wrappingWidth="201.41015625">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <TextField fx:id="searchBox" alignment="CENTER" layoutX="342.0" layoutY="319.0" prefHeight="64.0" prefWidth="545.0" promptText="Type in  the name you want to search" />
-      <Button fx:id="goButton" layoutX="929.0" layoutY="319.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="98.0" styleClass="custom-button" text="GO">
+      <TextField fx:id="searchBox" alignment="CENTER" layoutX="344.0" layoutY="401.0" prefHeight="64.0" prefWidth="545.0" promptText="Type in  the name you want to search" />
+      <Button fx:id="goButton" layoutX="929.0" layoutY="401.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="98.0" styleClass="custom-button" text="GO">
          <font>
             <Font size="19.0" />
          </font>
       </Button>
-      <Text layoutX="519.0" layoutY="464.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Maybe these you will like…" wrappingWidth="241.0">
+      <Text layoutX="520.0" layoutY="540.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Maybe these you will like…" wrappingWidth="241.0">
          <font>
             <Font name="System Italic" size="20.0" />
          </font>
@@ -73,19 +63,29 @@
             <Hyperlink fx:id="randomRecipe2" styleClass="HyperLink" text="Hyperlink" textFill="#171717" />
          </children>
       </HBox>
-      <Label fx:id="welcomeLabel" layoutX="36.0" layoutY="70.0" prefHeight="27.0" prefWidth="522.0" textFill="#4066b2">
+      <Label fx:id="welcomeLabel" alignment="CENTER" layoutX="356.0" layoutY="357.0" prefHeight="27.0" prefWidth="522.0" textFill="#3f2594">
          <font>
-            <Font size="18.0" />
+            <Font name="System Bold Italic" size="18.0" />
          </font>
       </Label>
-      <Hyperlink fx:id="profileLink" layoutX="71.0" layoutY="105.0" text="My Profile" visible="false">
+      <Hyperlink fx:id="profileLink" layoutX="348.0" layoutY="121.0" text="My Profile" visible="false">
          <font>
-            <Font size="18.0" />
+            <Font name="System Bold Italic" size="18.0" />
          </font>
       </Hyperlink>
       <Hyperlink fx:id="signout" alignment="CENTER" layoutX="978.0" layoutY="62.0" prefHeight="35.0" prefWidth="216.0" text="Sign out" visible="false">
          <font>
             <Font size="23.0" />
+         </font>
+      </Hyperlink>
+      <Hyperlink fx:id="login" layoutX="885.0" layoutY="117.0" prefHeight="44.0" prefWidth="88.0" text="Login">
+         <font>
+            <Font name="System Bold Italic" size="23.0" />
+         </font>
+      </Hyperlink>
+      <Hyperlink fx:id="signIn" layoutX="985.0" layoutY="117.0" prefHeight="44.0" prefWidth="241.0" stylesheets="@com.UI.view.css" text="No account? Sign in!" textFill="#171717">
+         <font>
+            <Font name="System Bold Italic" size="23.0" />
          </font>
       </Hyperlink>
    </children>
