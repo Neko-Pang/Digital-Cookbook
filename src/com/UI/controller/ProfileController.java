@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import javax.sound.sampled.LineUnavailableException;
 
 import com.UI.view.Main;
+import com.UI.controller.AddEditRecipeController;
 
 import CookBook.Comment;
 import CookBook.Recipe;
@@ -39,6 +40,8 @@ public class ProfileController implements Initializable{
 	private Button backBtn;
 	@FXML
 	private ImageView backgroundView;
+	@FXML
+	private Hyperlink createLink;
 	
 	int Y;
 	
@@ -49,6 +52,7 @@ public class ProfileController implements Initializable{
 		ownRecipes.setText(MainController.currentUser.getUserName()+"' s recipes:");
 		showOwnRecipe();
 		ownComment.setText(MainController.currentUser.getUserName()+"' s comments:");
+		createLink.setOnAction(e -> addOwnRecipe());
 		if(MainController.currentUser.getOwnRecipes().size()!=0){
 			ownComment.setLayoutY(236+59*MainController.currentUser.getOwnRecipes().size()+50);
 			Y = 236+59*MainController.currentUser.getOwnRecipes().size()+109;
@@ -106,6 +110,7 @@ public class ProfileController implements Initializable{
 				editRecipeLink.setLayoutX(922);
 				editRecipeLink.setLayoutY(236+ 59*i);
 				editRecipeLink.getStyleClass().add("Hyperlink:Hover");
+				editRecipeLink.setOnAction(e -> editOwnRecipe(recipe, recipe.getRecipeID()));
 				
 				
 				Hyperlink deleteRecipeLink = new Hyperlink("delete");
@@ -143,6 +148,42 @@ public class ProfileController implements Initializable{
 		}
 		
 		
+	}
+	
+	public void addOwnRecipe()
+	{
+		try
+		{
+			AddEditRecipeController.setAdd();
+			Parent root = FXMLLoader.load(getClass().getResource(AddEditRecipeController.AddEditRecipeResource));
+			Scene scene = new Scene(root,1249,837);
+			scene.getStylesheets().add(getClass().getResource(Main.cssResource).toExternalForm());
+			Main.primaryStage.setResizable(false);
+			Main.primaryStage.setScene(scene);
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void editOwnRecipe(Recipe recipe, int recipeID)
+	{
+		try
+		{
+			AddEditRecipeController.setEdit();
+			MainController.currentRecipe = recipe;
+			AddEditRecipeController.setCurrentRecipe(recipeID);
+			Parent root = FXMLLoader.load(getClass().getResource(AddEditRecipeController.AddEditRecipeResource));
+			Scene scene = new Scene(root,1249,837);
+			scene.getStylesheets().add(getClass().getResource(Main.cssResource).toExternalForm());
+			Main.primaryStage.setResizable(false);
+			Main.primaryStage.setScene(scene);
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	public void deleteOwnRecipe(Recipe recipe){

@@ -150,7 +150,7 @@ public class CookBook {
 	 *            the origin recipe
 	 * @return (Recipe) / a copy Recipe object of the specific Recipe
 	 */
-	public Recipe copy(Recipe origin) {
+	public static Recipe copy(Recipe origin) {
 
 		Recipe copyVersion;
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();

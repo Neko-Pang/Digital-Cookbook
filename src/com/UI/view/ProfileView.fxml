@@ -28,7 +28,7 @@
                               <Font name="Tarzan Regular" size="26.0" />
                            </font>
                         </Label>
-                        <Hyperlink layoutX="992.0" layoutY="165.0" prefHeight="55.0" prefWidth="182.0" styleClass="HyperLink" text="  +  create new recipe">
+                        <Hyperlink fx:id="createLink" layoutX="992.0" layoutY="165.0" prefHeight="55.0" prefWidth="182.0" styleClass="HyperLink" text="  +  create new recipe">
                            <font>
                               <Font size="17.0" />
                            </font>

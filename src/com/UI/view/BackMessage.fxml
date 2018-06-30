@@ -19,5 +19,15 @@
             <Font size="18.0" />
          </font>
       </Button>
+      <Button fx:id="confirmForCancel" layoutX="51.0" layoutY="150.0" mnemonicParsing="false" onKeyPressed="#loginEnter" prefHeight="46.0" prefWidth="88.0" styleClass="ComfirmButton" stylesheets="@com.UI.view.css" text="Confirm" textFill="WHITE" visible="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="cancel" layoutX="193.0" layoutY="150.0" mnemonicParsing="false" onKeyPressed="#loginEnter" prefHeight="46.0" prefWidth="88.0" styleClass="CancelButton" stylesheets="@com.UI.view.css" text="Cancel" visible="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

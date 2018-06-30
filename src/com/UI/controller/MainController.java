@@ -75,6 +75,8 @@ public class MainController implements Initializable {
 	public static RegisteredUser currentUser = null;
 
 	public static String RecipeSearch = null;
+	
+//	public static boolean addOrEdit = false;
 
 	public static int backPoint = 0;
 	
@@ -289,7 +291,15 @@ public class MainController implements Initializable {
 		}
 
 	}
-
+//	public static void setAdd()
+//	{
+//		addOrEdit = false;
+//	}
+//	
+//	public static void setEdit()
+//	{
+//		addOrEdit = true;
+//	}
 	// @Override
 	// public void run(){
 	//
