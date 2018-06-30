@@ -163,7 +163,7 @@
                         <String fx:value="BorderRadius" />
                      </styleClass>
                   </VBox>
-                  <VBox fx:id="prepRootVBox" layoutX="151.0" layoutY="940.0" prefHeight="188.0" prefWidth="950.0">
+                  <VBox fx:id="prepRootVBox" layoutX="151.0" layoutY="940.0" maxWidth="950.0" minWidth="950.0" prefHeight="188.0" prefWidth="950.0">
                      <children>
                         <AnchorPane maxWidth="948.0" minHeight="88.0" minWidth="948.0" prefHeight="88.0" prefWidth="948.0">
                            <children>
@@ -184,7 +184,7 @@
                               <Button fx:id="prepStepAddButton" layoutX="900.0" layoutY="23.0" mnemonicParsing="false" text="Add" />
                            </children>
                         </AnchorPane>
-                        <VBox fx:id="prepStepVBox" prefHeight="200.0" prefWidth="100.0" />
+                        <VBox fx:id="prepStepVBox" maxWidth="948.0" minWidth="948.0" prefHeight="200.0" prefWidth="100.0" />
                      </children>
                      <styleClass>
                         <String fx:value="Border" />

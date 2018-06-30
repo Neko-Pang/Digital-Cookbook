@@ -17,12 +17,17 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+
+/**
+ * the controller of BassMessageView
+ * @author MacroHard
+ * @version 1.0
+ */
 public class BackMessageController implements Initializable{
 	
 	
 	@FXML
 	private Label loginHint;
-	
 	@FXML
 	private Button confirm;
 	@FXML
@@ -30,39 +35,38 @@ public class BackMessageController implements Initializable{
 	@FXML
 	private Button cancel;
 	
-	
+	//the flag of message
 	public static int messageType;
 	
+	//the message context
 	public static String message;
 	
+	//showing stage
 	public static Stage stage ;
 	
+	//the load root
 	public static final String BackResourse = "/com/UI/view/BackMessage.fxml";
 	
 	public Label getLoginHint() {
 		return loginHint;
 	}
 
-
-
 	public void setLoginHint(Label loginHint) {
 		this.loginHint = loginHint;
 	}
-
-
 
 	public Button getConfirm() {
 		return confirm;
 	}
 
 
-
 	public void setConfirm(Button confirm) {
 		this.confirm = confirm;
 	}
 
-
-
+	/**
+	 * the initialize the view
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
@@ -93,6 +97,11 @@ public class BackMessageController implements Initializable{
 		stage.setAlwaysOnTop(true);
 	}
 	
+	
+	/**
+	 * to monitor the keyboard event to make enter as confirm
+	 * @param event
+	 */
 	public void loginEnter(javafx.scene.input.KeyEvent event){
 		
 		if(event.getCode() == KeyCode.ENTER){
@@ -100,6 +109,10 @@ public class BackMessageController implements Initializable{
 		}
 	}
 	
+	
+	/**
+	 * the interaction after clicking confirm button when login
+	 */
 	public final void confirmEvent(){
 		
 		
@@ -114,7 +127,9 @@ public class BackMessageController implements Initializable{
 		message = null;
 	}
 	
-	
+	/**
+	 * the interaction after clicking cancel button when the cancel button is visible
+	 */
 	public void confirmCancel()
 	{
 		stage.close();

@@ -5,6 +5,12 @@ import java.util.ArrayList;
 import java.io.Serializable;
 import java.sql.*;
 
+
+/**
+ * the Recipe model class
+ * @author MacroHard
+ * @version 1.0
+ */
 public class Recipe implements Serializable {
 
 	private ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
@@ -122,6 +128,10 @@ public class Recipe implements Serializable {
 		this.cookingTime = cookingTime;
 	}
 
+	
+	/**
+	 * Override the toString method to give the Recipe information
+	 */
 	@Override
 	public String toString() {
 		// To give the information of Name and Category

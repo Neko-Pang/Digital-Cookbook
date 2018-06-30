@@ -11,18 +11,43 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+
+/**
+ * The CookBook model class, fulfill the operation of other classes in logic layer
+ * @author MacorHard
+ * @version 1.0
+ */
 public class CookBook {
 	
 	
 	public static DatabaseController jDatabaseController = DatabaseController.getInstance();
 	private ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 	private String name;
+	
+	
+	public ArrayList<Recipe> getRecipes() {
+		return recipes;
+	}
+
+	public void setRecipes(ArrayList<Recipe> recipes) {
+		this.recipes = recipes;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	
 
 	/**
 	 * This method will add the parameter recipe into the ArrayList of recipes
 	 * and database
 	 * 
-	 * @param recipe
+	 * @param the recipe to add
 	 */
 	public void add(Recipe recipe) {
 
@@ -53,7 +78,7 @@ public class CookBook {
 	 * This method is to search the recipe by name and get the wanted recipe
 	 * 
 	 * @param name
-	 * @return
+	 * @return goalRecipes
 	 */
 	public ArrayList<Recipe> getRecipe(String name) {
 		
@@ -69,7 +94,7 @@ public class CookBook {
 	/**
 	 * This method is overloaded to get the recipe by ID from database
 	 * @param recipeID
-	 * @return
+	 * @return goalRecipe
 	 */
 	public Recipe getRecipe(int recipeID){
 		
@@ -80,22 +105,7 @@ public class CookBook {
 	}
 	
 	
-	public ArrayList<Recipe> getRecipes() {
-		return recipes;
-	}
-
-	public void setRecipes(ArrayList<Recipe> recipes) {
-		this.recipes = recipes;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
+	
 	/**
 	 * This method is to recalculate the amount of each ingredient based on the
 	 * changed serving ppl

@@ -4,6 +4,12 @@ import java.util.ArrayList;
 
 import com.UI.controller.MainController;
 
+
+/**
+ * the RegisteredUser model method
+ * @author rose
+ * @version 1.0
+ */
 public class RegisteredUser {
 
 	private String userName;
@@ -80,13 +86,18 @@ public class RegisteredUser {
 	}
 	
 	
+	/**
+	 * the register method to add the 
+	 */
 	public void register(){
 		DatabaseController jdbc = DatabaseController.getInstance();
 		jdbc.insertUser(this);
 		
 	}
 	
-	
+	/**
+	 * Overrider the toString method to give the user information
+	 */
 	@Override
 	public String toString() {
 		String userInfo = "Username: " + this.getUserName() + "\n"

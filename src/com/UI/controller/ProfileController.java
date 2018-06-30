@@ -45,6 +45,8 @@ public class ProfileController implements Initializable{
 	
 	int Y;
 	
+	public static int backPoint=0;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
@@ -67,8 +69,11 @@ public class ProfileController implements Initializable{
 
 		backgroundView.setImage(backgroundImage);
 		
-		backBtn.setOnAction(e->backToMain());
-		
+		if(backPoint == 0){
+			backBtn.setOnAction(e->backToMain());
+		}else if (backPoint == 1){
+			backBtn.setOnAction(e->backToRecipe());
+		}
 		
 	}
 	
@@ -265,6 +270,20 @@ public class ProfileController implements Initializable{
 		
 	}
 	
+	public void backToRecipe(){
+		
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource(RecipeViewController.RecipeResource));
+			Scene scene = new Scene(root, 1249, 837);
+			scene.getStylesheets().add(getClass().getResource(Main.cssResource).toExternalForm());
+			Main.primaryStage.setResizable(false);
+			Main.primaryStage.setScene(scene);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	
 	public void backToMain(){
 		

@@ -171,6 +171,7 @@ public class RecipeViewController implements Initializable{
 	
 	private void showProfile() {
 		
+		ProfileController.backPoint = 1;
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/com/UI/view/ProfileView.fxml"));
 			Scene scene = new Scene(root,1249,837);

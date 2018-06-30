@@ -1,3 +1,4 @@
+create schema if not exists cookbookdatabase;
 use cookbookdatabase;
 
 

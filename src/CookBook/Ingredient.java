@@ -2,6 +2,12 @@ package CookBook;
 
 import java.io.Serializable;
 
+
+/**
+ * the ingredient model class
+ * @author MacroHard
+ * @version 1.0
+ */
 public class Ingredient implements Serializable {
 
 	public String name;
@@ -59,6 +65,10 @@ public class Ingredient implements Serializable {
 		this.cookingWay = cookingWay;
 	}
 
+	
+	/**
+	 * Override the toString method to give the ingredient information
+	 */
 	@Override
 	public String toString() {
 		// this string is collection of all ingredient

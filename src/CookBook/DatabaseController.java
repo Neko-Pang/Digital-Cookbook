@@ -5,12 +5,10 @@ import java.sql.*;
 import java.util.ArrayList;
 
 
-
-
 /**
- * This class is realized in singleton pattern
- * @author rose
- *
+ * This class is to connect the database with logic layer,and it is realized in singleton pattern
+ * @author MacroHard
+ * @version 1.0
  */
 public class DatabaseController implements Serializable {
 	
@@ -37,13 +35,20 @@ public class DatabaseController implements Serializable {
 	private String dbPass = "xiaoxia12"
 			+ "";
 	
-	// Singleton Pattern
+	// To realize Singleton Pattern
 	private static DatabaseController instance = null;
 	
+	/**
+	 * to make constructor private
+	 */
 	private DatabaseController() {
 		this.conn = this.getConn();
 	}
 	
+	/**
+	 * To get the only object
+	 * @return the jdbc of singleton 
+	 */
 	public static DatabaseController getInstance() {
 		
 		if(instance == null){
@@ -53,6 +58,11 @@ public class DatabaseController implements Serializable {
 	    return instance;
 	}
 	
+	
+	/**
+	 * To get the connection to the database
+	 * @return connection 
+	 */
 	public Connection getConn() {
 		Connection conn = null;
 
@@ -152,7 +162,7 @@ public class DatabaseController implements Serializable {
 	/**
 	 * This method is to store the basic recipe information into database(recipe form)
 	 * @param recipe
-	 * @return
+	 * @return isSuccessRecipe/whether the information has been added to database
 	 */
 	public boolean insertRecipeBasicInfo(Recipe recipe){
 		
@@ -197,7 +207,7 @@ public class DatabaseController implements Serializable {
 	/**
 	 * this method is to store the ingredient information into database (ingredientusiinginfo form )
 	 * @param recipe
-	 * @return
+	 * @return isSuccessIngre/boolean
 	 */
 	public boolean insertRecipeIngreInfo(Recipe recipe){
 		
@@ -238,7 +248,7 @@ public class DatabaseController implements Serializable {
 	/**
 	 * this method is to store the preparation step into database(PreparationStep form)
 	 * @param recipe
-	 * @return
+	 * @return isSuccessPrep/boolean
 	 */
 	public Boolean insertRecipePrepStep(Recipe recipe){
 		
@@ -279,6 +289,12 @@ public class DatabaseController implements Serializable {
 	}
 	
 	
+	
+	/**
+	 * To update a recipe by a new recipe
+	 * @param recipeID
+	 * @param newRecipe
+	 */
 	public void updateRecipe(int recipeID, Recipe newRecipe){
 		
 		
@@ -527,8 +543,7 @@ public class DatabaseController implements Serializable {
 	/**
 	 * From the recipe, we need to add the ingredient into the ingredient table
 	 * 
-	 * @param the
-	 *            ingredient
+	 * @param the ingredient
 	 */
 	public void insertIngre(Ingredient ingre) {
 

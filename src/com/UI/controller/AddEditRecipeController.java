@@ -620,6 +620,8 @@ public class AddEditRecipeController implements Initializable
 			AnchorPane prepStepPane = new AnchorPane();
 			prepStepPane.setId("prepAP" + Integer.toString(i + 1));
 			prepStepPane.getStyleClass().add("Border");
+			prepStepPane.setMinSize(948, 88);
+			prepStepPane.setMaxSize(948, 88);
 			Label prepLabel = new Label(Integer.toString(i + 1) + ": " + addingPrepStep.get(i));
 			prepLabel.setMinSize(922, 100);
 			prepLabel.setMaxWidth(934);
@@ -674,6 +676,8 @@ public class AddEditRecipeController implements Initializable
 				downButton.setAlignment(Pos.BOTTOM_RIGHT);
 				prepStepPane.getChildren().addAll(downButton);
 			}
+			
+			
 			
 			prepStepVBox.getChildren().add(prepStepPane);
 			buttonVBox.setLayoutY(prepRootVBox.getLayoutY() + 60 + 88 + 120 * (addingPrepStep.size() + 1));

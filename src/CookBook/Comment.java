@@ -2,6 +2,12 @@ package CookBook;
 
 import java.io.Serializable;
 
+
+/**
+ * The Comment model class
+ * @author MacroHard
+ * @version 1.0
+ */
 public class Comment implements Serializable{
 
 	private int commentNo;
@@ -41,6 +47,10 @@ public class Comment implements Serializable{
 		this.context = context;
 	}
 	
+	
+	/**
+	 * Override the toString method to give the basic information of a Comment class
+	 */
 	@Override
 	public String toString() {
 		String str = "CommentID: " + this.getCommentNo() + "\n"
