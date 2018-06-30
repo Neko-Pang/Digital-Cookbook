@@ -40,27 +40,43 @@
       </Text>
       <HBox alignment="CENTER" blendMode="SRC_ATOP" layoutX="48.0" layoutY="576.0" prefHeight="206.0" prefWidth="200.0" styleClass="Hbox">
          <children>
-            <Hyperlink fx:id="randomRecipe1" styleClass="HyperLink" text="Hyperlink" textFill="#171717" />
+            <Hyperlink fx:id="randomRecipe1" styleClass="HyperLink" text="Hyperlink" textFill="#171717">
+               <font>
+                  <Font name="Centaur" size="21.0" />
+               </font>
+            </Hyperlink>
          </children>
       </HBox>
       <HBox alignment="CENTER" blendMode="SRC_ATOP" layoutX="540.0" layoutY="576.0" prefHeight="206.0" prefWidth="200.0" styleClass="Hbox">
          <children>
-            <Hyperlink fx:id="randomRecipe3" styleClass="HyperLink" text="Hyperlink" textFill="#171717" />
+            <Hyperlink fx:id="randomRecipe3" styleClass="HyperLink" text="Hyperlink" textFill="#171717">
+               <font>
+                  <Font name="Centaur" size="21.0" />
+               </font></Hyperlink>
          </children>
       </HBox>
       <HBox alignment="CENTER" blendMode="SRC_ATOP" layoutX="785.0" layoutY="576.0" prefHeight="206.0" prefWidth="200.0" styleClass="Hbox2">
          <children>
-            <Hyperlink fx:id="randomRecipe4" styleClass="HyperLink" text="Hyperlink" textFill="#171717" />
+            <Hyperlink fx:id="randomRecipe4" styleClass="HyperLink" text="Hyperlink" textFill="#171717">
+               <font>
+                  <Font name="Centaur" size="21.0" />
+               </font></Hyperlink>
          </children>
       </HBox>
       <HBox alignment="CENTER" blendMode="SRC_ATOP" layoutX="1027.0" layoutY="576.0" prefHeight="206.0" prefWidth="200.0" styleClass="Hbox">
          <children>
-            <Hyperlink fx:id="randomRecipe5" styleClass="HyperLink" text="Hyperlink" textFill="#171717" />
+            <Hyperlink fx:id="randomRecipe5" styleClass="HyperLink" text="Hyperlink" textFill="#171717">
+               <font>
+                  <Font name="Centaur" size="21.0" />
+               </font></Hyperlink>
          </children>
       </HBox>
       <HBox alignment="CENTER" blendMode="SRC_ATOP" layoutX="297.0" layoutY="576.0" prefHeight="206.0" prefWidth="200.0" styleClass="Hbox2">
          <children>
-            <Hyperlink fx:id="randomRecipe2" styleClass="HyperLink" text="Hyperlink" textFill="#171717" />
+            <Hyperlink fx:id="randomRecipe2" styleClass="HyperLink" text="Hyperlink" textFill="#171717">
+               <font>
+                  <Font name="Centaur" size="21.0" />
+               </font></Hyperlink>
          </children>
       </HBox>
       <Label fx:id="welcomeLabel" alignment="CENTER" layoutX="356.0" layoutY="357.0" prefHeight="27.0" prefWidth="522.0" textFill="#3f2594">

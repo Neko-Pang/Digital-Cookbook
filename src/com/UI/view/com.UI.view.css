@@ -12,7 +12,8 @@
 }
 
 .Hbox{
-	-fx-background-color: #aaaaaa;
+	-fx-background-color: rgba(170,170,170,0.5);
+	-fx-background-radius: 10;
 }
 
 .Hbox:hover{
@@ -20,7 +21,8 @@
 }
 
 .Hbox2{
-	-fx-background-color: #cccccc;
+	-fx-background-color: rgba(314,314,314,0.5);
+	-fx-background-radius: 10;
 }
 
 .Hbox2:hover{
