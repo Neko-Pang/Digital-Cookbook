@@ -32,8 +32,7 @@ public class DatabaseController implements Serializable {
 	 * your username and the password of mysql
 	 */
 	private String dbUser = "root";
-	private String dbPass = "xiaoxia12"
-			+ "";
+	private String dbPass = "xiaoxia12";
 	
 	// To realize Singleton Pattern
 	private static DatabaseController instance = null;
@@ -91,7 +90,7 @@ public class DatabaseController implements Serializable {
 	 * This method is to add the recipe information into database and return a
 	 * boolean to show the process
 	 * 
-	 * @param recipe
+	 * @param recipe/the goal recipe
 	 * @return isSuccess / whether the method succeeds
 	 */
 	public Boolean insertRecipe(Recipe recipe) {
@@ -161,7 +160,7 @@ public class DatabaseController implements Serializable {
 	
 	/**
 	 * This method is to store the basic recipe information into database(recipe form)
-	 * @param recipe
+	 * @param recipe/the goal recipe
 	 * @return isSuccessRecipe/whether the information has been added to database
 	 */
 	public boolean insertRecipeBasicInfo(Recipe recipe){
@@ -206,7 +205,7 @@ public class DatabaseController implements Serializable {
 	
 	/**
 	 * this method is to store the ingredient information into database (ingredientusiinginfo form )
-	 * @param recipe
+	 * @param recipe/the goal recipe
 	 * @return isSuccessIngre/boolean
 	 */
 	public boolean insertRecipeIngreInfo(Recipe recipe){
@@ -247,7 +246,7 @@ public class DatabaseController implements Serializable {
 	
 	/**
 	 * this method is to store the preparation step into database(PreparationStep form)
-	 * @param recipe
+	 * @param recipe/the goal recipe
 	 * @return isSuccessPrep/boolean
 	 */
 	public Boolean insertRecipePrepStep(Recipe recipe){
@@ -292,8 +291,8 @@ public class DatabaseController implements Serializable {
 	
 	/**
 	 * To update a recipe by a new recipe
-	 * @param recipeID
-	 * @param newRecipe
+	 * @param recipeID / the id of the origin recipe
+	 * @param newRecipe / the latest recipe
 	 */
 	public void updateRecipe(int recipeID, Recipe newRecipe){
 		
@@ -350,8 +349,8 @@ public class DatabaseController implements Serializable {
 	
 	/**
 	 * this method is to update the new ingredient information
-	 * @param recipeID
-	 * @param newRecipe
+	 * @param recipeID/the id of the recipe
+	 * @param newRecipe/the latest recipe
 	 */
 	public void updateIngreInfo(int recipeID, Recipe newRecipe){
 		
@@ -363,8 +362,8 @@ public class DatabaseController implements Serializable {
 	
 	/**
 	 * this method is to update the new preparation steps
-	 * @param recipeID
-	 * @param newRecipe
+	 * @param recipeID/the id of the recipe
+	 * @param newRecipe/the latest recipe
 	 */
 	public void updatePrepStep(int recipeID, Recipe newRecipe){
 		
@@ -377,8 +376,7 @@ public class DatabaseController implements Serializable {
 	/**
 	 * Delete the recipe by recipeID and return a boolean to check the process
 	 * 
-	 * @param recipeID
-	 *            / the ID of recipe
+	 * @param recipeID/the ID of recipe
 	 * @return isDeleted
 	 */
 	public Boolean deleteRecipe(int recipeID) {
@@ -414,8 +412,8 @@ public class DatabaseController implements Serializable {
 	
 	/**
 	 * this method is to delete basic information of recipe from database (recipe form)
-	 * @param recipeID
-	 * @return
+	 * @param recipeID/the id of the recipe
+	 * @return isDeleted/boolean
 	 */
 	public boolean deleteRecipeBasicInfo(int recipeID){
 		
@@ -457,8 +455,8 @@ public class DatabaseController implements Serializable {
 	
 	/**
 	 * this method is to delete ingredient information from the database(ingredientusinginfo form)
-	 * @param recipeID
-	 * @return
+	 * @param recipeID/the id of the recipe
+	 * @return isDeleted/boolean
 	 */
 	public boolean deleteRecipeIngreInfo(int recipeID){
 		boolean isDeleted = false;
@@ -500,8 +498,8 @@ public class DatabaseController implements Serializable {
 	
 	/**
 	 * this method is to delete preparation step from database(PreparationStep form)
-	 * @param recipeID
-	 * @return
+	 * @param recipeID/the id of the recipe
+	 * @return isDeleted
 	 */
 	public boolean deleteRecipePrepStep(int recipeID){
 	
@@ -543,7 +541,7 @@ public class DatabaseController implements Serializable {
 	/**
 	 * From the recipe, we need to add the ingredient into the ingredient table
 	 * 
-	 * @param the ingredient
+	 * @param ingre/The goal ingredient 
 	 */
 	public void insertIngre(Ingredient ingre) {
 
@@ -580,8 +578,8 @@ public class DatabaseController implements Serializable {
 	 * To get the recipe from the database by name, because the name can be
 	 * duplicated so we need an arraylist to store the recipes
 	 * 
-	 * @param recipeName
-	 * @return
+	 * @param recipeName/the name of the recipe
+	 * @return goalRecipe
 	 */
 	public ArrayList<Recipe> searchRecipe(String recipeName) {
 
@@ -641,8 +639,8 @@ public class DatabaseController implements Serializable {
 
 	/**
 	 * This method is an overload one , to search recipe by recipeID
-	 * @param recipeID
-	 * @return
+	 * @param recipeID/the id of the recipe
+	 * @return recipe
 	 */
 	public Recipe searchRecipe(int recipeID){
 		
@@ -691,8 +689,8 @@ public class DatabaseController implements Serializable {
 	
 	/**
 	 * this method is to search recipe by accountID
-	 * @param ID
-	 * @return
+	 * @param ID/the id of the recipe
+	 * @return goalRecipe
 	 */
 	public ArrayList<Recipe> searchRecipeByAccount(int ID) {
 
@@ -751,8 +749,8 @@ public class DatabaseController implements Serializable {
 	 * This method is to get the ingredient information from database by
 	 * recipeID
 	 * 
-	 * @param RecipeID
-	 * @return
+	 * @param RecipeID/the id of the recipe
+	 * @return goalIngre
 	 */
 	public ArrayList<Ingredient> searchIngre(int RecipeID) {
 		ArrayList<Ingredient> goalIngre = new ArrayList<Ingredient>();
@@ -826,8 +824,8 @@ public class DatabaseController implements Serializable {
 	
 	/**
 	 * store user information into database(user)
-	 * @param registeredUser
-	 * @return
+	 * @param registeredUser/the registered user
+	 * @return isSuccess
 	 */
 	public boolean insertUser(RegisteredUser registeredUser) {
 		int result = 0;
@@ -864,7 +862,11 @@ public class DatabaseController implements Serializable {
 	}
 	
 	
-	
+	/**
+	 * to add comment to database
+	 * @param comment /the goal comment object
+	 * @return isSuccess
+	 */
 	public boolean insertComment(Comment comment) {
 		int result = 0;
 		boolean isSuccess = false;
@@ -890,8 +892,8 @@ public class DatabaseController implements Serializable {
 	
 	/**
 	 * This method is to get the specific user by Username
-	 * @param name
-	 * @return
+	 * @param name/the username
+	 * @return RegisteredUser
 	 */
 	public RegisteredUser searchUser(String name){
 		
@@ -926,7 +928,11 @@ public class DatabaseController implements Serializable {
 		return user;
 	}
 	
-	
+	/**
+	 * To search User in the database by accountID
+	 * @param accountID/The id of the account
+	 * @return RegisteredUser of certain ID
+	 */
 	public RegisteredUser searchUser(int accountID){
 		RegisteredUser registeredUser = new RegisteredUser();
 		try {
@@ -951,7 +957,11 @@ public class DatabaseController implements Serializable {
 	}
 	
 	
-	
+	/**
+	 * To search recipe in the database by recipeID
+	 * @param recipeID/the id of the recipe
+	 * @return a list of recipe
+	 */
 	public ArrayList<Comment> searchCommentByRecipe(int recipeID) {
 		ArrayList<Comment> resultComment = new ArrayList<Comment>();
 		int accountID = 0;
@@ -977,6 +987,11 @@ public class DatabaseController implements Serializable {
 		return resultComment;
 	}
 	
+	/**
+	 * to search comment by accountID
+	 * @param accountID/the id of the account
+	 * @return a list of comments
+	 */
 	public ArrayList<Comment> searchCommentByAccount(int accountID) {
 		ArrayList<Comment> resultComment = new ArrayList<Comment>();
 		int recipeID = 0;
@@ -1004,10 +1019,10 @@ public class DatabaseController implements Serializable {
 	
 	/**
 	 * Delete the comment
-	 * @param recipeID
-	 * @param accountID
-	 * @param commentID
-	 * @return
+	 * @param recipeID/the id of the recipe
+	 * @param accountID/the id of the account
+	 * @param commentNo/the number of the comment
+	 * @return isDeleted/boolean
 	 */
 	public boolean deleteComment(int recipeID, int accountID, int commentNo){
 		boolean isDeleted = false;
@@ -1038,6 +1053,10 @@ public class DatabaseController implements Serializable {
 	}
 	
 	
+	/**
+	 * To get all the recipeID in the database
+	 * @return idList
+	 */
 	public ArrayList<Integer> getAllRecipeID(){
 		String str = "select * from recipe";
 		ArrayList<Integer> idList = new ArrayList<Integer>();

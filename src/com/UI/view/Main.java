@@ -13,6 +13,12 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * The entry of the software
+ * @author MacroHard
+ * @version 1.0
+ *
+ */
 public class Main extends Application{
 	
 	public static Stage primaryStage = new Stage();
@@ -40,7 +46,6 @@ public class Main extends Application{
 			//set the scene into the stage and show
 			Scene scene = new Scene(root,1249,837);
 			scene.getStylesheets().add(getClass().getResource(cssResource).toExternalForm());
-			MainController.MainScene = scene;
 			primaryStage.setResizable(false);
 			primaryStage.setScene(scene);
 			primaryStage.show();

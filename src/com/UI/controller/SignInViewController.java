@@ -50,8 +50,10 @@ public class SignInViewController extends Thread implements Initializable{
 	
 	public static Stage substage = Main.subStage1;
 	
+	//The flag for stop checking the username and password
 	private boolean stopme = true;
 	
+	//database controller
 	DatabaseController jdbc = DatabaseController.getInstance();
 	
 	
@@ -124,7 +126,7 @@ public class SignInViewController extends Thread implements Initializable{
 	
 	
 	/**
-	 * 
+	 * To check if the password is legal
 	 */
 	public void passwordCheck(){
 		
@@ -167,6 +169,9 @@ public class SignInViewController extends Thread implements Initializable{
 		
 	}
 	
+	/**
+	 * To check if the repeated password is the same as the password
+	 */
 	public void passwordRepeatCheck(){
 		
 		
@@ -206,7 +211,7 @@ public class SignInViewController extends Thread implements Initializable{
 	
 
 	/**
-	 * 
+	 * Comfirm the account registry and add the user into the database
 	 */
 	public void comfirm(){
 		

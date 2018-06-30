@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.effect.*?>
@@ -11,20 +13,23 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="837.0" prefWidth="1287.0" styleClass="scene" stylesheets="@com.UI.view.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.UI.controller.MainController">
    <children>
-      <ImageView fx:id="backgroundImageView" fitHeight="843.0" fitWidth="1287.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="backgroundImageView" fitHeight="941.0" fitWidth="1611.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+         <viewport>
+            <Rectangle2D height="700.0" width="1200.0" />
+         </viewport></ImageView>
       <Hyperlink fx:id="login" layoutX="885.0" layoutY="61.0" prefHeight="44.0" prefWidth="88.0" text="Login">
          <font>
-            <Font size="23.0" />
+            <Font name="System Bold Italic" size="23.0" />
          </font>
       </Hyperlink>
       <Hyperlink fx:id="signIn" layoutX="978.0" layoutY="61.0" prefHeight="44.0" prefWidth="241.0" stylesheets="@com.UI.view.css" text="No account? Sign in!" textFill="#171717">
          <font>
-            <Font size="23.0" />
+            <Font name="System Bold Italic" size="23.0" />
          </font>
       </Hyperlink>
-      <Text fill="#4e6bf8" layoutX="394.0" layoutY="228.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Digital Cookbook" wrappingWidth="499.763671875">
+      <Text fill="#4f6ef7" layoutX="394.0" layoutY="228.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Digital Cookbook" wrappingWidth="499.763671875">
          <font>
-            <Font name="Bell MT" size="36.0" />
+            <Font name="Bell MT Bold" size="36.0" />
          </font>
       </Text>
       <Text layoutX="771.0" layoutY="257.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Powered by Macrohard" wrappingWidth="201.41015625">

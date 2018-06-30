@@ -36,8 +36,9 @@ import javafx.scene.text.Font;
 import javafx.stage.*;
 
 /**
- * @author KaiwenZhou
- *
+ * The controller of AddEditRecipeView
+ * @author MacroHard
+ * @version 1.0
  */
 public class AddEditRecipeController implements Initializable
 {
@@ -89,6 +90,8 @@ public class AddEditRecipeController implements Initializable
 	private static boolean setEdit = false;
 	private ArrayList<Ingredient> addingIngredient = new ArrayList<Ingredient>();
 	private ArrayList<String> addingPrepStep = new ArrayList<String>();
+	
+	//the route of fxml
 	public static final String AddEditRecipeResource = "/com/UI/view/AddEditRecipe.fxml";
 
 	public static void setCurrentRecipe(int recipeID)
@@ -124,6 +127,8 @@ public class AddEditRecipeController implements Initializable
 
 			confirmButton.setOnAction(e -> uploadRecipe());
 			cancelButton.setOnAction(e -> cancel());
+			buttonVBox.setLayoutX(162);
+			buttonVBox.setLayoutY(1198);
 		} else
 		{
 			ingreAddButton.setOnAction(e -> addIngre());
@@ -154,6 +159,10 @@ public class AddEditRecipeController implements Initializable
 		}
 	}
 
+	
+	/**
+	 * To add ingredient to a new/edited recipe
+	 */
 	public void addIngre()
 	{
 		Pattern pattern = Pattern.compile("^[0-9]+\\.{0,1}[0-9]{0,2}$");
@@ -239,6 +248,10 @@ public class AddEditRecipeController implements Initializable
 		}
 	}
 
+	/**
+	 * To delete an ingredient when edit/add a recipe
+	 * @param ingrePaneNo/the number of the ingredient pane
+	 */
 	public void deleteIngre(String ingrePaneNo)
 	{
 
@@ -379,6 +392,10 @@ public class AddEditRecipeController implements Initializable
 
 	}
 
+	
+	/**
+	 * Show the existed ingredients of a recipe when edit/add a recipe
+	 */
 	public void loadAddingIngre()
 	{
 		int i = 0;
@@ -479,6 +496,9 @@ public class AddEditRecipeController implements Initializable
 
 	}
 
+	/**
+	 * The event is to a new step into the edited/new recipe
+	 */
 	public void addPrepStep()
 	{
 		if (prepStepTextField.getText().trim().equals(""))
@@ -528,7 +548,11 @@ public class AddEditRecipeController implements Initializable
 			prepStepTextField.clear();
 		}
 	}
-
+	
+	/**
+	 * To delete a preparation step
+	 * @param prepPaneNo/the number of the preparation pane
+	 */
 	public void deletePrep(String prepPaneNo)
 	{
 		String regEx = "[^0-9]";
@@ -539,6 +563,12 @@ public class AddEditRecipeController implements Initializable
 		loadAddingPrep();
 	}
 
+	
+	/**
+	 * To edit a preparation step
+	 * @param prepPaneNo/the number of the preparation pane
+	 * @param parentNode/the parent pane
+	 */
 	public void editPrep(String prepPaneNo, AnchorPane parentNode)
 	{
 		String regEx = "[^0-9]";
@@ -611,6 +641,9 @@ public class AddEditRecipeController implements Initializable
 		parentNode.getChildren().addAll(prepTextField1, prepEditConfirmButton);
 	}
 
+	/**
+	 * Show the existed preparation of a recipe when edit/add a recipe
+	 */
 	public void loadAddingPrep()
 	{
 		int i = 0;
@@ -676,8 +709,9 @@ public class AddEditRecipeController implements Initializable
 				downButton.setAlignment(Pos.BOTTOM_RIGHT);
 				prepStepPane.getChildren().addAll(downButton);
 			}
-			
-			
+
+			prepDeleteButton.setOnAction(e -> deletePrep(prepStepPane.getId()));
+			prepEditButton.setOnAction(e -> editPrep(prepStepPane.getId(),prepStepPane));
 			
 			prepStepVBox.getChildren().add(prepStepPane);
 			buttonVBox.setLayoutY(prepRootVBox.getLayoutY() + 60 + 88 + 120 * (addingPrepStep.size() + 1));
@@ -689,6 +723,9 @@ public class AddEditRecipeController implements Initializable
 
 	}
 
+	/**
+	 * Upload a new recipe after fulfill it
+	 */
 	public void uploadRecipe()
 	{
 
@@ -725,6 +762,10 @@ public class AddEditRecipeController implements Initializable
 		}
 	}
 
+	
+	/**
+	 * update a recipe after edit it
+	 */
 	public void updateRecipe()
 	{
 		if (checkBasicInfo())
@@ -753,6 +794,9 @@ public class AddEditRecipeController implements Initializable
 		}
 	}
 
+	/**
+	 * To go back to the profile view
+	 */
 	public void backToProfile()
 	{
 		try
@@ -770,6 +814,10 @@ public class AddEditRecipeController implements Initializable
 
 	}
 
+	
+	/**
+	 * Cancel the edit process and go back to the profile view 
+	 */
 	public void cancel()
 	{
 
@@ -790,6 +838,10 @@ public class AddEditRecipeController implements Initializable
 		}
 	}
 
+	/**
+	 * To check the boundary of the basic information of the recipe
+	 * @return boolean
+	 */
 	public boolean checkBasicInfo()
 	{
 		Pattern pattern1 = Pattern.compile("^[0-9]+$");
@@ -863,6 +915,9 @@ public class AddEditRecipeController implements Initializable
 
 	}
 
+	/**
+	 * To clear up all the input field
+	 */
 	public void clearUp()
 	{
 		recipeTitleTextField.clear();

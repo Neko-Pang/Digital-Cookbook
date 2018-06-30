@@ -98,6 +98,7 @@ public class RecipeViewController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
+		
 		goalRecipe1 = SearchResultController.goalRecipe1;
 		currentRecipe = MainController.currentRecipe;
 		
@@ -168,7 +169,9 @@ public class RecipeViewController implements Initializable{
 	}
 
 	
-	
+	/**
+	 * The event to show profile, switch the view to the profile view
+	 */
 	private void showProfile() {
 		
 		ProfileController.backPoint = 1;
@@ -185,7 +188,9 @@ public class RecipeViewController implements Initializable{
 		
 	}
 
-
+	/**
+	 * The initialization to show ingredient part of a recipe
+	 */
 	public void setIngredientLabel(){
 		
 		for (int i = 0; i < currentRecipe.getIngredients().size(); i++) {
@@ -242,7 +247,7 @@ public class RecipeViewController implements Initializable{
 	
 	
 	/**
-	 * To show the preparation steps
+	 * The initialization to show the preparation parts of a recipe
 	 */
 	public void setPrepStepLabel(){
 		
@@ -277,8 +282,8 @@ public class RecipeViewController implements Initializable{
 	}
 	
 	/**
-	 * To show the comments
-	 * @param comments
+	 * The initialization to show the comment part
+	 * @param comments/the list of the user's comments 
 	 */
 	public void setComment(ArrayList<Comment> comments){
 		
@@ -401,6 +406,10 @@ public class RecipeViewController implements Initializable{
 		
 	}
 	
+	/**
+	 * The event to delete the certain comment
+	 * @param comment/the goal comment
+	 */
 	public void deleteComment(Comment comment){
 		
 		MainController.jdbc.deleteComment(comment.getRecipeID(), comment.getAccountID(), comment.getCommentNo());
@@ -416,13 +425,15 @@ public class RecipeViewController implements Initializable{
 		
 	}
 	
+	/**
+	 * To go back to the main interface
+	 */
 	public void backToMainInterface(){
 		
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(MainController.MainResourse));
 			Parent root = loader.load();
 			Scene refresh = new Scene(root, 1249, 837);
-			MainController.MainScene = refresh;
 			Main.primaryStage.setScene(refresh);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -431,6 +442,9 @@ public class RecipeViewController implements Initializable{
 		
 	}
 
+	/**
+	 * The search event when the user use go button to search recipes
+	 */
 	public void searchResult() {
 
 		try {
@@ -452,6 +466,9 @@ public class RecipeViewController implements Initializable{
 
 	}
 	
+	/**
+	 * The event to recalculate the amount of ingredients by inputing a new serving people
+	 */
 	public void recalculate(){
 		
 		String str = recalText.getText();
@@ -475,6 +492,10 @@ public class RecipeViewController implements Initializable{
 		
 	}
 	
+	
+	/**
+	 * The event to delete the showing recipe
+	 */
 	public void deleteRecipe(){
 		
 		MainController.jdbc.deleteRecipe(currentRecipe.getRecipeID());
@@ -492,6 +513,9 @@ public class RecipeViewController implements Initializable{
 		
 	}
 	
+	/**
+	 * The event to go back to profile view
+	 */
 	public void backToProfile() {
 
 		try {
@@ -507,7 +531,10 @@ public class RecipeViewController implements Initializable{
 
 	}
 	
-	
+	/**
+	 * The login event
+	 * @param subStage/The stage to show login
+	 */
 	public void showLogin(Stage subStage) {
 
 		subStage.setTitle("Login");
@@ -527,6 +554,10 @@ public class RecipeViewController implements Initializable{
 
 	}
 
+	/**
+	 * The signin event
+	 * @param substage/the stage to show signin
+	 */
 	public void showSignIn(Stage substage) {
 
 		substage.setTitle("Sign in");

@@ -17,6 +17,7 @@ public class CommentTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		
+		//create a new comment
 		testcomment = new Comment();
 		testcomment.setAccountID(1);
 		testcomment.setCommentNo(2);
@@ -24,6 +25,7 @@ public class CommentTest {
 		testcomment.setContext("for test only");
 		
 	}
+
 
 	@Test
 	public void AAtestToString() {

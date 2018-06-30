@@ -47,7 +47,7 @@ public class CookBook {
 	 * This method will add the parameter recipe into the ArrayList of recipes
 	 * and database
 	 * 
-	 * @param the recipe to add
+	 * @param recipe/the goal recipe
 	 */
 	public void add(Recipe recipe) {
 
@@ -59,8 +59,9 @@ public class CookBook {
 	
 	/**
 	 * To update the recipe by a newly edited version
-	 * @param recipeID
-	 * @param newRecipe
+	 * @param originRecipe /the origin recipe
+	 * @param newRecipe /the latest recipe
+	 * @return originRecipe
 	 */
 	public Recipe updateRecipe(Recipe originRecipe, Recipe newRecipe){
 		
@@ -77,7 +78,7 @@ public class CookBook {
 	/**
 	 * This method is to search the recipe by name and get the wanted recipe
 	 * 
-	 * @param name
+	 * @param name: the name of the wanted recipe
 	 * @return goalRecipes
 	 */
 	public ArrayList<Recipe> getRecipe(String name) {
@@ -93,7 +94,7 @@ public class CookBook {
 	
 	/**
 	 * This method is overloaded to get the recipe by ID from database
-	 * @param recipeID
+	 * @param recipeID/the id of the recipe
 	 * @return goalRecipe
 	 */
 	public Recipe getRecipe(int recipeID){
@@ -110,10 +111,8 @@ public class CookBook {
 	 * This method is to recalculate the amount of each ingredient based on the
 	 * changed serving ppl
 	 * 
-	 * @param originRecipe/the
-	 *            orginal version of the recipe
-	 * @param changedservingPpl/the
-	 *            reseted number of the recipe
+	 * @param originRecipe/the orginal version of the recipe
+	 * @param changedServingPpl/the reseted number of the recipe
 	 * @return the new recipe(but this recipe will not be stored into the
 	 *         database)
 	 */
@@ -240,7 +239,7 @@ public class CookBook {
 	
 	/**
 	 * To delete the recipe from the cookbook and database
-	 * @param recipe
+	 * @param recipe/the goal recipe
 	 * @return isDeleted
 	 */
 	public Boolean deleteRecipe(Recipe recipe){

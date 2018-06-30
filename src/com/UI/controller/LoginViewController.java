@@ -31,17 +31,20 @@ public class LoginViewController implements Initializable {
 	@FXML
 	private TextField password;
 	
+	//database controller
 	DatabaseController jdbc = DatabaseController.getInstance();
+	
+	//boolean for account confirmation
 	private static boolean isUserExist = false;
 	private static boolean isPasswordCorrect = false;
 	
+	//the using stage
 	private static Stage stage = Main.subStage1;
 	
 	public static Stage getStage() {
 		return stage;
 	}
 
-	
 	
 	public static boolean isUserExist() {
 		return isUserExist;
@@ -76,6 +79,10 @@ public class LoginViewController implements Initializable {
 		
 	}
 	
+	/**
+	 * Make enter key works
+	 * @param event/the keyboard event
+	 */
 	public void loginEnter(javafx.scene.input.KeyEvent event){
 		
 		if(event.getCode() == KeyCode.ENTER){
@@ -83,7 +90,9 @@ public class LoginViewController implements Initializable {
 		}
 	}
 	
-	
+	/**
+	 * the event for clicking confirm button in LoginView
+	 */
 	public void confirm(){
 		
 		
@@ -106,7 +115,6 @@ public class LoginViewController implements Initializable {
 						FXMLLoader loader = new FXMLLoader(getClass().getResource(MainController.MainResourse));
 						Parent root = loader.load();
 						Scene refresh = new Scene(root, 1249, 837);
-						MainController.MainScene = refresh;
 						Main.primaryStage.setScene(refresh);
 						
 					}else if(MainController.loginPoint == 1){

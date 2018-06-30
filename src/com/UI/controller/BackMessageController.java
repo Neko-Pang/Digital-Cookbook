@@ -100,7 +100,7 @@ public class BackMessageController implements Initializable{
 	
 	/**
 	 * to monitor the keyboard event to make enter as confirm
-	 * @param event
+	 * @param event/the keyboard event
 	 */
 	public void loginEnter(javafx.scene.input.KeyEvent event){
 		
@@ -128,7 +128,7 @@ public class BackMessageController implements Initializable{
 	}
 	
 	/**
-	 * the interaction after clicking cancel button when the cancel button is visible
+	 * the interaction after clicking cancel button when add and edit recipe
 	 */
 	public void confirmCancel()
 	{
@@ -151,6 +151,9 @@ public class BackMessageController implements Initializable{
 		
 	}
 	
+    /**
+     * the interaction after clicking cancel button when login in
+     */
 	public void cancel()
 	{
 		stage.close();

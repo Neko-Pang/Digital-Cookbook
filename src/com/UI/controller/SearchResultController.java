@@ -30,6 +30,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * The controller of search view
+ * @author MacroHard
+ * @version 1.0
+ */
 public class SearchResultController implements Initializable
 {
 
@@ -78,8 +83,6 @@ public class SearchResultController implements Initializable
 
 	public static Scene ResultScene;
 
-//	private static Stage subStage = new Stage();
-
 	public static final String RecipeResource = "/com/UI/view/SearchResult.fxml";
 
 	public static ArrayList<Recipe> currentRecipeList = null;
@@ -115,6 +118,8 @@ public class SearchResultController implements Initializable
 
 		signout.setOnAction(e -> signOut());
 
+		
+		// to show the next page when the user click the next page button
 		nextPage.setOnAction(e ->
 		{
 
@@ -193,6 +198,8 @@ public class SearchResultController implements Initializable
 			page.setText(p);
 		});
 
+		
+		//to show the last page when the user click the last page button
 		lastPage.setOnAction(e ->
 		{
 			if (i >= 5)
@@ -365,6 +372,11 @@ public class SearchResultController implements Initializable
 
 	}
 
+	
+	/**
+	 * To go to the recipe view and show the chosen recipe
+	 * @param i: the number of the recipe
+	 */
 	public void showRecipe(int i)
 	{
 
@@ -387,6 +399,9 @@ public class SearchResultController implements Initializable
 
 	}
 
+	/**
+	 * To show the search result
+	 */
 	public void searchResult()
 	{
 
@@ -410,22 +425,10 @@ public class SearchResultController implements Initializable
 
 	}
 
-//	public void backToMainInterfaceOrSearchReuslt()
-//	{
-//		FXMLLoader loader = new FXMLLoader(getClass().getResource(MainController.MainResourse));
-//		Parent root;
-//		try {
-//			root = loader.load();
-//			Scene refresh = new Scene(root, 1249, 837);
-//			
-//			Main.primaryStage.setScene(refresh);
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	
-//	}
-
+	/**
+	 * The login event
+	 * @param subStage/the stage to show login
+	 */
 	public void showLogin(Stage subStage)
 	{
 
@@ -447,7 +450,11 @@ public class SearchResultController implements Initializable
 		}
 
 	}
-
+	
+	/**
+	 * The signin event
+	 * @param substage/the stage
+	 */
 	public void showSignIn(Stage substage)
 	{
 
@@ -469,6 +476,9 @@ public class SearchResultController implements Initializable
 
 	}
 
+	/**
+	 * The signout event
+	 */
 	public void signOut()
 	{
 
@@ -480,6 +490,9 @@ public class SearchResultController implements Initializable
 
 	}
 
+	/**
+	 * To go back to the main interface
+	 */
 	public void backToMainInterface()
 	{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(MainController.MainResourse));

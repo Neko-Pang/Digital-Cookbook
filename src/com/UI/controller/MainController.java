@@ -10,6 +10,7 @@ import java.util.Set;
 import javax.security.auth.Refreshable;
 
 import com.UI.view.Main;
+import com.mysql.cj.jdbc.jmx.LoadBalanceConnectionGroupManager;
 
 import CookBook.CookBook;
 import CookBook.DatabaseController;
@@ -60,9 +61,9 @@ public class MainController implements Initializable {
 	@FXML
 	private TextField searchBox;
 
+	
+	//Database controller
 	public static DatabaseController jdbc = DatabaseController.getInstance();
-
-	public static Scene MainScene;
 
 	public static final String MainResourse = "/com/UI/view/MainInterface.fxml";
 
@@ -75,11 +76,11 @@ public class MainController implements Initializable {
 	public static RegisteredUser currentUser = null;
 
 	public static String RecipeSearch = null;
-	
-//	public static boolean addOrEdit = false;
 
+	//the flag for back event
 	public static int backPoint = 0;
 	
+	//the float for login event
 	public static int loginPoint = 0;
 	
 	public Label getWelcomeLabel() {
@@ -142,6 +143,9 @@ public class MainController implements Initializable {
 	
 	}
 
+	/**
+	 * To give 5 random recipes from database that users may like
+	 */
 	public void givingRandomRecipe() {
 
 		CookBook cB = new CookBook("test");
@@ -179,10 +183,17 @@ public class MainController implements Initializable {
 		
 	}
 
+	
+	/**
+	 * the event after users clicked login link
+	 * @param subStage/The stage for login
+	 */
 	public void showLogin(Stage subStage) {
 
 		subStage.setTitle("Login");
 		loginPoint = 0 ;
+		
+		//load the view
 		try {
 
 			Parent root = FXMLLoader.load(getClass().getResource("/com/UI/view/LoginView.fxml"));
@@ -198,15 +209,21 @@ public class MainController implements Initializable {
 
 	}
 
-	public void showSignIn(Stage substage) {
+	/**
+	 * the event after users clicked Signin link
+	 * @param subStage/the stage for signin
+	 */
+	public void showSignIn(Stage subStage) {
 
-		substage.setTitle("Sign in");
+		subStage.setTitle("Sign in");
+		
+		//load the view
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/com/UI/view/SignInView.fxml"));
 			Scene scene = new Scene(root, 592, 684);
-			substage.setScene(scene);
-			substage.setResizable(false);
-			substage.showAndWait();
+			subStage.setScene(scene);
+			subStage.setResizable(false);
+			subStage.showAndWait();
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -215,6 +232,10 @@ public class MainController implements Initializable {
 
 	}
 
+	
+	/**
+	 * To show welcome label and profile link after the user logged in
+	 */
 	public void showWelcomeandProfile() {
 
 		System.out.println("1");
@@ -225,7 +246,10 @@ public class MainController implements Initializable {
 		this.signout.setVisible(true);
 
 	}
-
+	
+	/**
+	 * The event after a logged in user click sign out link
+	 */
 	public void signOut() {
 
 		MainController.currentUser = null;
@@ -237,6 +261,11 @@ public class MainController implements Initializable {
 
 	}
 
+	
+	/**
+	 * the event after the user clicked a recipe name link
+	 * @param link of the goal recipe
+	 */
 	public void showRecipe1(Hyperlink link) {
 
 		try {
@@ -257,6 +286,10 @@ public class MainController implements Initializable {
 
 	}
 
+	
+	/**
+	 * The event after the user clicked my profile link
+	 */	
 	public void showProfile() {
 
 		try {
@@ -272,6 +305,9 @@ public class MainController implements Initializable {
 
 	}
 
+	/**
+	 * The event after the user clicked the search Go button
+	 */
 	public void searchResult() {
 
 		try {
@@ -291,50 +327,5 @@ public class MainController implements Initializable {
 		}
 
 	}
-//	public static void setAdd()
-//	{
-//		addOrEdit = false;
-//	}
-//	
-//	public static void setEdit()
-//	{
-//		addOrEdit = true;
-//	}
-	// @Override
-	// public void run(){
-	//
-	// while(true){
-	//
-	// try {
-	// Thread.sleep(200);
-	// } catch (InterruptedException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	//
-	// //System.out.println(isWelcomeandProfileShow);
-	//
-	// if(isWelcomeandProfileShow){
-	//
-	//
-	// /**
-	// * !!!!!!!!!!!!!!!
-	// * !!!!!!!!!!!!!!!
-	// * !!!!!!!!!!!!!!!
-	// * When we need to start a thread in fx application and
-	// * if this thread is related to fx application,
-	// * Platform.runLater() is the best choice
-	// */
-	// Platform.runLater(()->showWelcomeandProfile());
-	//
-	//
-	//
-	//
-	// }else{
-	//
-	// }
-	// }
-	//
-	//
-	// }
+
 }

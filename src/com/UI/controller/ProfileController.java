@@ -43,13 +43,17 @@ public class ProfileController implements Initializable{
 	@FXML
 	private Hyperlink createLink;
 	
+	//the standard point Y coordination
 	int Y;
 	
+	//the flag of back event
 	public static int backPoint=0;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
+		
+		//get the latest user information from database
 		MainController.currentUser = MainController.jdbc.searchUser(MainController.currentUser.getAccountID());
 		profileLabel.setText(MainController.currentUser.getUserName()+"' s    Profile");
 		ownRecipes.setText(MainController.currentUser.getUserName()+"' s recipes:");
@@ -78,6 +82,9 @@ public class ProfileController implements Initializable{
 	}
 	
 	
+	/**
+	 * to show all the recipes of the logged in user
+	 */
 	public void showOwnRecipe(){
 		
 		if(MainController.currentUser.getOwnRecipes().size() == 0){
@@ -137,7 +144,10 @@ public class ProfileController implements Initializable{
 		
 	}
 	
-	
+	/**
+	 * The event after the user clicked the recipe name link
+	 * @param recipeID/the ID of the recipe
+	 */
 	public void showRecipe(int recipeID){
 		
 		MainController.currentRecipe = MainController.jdbc.searchRecipe(recipeID);
@@ -156,6 +166,9 @@ public class ProfileController implements Initializable{
 		
 	}
 	
+	/**
+	 * The event after the user clicked "add new recipe" link, switch the view to the add recipe view
+	 */
 	public void addOwnRecipe()
 	{
 		try
@@ -173,6 +186,12 @@ public class ProfileController implements Initializable{
 		}
 	}
 	
+	
+	/**
+	 * The event after the user click edit link, swtich the view to the edit recipe view
+	 * @param recipe/the latest edited recipe
+	 * @param recipeID/the ID of the goal recipe
+	 */
 	public void editOwnRecipe(Recipe recipe, int recipeID)
 	{
 		try
@@ -192,6 +211,10 @@ public class ProfileController implements Initializable{
 		}
 	}
 	
+	/**
+	 * The event of delete recipe
+	 * @param recipe/the goal recipe
+	 */
 	public void deleteOwnRecipe(Recipe recipe){
 		
 		MainController.jdbc.deleteRecipe(recipe.getRecipeID());
@@ -210,6 +233,9 @@ public class ProfileController implements Initializable{
 		
 	}
 	
+	/**
+	 * To show all the comments given by the logged in user, and also giving the recipe name
+	 */
 	public void showOwnComment(){
 		
 		if(MainController.currentUser.getOwnComments().size() == 0){
@@ -270,6 +296,9 @@ public class ProfileController implements Initializable{
 		
 	}
 	
+	/**
+	 * The event that get back to the recipe view
+	 */
 	public void backToRecipe(){
 		
 		try {
@@ -285,6 +314,9 @@ public class ProfileController implements Initializable{
 		
 	}
 	
+	/**
+	 * The event that get back to the main interface
+	 */
 	public void backToMain(){
 		
 		
@@ -292,7 +324,6 @@ public class ProfileController implements Initializable{
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(MainController.MainResourse));
 			Parent root = loader.load();
 			Scene refresh = new Scene(root, 1249, 837);
-			MainController.MainScene = refresh;
 			Main.primaryStage.setScene(refresh);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -302,6 +333,10 @@ public class ProfileController implements Initializable{
 		
 	}
 	
+	/**
+	 * The event that delete a certain comment
+	 * @param comment/the goal comment
+	 */
 	public void deleteComment(Comment comment){
 		
 		MainController.jdbc.deleteComment(comment.getRecipeID(), comment.getAccountID(), comment.getCommentNo());
