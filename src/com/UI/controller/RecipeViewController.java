@@ -450,7 +450,7 @@ public class RecipeViewController implements Initializable{
 		try {
 			ArrayList<Recipe> goalRecipe2 = new ArrayList<Recipe>();
 			goalRecipe2 = MainController.jdbc.searchRecipe(searchBar.getText());
-			SearchResultController.currentRecipeList = MainController.jdbc.searchRecipe(MainController.RecipeSearch);
+			SearchResultController.currentRecipeList = goalRecipe2;
 			// initialize the recipe interface
 			Parent root = FXMLLoader.load(getClass().getResource(SearchResultController.RecipeResource));
 			Scene scene = new Scene(root, 1249, 837);
