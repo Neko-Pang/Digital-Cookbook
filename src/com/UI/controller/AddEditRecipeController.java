@@ -127,8 +127,7 @@ public class AddEditRecipeController implements Initializable
 
 			confirmButton.setOnAction(e -> uploadRecipe());
 			cancelButton.setOnAction(e -> cancel());
-			buttonVBox.setLayoutX(162);
-			buttonVBox.setLayoutY(1198);
+			buttonVBox.setLayoutY(prepRootVBox.getLayoutY() + 88 * (addingPrepStep.size() + 3));
 		} else
 		{
 			ingreAddButton.setOnAction(e -> addIngre());
@@ -153,6 +152,7 @@ public class AddEditRecipeController implements Initializable
 				addingPrepStep = currentRecipe.getPreparationStep();
 				loadAddingIngre();
 				loadAddingPrep();
+				buttonVBox.setLayoutY(prepRootVBox.getLayoutY() + 88 * (addingPrepStep.size() + 3));
 				confirmButton.setOnAction(e -> updateRecipe());
 				cancelButton.setOnAction(e -> cancel());
 			}
@@ -236,6 +236,7 @@ public class AddEditRecipeController implements Initializable
 					Double.parseDouble(ingreAmountTextField.getText()), ingreUnitTextField.getText(),
 					ingreReqTextField.getText());
 			addingIngredient.add(addingIngre);
+			System.out.println(addingIngredient.size());
 
 			// AnchorPane ingrePane = new AnchorPane();
 			// ingrePane.setId("ingreAP" + Integer.toString(addingIngredient.size()));
@@ -451,10 +452,11 @@ public class AddEditRecipeController implements Initializable
 				downButton.setLayoutX(-48);
 				downButton.setLayoutY(40);
 				downButton.setAlignment(Pos.BOTTOM_RIGHT);
+				downButton.setOnAction(e -> ingreDown(ingrePane.getId()));
 				ingrePane.getChildren().addAll(ingredientLabel1, ingredientLabel2, ingredientLabel3, ingreDeleteButton,
 						ingreEditButton, downButton);
 			}
-			else if (i == (addingPrepStep.size()-1))
+			else if (i == (addingIngredient.size()-1))
 			{
 			
 				Button upButton = new Button("up");
@@ -462,6 +464,7 @@ public class AddEditRecipeController implements Initializable
 				upButton.setLayoutX(-34);
 				upButton.setLayoutY(10);
 				upButton.setAlignment(Pos.BOTTOM_RIGHT);
+				upButton.setOnAction(e -> ingreUp(ingrePane.getId()));
 				ingrePane.getChildren().addAll(ingredientLabel1, ingredientLabel2, ingredientLabel3, ingreDeleteButton,
 						ingreEditButton, upButton);
 			}
@@ -472,11 +475,13 @@ public class AddEditRecipeController implements Initializable
 				upButton.setLayoutX(-34);
 				upButton.setLayoutY(10);
 				upButton.setAlignment(Pos.BOTTOM_RIGHT);
+				upButton.setOnAction(e -> ingreUp(ingrePane.getId()));
 				Button downButton = new Button("down");
 				downButton.setMinSize(10, 6);
 				downButton.setLayoutX(-48);
 				downButton.setLayoutY(40);
 				downButton.setAlignment(Pos.BOTTOM_RIGHT);
+				downButton.setOnAction(e -> ingreDown(ingrePane.getId()));
 				ingrePane.getChildren().addAll(ingredientLabel1, ingredientLabel2, ingredientLabel3, ingreDeleteButton,
 						ingreEditButton, upButton, downButton);
 			}
@@ -486,8 +491,8 @@ public class AddEditRecipeController implements Initializable
 
 			
 			ingredientVBox.getChildren().add(ingrePane);
-			prepRootVBox.setLayoutY(600 + 88 * (addingIngredient.size() + 2) + 60);
-			buttonVBox.setLayoutY(1200 + 88 * (addingIngredient.size() + 2) + 60);
+			prepRootVBox.setLayoutY(ingreRootVBox.getLayoutY() + 88 * (addingIngredient.size() + 3));
+			buttonVBox.setLayoutY(prepRootVBox.getLayoutY() + 88 * (addingPrepStep.size() + 3));
 			if (i == (addingIngredient.size() - 1))
 			{
 				ingrePane.getStyleClass().add("BorderRadiusDown");
@@ -682,6 +687,7 @@ public class AddEditRecipeController implements Initializable
 				downButton.setLayoutX(-48);
 				downButton.setLayoutY(40);
 				downButton.setAlignment(Pos.BOTTOM_RIGHT);
+				downButton.setOnAction(e -> prepDown(prepStepPane.getId()));
 				prepStepPane.getChildren().addAll(prepLabel, prepDeleteButton, prepEditButton, downButton);
 			}
 			else if (i == (addingPrepStep.size()-1))
@@ -692,6 +698,7 @@ public class AddEditRecipeController implements Initializable
 				upButton.setLayoutX(-34);
 				upButton.setLayoutY(10);
 				upButton.setAlignment(Pos.BOTTOM_RIGHT);
+				upButton.setOnAction(e -> prepUp(prepStepPane.getId()));
 				prepStepPane.getChildren().addAll(prepLabel, prepDeleteButton, prepEditButton, upButton);
 			}
 			else
@@ -701,12 +708,14 @@ public class AddEditRecipeController implements Initializable
 				upButton.setLayoutX(-34);
 				upButton.setLayoutY(10);
 				upButton.setAlignment(Pos.BOTTOM_RIGHT);
+				upButton.setOnAction(e -> prepUp(prepStepPane.getId()));
 				prepStepPane.getChildren().addAll(prepLabel, prepDeleteButton, prepEditButton, upButton);
 				Button downButton = new Button("down");
 				downButton.setMinSize(10, 6);
 				downButton.setLayoutX(-48);
 				downButton.setLayoutY(40);
 				downButton.setAlignment(Pos.BOTTOM_RIGHT);
+				downButton.setOnAction(e -> prepDown(prepStepPane.getId()));
 				prepStepPane.getChildren().addAll(downButton);
 			}
 
@@ -714,7 +723,7 @@ public class AddEditRecipeController implements Initializable
 			prepEditButton.setOnAction(e -> editPrep(prepStepPane.getId(),prepStepPane));
 			
 			prepStepVBox.getChildren().add(prepStepPane);
-			buttonVBox.setLayoutY(prepRootVBox.getLayoutY() + 60 + 88 + 120 * (addingPrepStep.size() + 1));
+			buttonVBox.setLayoutY(prepRootVBox.getLayoutY() + 88 * (addingPrepStep.size() + 3));
 			if (i == (addingPrepStep.size() - 1))
 			{
 				prepStepPane.getStyleClass().add("BorderRadiusDown");
@@ -914,7 +923,67 @@ public class AddEditRecipeController implements Initializable
 		}
 
 	}
-
+	
+	/**
+	 * To move up the specific ingredient
+	 * @param ingrePaneNo
+	 */
+	public void ingreUp(String ingrePaneNo)
+	{
+		String regEx = "[^0-9]";
+		Pattern pattern = Pattern.compile(regEx);
+		Matcher matcher = pattern.matcher(ingrePaneNo);
+		int ingreNo = Integer.parseInt(matcher.replaceAll("")) - 1;
+		Ingredient temp = new Ingredient();
+		temp = addingIngredient.get(ingreNo);
+		addingIngredient.set(ingreNo, addingIngredient.get(ingreNo - 1));
+		addingIngredient.set(ingreNo - 1, temp);	
+		loadAddingIngre();
+	}
+	
+	/**
+	 * To move down the specific ingredient
+	 * @param ingrePaneNo
+	 */
+	public void ingreDown(String ingrePaneNo)
+	{
+		String regEx = "[^0-9]";
+		Pattern pattern = Pattern.compile(regEx);
+		Matcher matcher = pattern.matcher(ingrePaneNo);
+		int ingreNo = Integer.parseInt(matcher.replaceAll("")) - 1;
+		Ingredient temp = new Ingredient();
+		temp = addingIngredient.get(ingreNo);
+		addingIngredient.set(ingreNo, addingIngredient.get(ingreNo + 1));
+		addingIngredient.set(ingreNo + 1, temp);	
+		loadAddingIngre();
+	}
+	/**
+	 * To m
+	 * @param ingrePaneNo
+	 */
+	public void prepUp(String ingrePaneNo)
+	{
+		String regEx = "[^0-9]";
+		Pattern pattern = Pattern.compile(regEx);
+		Matcher matcher = pattern.matcher(ingrePaneNo);
+		int prepStepNo = Integer.parseInt(matcher.replaceAll("")) - 1;
+		String temp = addingPrepStep.get(prepStepNo);
+		addingPrepStep.set(prepStepNo, addingPrepStep.get(prepStepNo - 1));
+		addingPrepStep.set(prepStepNo - 1, temp);	
+		loadAddingPrep();
+	}
+	
+	public void prepDown(String ingrePaneNo)
+	{
+		String regEx = "[^0-9]";
+		Pattern pattern = Pattern.compile(regEx);
+		Matcher matcher = pattern.matcher(ingrePaneNo);
+		int prepStepNo = Integer.parseInt(matcher.replaceAll("")) - 1;
+		String temp = addingPrepStep.get(prepStepNo);
+		addingPrepStep.set(prepStepNo, addingPrepStep.get(prepStepNo + 1));
+		addingPrepStep.set(prepStepNo + 1, temp);	
+		loadAddingPrep();
+	}
 	/**
 	 * To clear up all the input field
 	 */
