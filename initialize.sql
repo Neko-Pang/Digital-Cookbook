@@ -23,7 +23,7 @@ create table if not exists Recipe(
         PrepTime int,
         AccountID int,
         CookingTime int,
-        ServerPeople int,
+        ServingPeople int,
         Category varchar(45)
 );
 
