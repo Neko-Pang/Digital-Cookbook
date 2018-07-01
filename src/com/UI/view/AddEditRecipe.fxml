@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="3000.0" prefWidth="1249.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.UI.controller.AddEditRecipeController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1396.0" prefWidth="1249.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.UI.controller.AddEditRecipeController">
    <children>
-      <ScrollPane prefHeight="3000.0" prefWidth="1167.0">
+      <ScrollPane prefHeight="3010.0" prefWidth="1249.0">
          <content>
             <AnchorPane prefHeight="1798.0" prefWidth="1249.0" stylesheets="@com.UI.view.css">
                <children>
@@ -112,7 +112,7 @@
                                     <Font size="17.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="userLabel" layoutX="365.0" layoutY="28.0" text="Mr. / Miss.  Somebody">
+                              <Label fx:id="userLabel" alignment="CENTER" layoutX="365.0" layoutY="28.0" text="Mr. / Miss.  Somebody">
                                  <font>
                                     <Font size="22.0" />
                                  </font></Label>

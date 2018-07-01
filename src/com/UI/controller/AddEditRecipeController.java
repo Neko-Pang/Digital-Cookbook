@@ -573,13 +573,13 @@ public class AddEditRecipeController implements Initializable
 		Pattern pattern = Pattern.compile(regEx);
 		Matcher matcher = pattern.matcher(prepPaneNo);
 		int prepRowNo = Integer.parseInt(matcher.replaceAll(""));
-		TextField prepTextField1 = new TextField(addingPrepStep.get(prepRowNo - 1));
-		prepTextField1.setMinSize(922, 100);
-		prepTextField1.setMaxSize(922, 100);
+		TextArea prepTextField1 = new TextArea(addingPrepStep.get(prepRowNo - 1));
+		prepTextField1.setMinSize(922, 60);
+		prepTextField1.setMaxSize(922, 60);
 		prepTextField1.setLayoutX(14);
 		prepTextField1.setLayoutY(10);
 		prepTextField1.setFont(Font.font(12));
-		prepTextField1.setAlignment(Pos.CENTER_LEFT);
+//		prepTextField1.setAlignment(Pos.CENTER_LEFT);
 
 		Button prepEditConfirmButton = new Button("confirm");
 		prepEditConfirmButton.setMinSize(10, 6);
