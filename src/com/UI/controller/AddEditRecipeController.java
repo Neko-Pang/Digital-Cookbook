@@ -167,9 +167,6 @@ public class AddEditRecipeController implements Initializable
 	{
 		Pattern pattern = Pattern.compile("^[0-9]+\\.{0,1}[0-9]{0,2}$");
 		Matcher matcher = pattern.matcher(ingreAmountTextField.getText());
-		// System.out.println("#" + ingreNameTextField.getText() + "#");
-		// System.out.println("#" + ingreAmountTextField.getText() + "#");
-		// System.out.println("#" + ingreUnitTextField.getText() + "#");
 		if (ingreNameTextField.getText().trim().equals("") || ingreAmountTextField.getText().trim().equals("")
 				|| ingreUnitTextField.getText().trim().equals(""))
 		{
@@ -236,10 +233,6 @@ public class AddEditRecipeController implements Initializable
 					Double.parseDouble(ingreAmountTextField.getText()), ingreUnitTextField.getText(),
 					ingreReqTextField.getText());
 			addingIngredient.add(addingIngre);
-			System.out.println(addingIngredient.size());
-
-			// AnchorPane ingrePane = new AnchorPane();
-			// ingrePane.setId("ingreAP" + Integer.toString(addingIngredient.size()));
 
 			loadAddingIngre();
 			ingreNameTextField.clear();
@@ -266,7 +259,7 @@ public class AddEditRecipeController implements Initializable
 
 	public void editIngre(String ingrePaneNo, AnchorPane parentNode)
 	{
-		// System.out.println("the parent node id is: " + parentNode.getId());
+
 		String regEx = "[^0-9]";
 		Pattern pattern = Pattern.compile(regEx);
 		Matcher matcher = pattern.matcher(ingrePaneNo);
@@ -548,7 +541,7 @@ public class AddEditRecipeController implements Initializable
 		{
 			String addingPrep = new String(prepStepTextField.getText());
 			addingPrepStep.add(addingPrep);
-			System.out.println(addingPrep);
+
 			loadAddingPrep();
 			prepStepTextField.clear();
 		}
@@ -765,7 +758,6 @@ public class AddEditRecipeController implements Initializable
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			// System.out.println("Uploaded successfully");
 			clearUp();
 			backToProfile();
 		}
@@ -796,7 +788,6 @@ public class AddEditRecipeController implements Initializable
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			// System.out.println("Updated successfully");
 			clearUp();
 			backToProfile();
 
@@ -958,7 +949,7 @@ public class AddEditRecipeController implements Initializable
 		loadAddingIngre();
 	}
 	/**
-	 * To m
+	 * To move up the specific preparation step
 	 * @param ingrePaneNo
 	 */
 	public void prepUp(String ingrePaneNo)
@@ -972,7 +963,10 @@ public class AddEditRecipeController implements Initializable
 		addingPrepStep.set(prepStepNo - 1, temp);	
 		loadAddingPrep();
 	}
-	
+	/**
+	 * To move down the specific preparation step
+	 * @param ingrePaneNo
+	 */
 	public void prepDown(String ingrePaneNo)
 	{
 		String regEx = "[^0-9]";
