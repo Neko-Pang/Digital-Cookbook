@@ -78,7 +78,7 @@
                                           <Font size="17.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="categoryLabel" alignment="CENTER" layoutX="77.0" layoutY="27.0" prefHeight="49.0" prefWidth="167.0" textFill="#4b4bad">
+                                    <Label fx:id="categoryLabel" alignment="CENTER" layoutX="77.0" layoutY="27.0" prefHeight="49.0" prefWidth="367.0" textFill="#4b4bad">
                                        <font>
                                           <Font size="27.0" />
                                        </font>
