@@ -771,6 +771,14 @@ public class AddEditRecipeController implements Initializable
 	{
 		if (checkBasicInfo())
 		{
+			currentRecipe.setName(recipeTitleTextField.getText());
+			currentRecipe.setCategary(categoryTextField.getText());
+			currentRecipe.setServingPpl(Integer.parseInt(servingPplTextField.getText()));
+			currentRecipe.setPreparationTime((int) Double.parseDouble(prepTimeTextField.getText()));
+			currentRecipe.setCookingTime((int) Double.parseDouble(cookingTimeTextField.getText()));
+			currentRecipe.setAccountID(MainController.currentUser.getAccountID());
+			currentRecipe.setIngredients(addingIngredient);
+			currentRecipe.setPreparationStep(addingPrepStep);
 			CookBook cb = new CookBook(currentRecipe.getCategary());
 			cb.updateRecipe(MainController.currentRecipe, currentRecipe);
 			try
