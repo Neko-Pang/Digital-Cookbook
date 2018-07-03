@@ -173,7 +173,7 @@ public class AddEditRecipeController implements Initializable
 			try
 			{
 				BackMessageController.message = "Name, Amount, Unit should not be empty";
-				BackMessageController.messageType = 4;
+				BackMessageController.messageType = 5;
 				BackMessageController.stage = Main.subStage2;
 				Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
 				Scene scene = new Scene(root, 328, 223);
@@ -187,15 +187,15 @@ public class AddEditRecipeController implements Initializable
 				e.printStackTrace();
 			}
 		} else if (ingreNameTextField.getText().length() > maxLength
-				|| ingreAmountTextField.getText().length() > maxLength
+				|| Double.parseDouble(ingreAmountTextField.getText()) > 9999
 				|| ingreUnitTextField.getText().length() > maxLength
 				|| ingreReqTextField.getText().length() > maxLength)
 		{
 
 			try
 			{
-				BackMessageController.message = "Any text should not longer than 1024!";
-				BackMessageController.messageType = 4;
+				BackMessageController.message = "Any text should not longer than 1024! Amount should not greater than ";
+				BackMessageController.messageType = 5;
 				BackMessageController.stage = Main.subStage2;
 				Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
 				Scene scene = new Scene(root, 328, 223);
@@ -214,7 +214,7 @@ public class AddEditRecipeController implements Initializable
 			try
 			{
 				BackMessageController.message = "the text of amount is illegal gor Number!";
-				BackMessageController.messageType = 4;
+				BackMessageController.messageType = 5;
 				BackMessageController.stage = Main.subStage2;
 				Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
 				Scene scene = new Scene(root, 328, 223);
@@ -316,7 +316,7 @@ public class AddEditRecipeController implements Initializable
 					try
 					{
 						BackMessageController.message = "Name, Amount, Unit should not be empty";
-						BackMessageController.messageType = 4;
+						BackMessageController.messageType = 5;
 						BackMessageController.stage = Main.subStage2;
 						Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
 						Scene scene = new Scene(root, 328, 223);
@@ -338,7 +338,7 @@ public class AddEditRecipeController implements Initializable
 					try
 					{
 						BackMessageController.message = "Any text should not longer than 1024!";
-						BackMessageController.messageType = 4;
+						BackMessageController.messageType = 5;
 						BackMessageController.stage = Main.subStage2;
 						Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
 						Scene scene = new Scene(root, 328, 223);
@@ -357,7 +357,7 @@ public class AddEditRecipeController implements Initializable
 					try
 					{
 						BackMessageController.message = "the text of amount is illegal gor Number!";
-						BackMessageController.messageType = 4;
+						BackMessageController.messageType = 5;
 						BackMessageController.stage = Main.subStage2;
 						Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
 						Scene scene = new Scene(root, 328, 223);
@@ -504,7 +504,7 @@ public class AddEditRecipeController implements Initializable
 			try
 			{
 				BackMessageController.message = "Preparation steps should not be empty!";
-				BackMessageController.messageType = 4;
+				BackMessageController.messageType = 5;
 				BackMessageController.stage = Main.subStage2;
 				Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
 				Scene scene = new Scene(root, 328, 223);
@@ -523,7 +523,7 @@ public class AddEditRecipeController implements Initializable
 			try
 			{
 				BackMessageController.message = "Any text should not longer than 1024!";
-				BackMessageController.messageType = 4;
+				BackMessageController.messageType = 5;
 				BackMessageController.stage = Main.subStage2;
 				Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
 				Scene scene = new Scene(root, 328, 223);
@@ -597,7 +597,7 @@ public class AddEditRecipeController implements Initializable
 					try
 					{
 						BackMessageController.message = "Preparation steps should not be empty!";
-						BackMessageController.messageType = 4;
+						BackMessageController.messageType = 5;
 						BackMessageController.stage = Main.subStage2;
 						Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
 						Scene scene = new Scene(root, 328, 223);
@@ -616,7 +616,7 @@ public class AddEditRecipeController implements Initializable
 					try
 					{
 						BackMessageController.message = "Any text should not longer than 1024!";
-						BackMessageController.messageType = 4;
+						BackMessageController.messageType = 5;
 						BackMessageController.stage = Main.subStage2;
 						Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
 						Scene scene = new Scene(root, 328, 223);
@@ -864,7 +864,7 @@ public class AddEditRecipeController implements Initializable
 			try
 			{
 				BackMessageController.message = "Basic information should not be empty";
-				BackMessageController.messageType = 4;
+				BackMessageController.messageType = 5;
 				BackMessageController.stage = Main.subStage2;
 				Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
 				Scene scene = new Scene(root, 328, 223);
@@ -883,7 +883,7 @@ public class AddEditRecipeController implements Initializable
 			try
 			{
 				BackMessageController.message = "Serving people number must be integer";
-				BackMessageController.messageType = 4;
+				BackMessageController.messageType = 5;
 				BackMessageController.stage = Main.subStage2;
 				Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
 				Scene scene = new Scene(root, 328, 223);
@@ -902,7 +902,7 @@ public class AddEditRecipeController implements Initializable
 			try
 			{
 				BackMessageController.message = "Illegal numbers for Preparation time or Cooking time";
-				BackMessageController.messageType = 4;
+				BackMessageController.messageType = 5;
 				BackMessageController.stage = Main.subStage2;
 				Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
 				Scene scene = new Scene(root, 328, 223);
@@ -916,9 +916,34 @@ public class AddEditRecipeController implements Initializable
 				e.printStackTrace();
 			}
 			return false;
-		} else
+		} 
+		else
 		{
+			if (Integer.parseInt(servingPplTextField.getText()) > 999 || 
+					Integer.parseInt(prepTimeTextField.getText()) > 999 || 
+					Integer.parseInt(cookingTimeTextField.getText()) > 999)
+			{
+				try
+				{
+					BackMessageController.message = "Any number should not greater than 999!";
+					BackMessageController.messageType = 5;
+					BackMessageController.stage = Main.subStage2;
+					Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
+					Scene scene = new Scene(root, 328, 223);
+					Main.subStage2.setScene(scene);
+					Main.subStage2.setResizable(false);
+					Main.subStage2.show();
+				} catch (IOException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return false;
+			}
+			else
+			{
 			return true;
+			}
 		}
 
 	}
