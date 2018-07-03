@@ -745,7 +745,7 @@ public class AddEditRecipeController implements Initializable
 			cb.add(currentRecipe);
 			try
 			{
-				BackMessageController.messageType = 1;
+				BackMessageController.messageType = 2;
 				BackMessageController.stage = Main.subStage2;
 				Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
 				Scene scene = new Scene(root, 328, 223);
@@ -783,7 +783,7 @@ public class AddEditRecipeController implements Initializable
 			cb.updateRecipe(MainController.currentRecipe, currentRecipe);
 			try
 			{
-				BackMessageController.messageType = 2;
+				BackMessageController.messageType = 3;
 				BackMessageController.stage = Main.subStage2;
 				Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
 				Scene scene = new Scene(root, 328, 223);
@@ -831,7 +831,7 @@ public class AddEditRecipeController implements Initializable
 
 		try
 		{
-			BackMessageController.messageType = 3;
+			BackMessageController.messageType = 4;
 			BackMessageController.stage = Main.subStage2;
 			Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
 			Scene scene = new Scene(root, 328, 223);
