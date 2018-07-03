@@ -85,7 +85,7 @@ public class AddEditRecipeController implements Initializable
 	@FXML
 	private VBox buttonVBox;
 
-	private final int maxLength = 1024;
+	private final int maxLength = 80;
 	private static Recipe currentRecipe = new Recipe();
 	private static boolean setEdit = false;
 	private ArrayList<Ingredient> addingIngredient = new ArrayList<Ingredient>();
@@ -194,7 +194,7 @@ public class AddEditRecipeController implements Initializable
 
 			try
 			{
-				BackMessageController.message = "Any text should not longer than 1024! Amount should not greater than ";
+				BackMessageController.message = "Any text should not longer than 80! Amount should not greater than 999";
 				BackMessageController.messageType = 5;
 				BackMessageController.stage = Main.subStage2;
 				Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
@@ -213,7 +213,7 @@ public class AddEditRecipeController implements Initializable
 		{
 			try
 			{
-				BackMessageController.message = "the text of amount is illegal gor Number!";
+				BackMessageController.message = "the text of amount is illegal for Number!";
 				BackMessageController.messageType = 5;
 				BackMessageController.stage = Main.subStage2;
 				Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
@@ -337,7 +337,7 @@ public class AddEditRecipeController implements Initializable
 
 					try
 					{
-						BackMessageController.message = "Any text should not longer than 1024!";
+						BackMessageController.message = "Any text should not longer than 80!";
 						BackMessageController.messageType = 5;
 						BackMessageController.stage = Main.subStage2;
 						Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
@@ -356,7 +356,7 @@ public class AddEditRecipeController implements Initializable
 				{
 					try
 					{
-						BackMessageController.message = "the text of amount is illegal gor Number!";
+						BackMessageController.message = "the text of amount is illegal for Number!";
 						BackMessageController.messageType = 5;
 						BackMessageController.stage = Main.subStage2;
 						Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
@@ -522,7 +522,7 @@ public class AddEditRecipeController implements Initializable
 
 			try
 			{
-				BackMessageController.message = "Any text should not longer than 1024!";
+				BackMessageController.message = "Any text should not longer than 80!";
 				BackMessageController.messageType = 5;
 				BackMessageController.stage = Main.subStage2;
 				Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
@@ -615,7 +615,7 @@ public class AddEditRecipeController implements Initializable
 
 					try
 					{
-						BackMessageController.message = "Any text should not longer than 1024!";
+						BackMessageController.message = "Any text should not longer than 80!";
 						BackMessageController.messageType = 5;
 						BackMessageController.stage = Main.subStage2;
 						Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
