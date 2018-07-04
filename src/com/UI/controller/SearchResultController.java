@@ -1,3 +1,4 @@
+
 package com.UI.controller;
 
 import java.io.IOException;
@@ -108,8 +109,7 @@ public class SearchResultController implements Initializable
 	public void initialize(URL location, ResourceBundle resources)
 	{
 		// TODO Auto-generated method stub\
-		
-		if (i == 0)
+		if (i <= 0)
 		{
 			lastPage.setVisible(false);
 		}
@@ -278,9 +278,16 @@ public class SearchResultController implements Initializable
 			p = String.valueOf(n + "/" + m);
 			page.setText(p);
 		});
+		if(currentRecipeList.size()<=5) {
+		nextPage.setVisible(false);
+		}
 		if (ensure == 0)
 		{
 			i = 0;
+		}
+		if (i <= 0)
+		{
+			lastPage.setVisible(false);
 		}
 		if (ensure == 1)
 		{
@@ -375,6 +382,9 @@ public class SearchResultController implements Initializable
 		{
 			n = RecipeViewController.pagenumber / 5 + 1;
 		}
+		if(m==n) {
+			nextPage.setVisible(false);
+		}
 		if (m == 0)
 		{
 			nextPage.setVisible(false);
@@ -406,7 +416,7 @@ public class SearchResultController implements Initializable
 
 		try
 		{
-			currentRecipe = currentRecipeList.get(i);
+			MainController.currentRecipe = currentRecipeList.get(i);
 			MainController.backPoint = 1;
 			// initialize the recipe interface
 			Parent root = FXMLLoader.load(getClass().getResource(RecipeViewController.RecipeResource));
@@ -432,7 +442,7 @@ public class SearchResultController implements Initializable
 
 		try
 		{
-
+            ensure = 0;
 			ArrayList<Recipe> goalRecipe2 = new ArrayList<Recipe>();
 			goalRecipe2 = MainController.jdbc.searchRecipe(this.searchBox.getText());
 			currentRecipeList = goalRecipe2;
