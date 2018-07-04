@@ -38,6 +38,7 @@ import javafx.stage.*;
 
 /**
  * The controller of AddEditRecipeView
+ * 
  * @author MacroHard
  * @version 1.0
  */
@@ -87,13 +88,13 @@ public class AddEditRecipeController implements Initializable
 	private VBox buttonVBox;
 
 	private final int maxLength = 80;
-	
+
 	private static Recipe currentRecipe = new Recipe();
 	private static boolean setEdit = false;
 	private ArrayList<Ingredient> addingIngredient = new ArrayList<Ingredient>();
 	private ArrayList<String> addingPrepStep = new ArrayList<String>();
-	
-	//the route of fxml
+
+	// the route of fxml
 	public static final String AddEditRecipeResource = "/com/UI/view/AddEditRecipe.fxml";
 
 	public static void setCurrentRecipe(int recipeID)
@@ -161,7 +162,6 @@ public class AddEditRecipeController implements Initializable
 		}
 	}
 
-	
 	/**
 	 * To add ingredient to a new/edited recipe
 	 */
@@ -188,29 +188,6 @@ public class AddEditRecipeController implements Initializable
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		} else if (ingreNameTextField.getText().length() > maxLength
-				|| Double.parseDouble(ingreAmountTextField.getText()) > 9999
-				|| ingreUnitTextField.getText().length() > maxLength
-				|| ingreReqTextField.getText().length() > maxLength)
-		{
-
-			try
-			{
-				BackMessageController.message = "Any text should not longer than 80! Amount should not greater than 999";
-				BackMessageController.messageType = 5;
-				BackMessageController.stage = Main.subStage2;
-				Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
-				Scene scene = new Scene(root, 328, 223);
-				Main.subStage2.setScene(scene);
-				Main.subStage2.setResizable(false);
-				Main.subStage2.show();
-
-			} catch (IOException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
 		} else if (!matcher.matches())
 		{
 			try
@@ -229,6 +206,66 @@ public class AddEditRecipeController implements Initializable
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		} else if (ingreNameTextField.getText().length() > 45 || ingreUnitTextField.getText().length() > 45)
+		{
+
+			try
+			{
+				BackMessageController.message = "Ingredient name and unit should no longer than 45 letters!";
+				BackMessageController.messageType = 5;
+				BackMessageController.stage = Main.subStage2;
+				Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
+				Scene scene = new Scene(root, 328, 223);
+				Main.subStage2.setScene(scene);
+				Main.subStage2.setResizable(false);
+				Main.subStage2.show();
+
+			} catch (IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} else if (Double.parseDouble(ingreAmountTextField.getText()) > 999)
+		{
+
+			try
+			{
+				BackMessageController.message = "Amount should not greater than 999!";
+				BackMessageController.messageType = 5;
+				BackMessageController.stage = Main.subStage2;
+				Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
+				Scene scene = new Scene(root, 328, 223);
+				Main.subStage2.setScene(scene);
+				Main.subStage2.setResizable(false);
+				Main.subStage2.show();
+
+			} catch (IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} else if (ingreReqTextField.getText().length() > 45)
+		{
+
+			try
+			{
+				BackMessageController.message = "Requirement should no longer than 45 letters";
+				BackMessageController.messageType = 5;
+				BackMessageController.stage = Main.subStage2;
+				Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
+				Scene scene = new Scene(root, 328, 223);
+				Main.subStage2.setScene(scene);
+				Main.subStage2.setResizable(false);
+				Main.subStage2.show();
+
+			} catch (IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 		} else
 		{
 			Ingredient addingIngre = new Ingredient(ingreNameTextField.getText(),
@@ -246,7 +283,9 @@ public class AddEditRecipeController implements Initializable
 
 	/**
 	 * To delete an ingredient when edit/add a recipe
-	 * @param ingrePaneNo/the number of the ingredient pane
+	 * 
+	 * @param ingrePaneNo/the
+	 *            number of the ingredient pane
 	 */
 	public void deleteIngre(String ingrePaneNo)
 	{
@@ -331,29 +370,6 @@ public class AddEditRecipeController implements Initializable
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-				} else if (ingreTextField1.getText().length() > maxLength
-						|| ingreTextField2.getText().length() > maxLength
-						|| ingreTextField3.getText().length() > maxLength
-						|| ingreTextField4.getText().length() > maxLength)
-				{
-
-					try
-					{
-						BackMessageController.message = "Any text should not longer than 80!";
-						BackMessageController.messageType = 5;
-						BackMessageController.stage = Main.subStage2;
-						Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
-						Scene scene = new Scene(root, 328, 223);
-						Main.subStage2.setScene(scene);
-						Main.subStage2.setResizable(false);
-						Main.subStage2.show();
-
-					} catch (IOException e)
-					{
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-
 				} else if (!matcher.matches())
 				{
 					try
@@ -372,6 +388,66 @@ public class AddEditRecipeController implements Initializable
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+				} else if (Double.parseDouble(ingreTextField2.getText()) > 999)
+				{
+
+					try
+					{
+						BackMessageController.message = "Amount should not greater than 999!";
+						BackMessageController.messageType = 5;
+						BackMessageController.stage = Main.subStage2;
+						Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
+						Scene scene = new Scene(root, 328, 223);
+						Main.subStage2.setScene(scene);
+						Main.subStage2.setResizable(false);
+						Main.subStage2.show();
+
+					} catch (IOException e)
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+				} else if (ingreTextField1.getText().length() > 45 || ingreTextField3.getText().length() > 45)
+				{
+
+					try
+					{
+						BackMessageController.message = "Ingredient name and unit should no longer than 45 letters!";
+						BackMessageController.messageType = 5;
+						BackMessageController.stage = Main.subStage2;
+						Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
+						Scene scene = new Scene(root, 328, 223);
+						Main.subStage2.setScene(scene);
+						Main.subStage2.setResizable(false);
+						Main.subStage2.show();
+
+					} catch (IOException e)
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+				} else if (ingreTextField4.getText().length() > maxLength)
+				{
+
+					try
+					{
+						BackMessageController.message = "Requirement should no longer than 80 letters!";
+						BackMessageController.messageType = 5;
+						BackMessageController.stage = Main.subStage2;
+						Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
+						Scene scene = new Scene(root, 328, 223);
+						Main.subStage2.setScene(scene);
+						Main.subStage2.setResizable(false);
+						Main.subStage2.show();
+
+					} catch (IOException e)
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
 				} else
 				{
 					addingIngredient.get(ingreRowNo - 1).setName(ingreTextField1.getText());
@@ -388,7 +464,6 @@ public class AddEditRecipeController implements Initializable
 
 	}
 
-	
 	/**
 	 * Show the existed ingredients of a recipe when edit/add a recipe
 	 */
@@ -440,51 +515,54 @@ public class AddEditRecipeController implements Initializable
 			ingreEditButton.setLayoutX(958);
 			ingreEditButton.setLayoutY(10);
 			ingreEditButton.setAlignment(Pos.BOTTOM_RIGHT);
-			if (i == 0)
+			if (addingIngredient.size() <= 1)
 			{
-				Button downButton = new Button("down");
-				downButton.setMinSize(10, 6);
-				downButton.setLayoutX(-48);
-				downButton.setLayoutY(40);
-				downButton.setAlignment(Pos.BOTTOM_RIGHT);
-				downButton.setOnAction(e -> ingreDown(ingrePane.getId()));
 				ingrePane.getChildren().addAll(ingredientLabel1, ingredientLabel2, ingredientLabel3, ingreDeleteButton,
-						ingreEditButton, downButton);
-			}
-			else if (i == (addingIngredient.size()-1))
+						ingreEditButton);
+			} else
 			{
-			
-				Button upButton = new Button("up");
-				upButton.setMinSize(10, 6);
-				upButton.setLayoutX(-34);
-				upButton.setLayoutY(10);
-				upButton.setAlignment(Pos.BOTTOM_RIGHT);
-				upButton.setOnAction(e -> ingreUp(ingrePane.getId()));
-				ingrePane.getChildren().addAll(ingredientLabel1, ingredientLabel2, ingredientLabel3, ingreDeleteButton,
-						ingreEditButton, upButton);
-			}
-			else
-			{
-				Button upButton = new Button("up");
-				upButton.setMinSize(10, 6);
-				upButton.setLayoutX(-34);
-				upButton.setLayoutY(10);
-				upButton.setAlignment(Pos.BOTTOM_RIGHT);
-				upButton.setOnAction(e -> ingreUp(ingrePane.getId()));
-				Button downButton = new Button("down");
-				downButton.setMinSize(10, 6);
-				downButton.setLayoutX(-48);
-				downButton.setLayoutY(40);
-				downButton.setAlignment(Pos.BOTTOM_RIGHT);
-				downButton.setOnAction(e -> ingreDown(ingrePane.getId()));
-				ingrePane.getChildren().addAll(ingredientLabel1, ingredientLabel2, ingredientLabel3, ingreDeleteButton,
-						ingreEditButton, upButton, downButton);
-			}
+				if (i == 0)
+				{
+					Button downButton = new Button("down");
+					downButton.setMinSize(10, 6);
+					downButton.setLayoutX(-48);
+					downButton.setLayoutY(40);
+					downButton.setAlignment(Pos.BOTTOM_RIGHT);
+					downButton.setOnAction(e -> ingreDown(ingrePane.getId()));
+					ingrePane.getChildren().addAll(ingredientLabel1, ingredientLabel2, ingredientLabel3,
+							ingreDeleteButton, ingreEditButton, downButton);
+				} else if (i == (addingIngredient.size() - 1))
+				{
 
+					Button upButton = new Button("up");
+					upButton.setMinSize(10, 6);
+					upButton.setLayoutX(-34);
+					upButton.setLayoutY(10);
+					upButton.setAlignment(Pos.BOTTOM_RIGHT);
+					upButton.setOnAction(e -> ingreUp(ingrePane.getId()));
+					ingrePane.getChildren().addAll(ingredientLabel1, ingredientLabel2, ingredientLabel3,
+							ingreDeleteButton, ingreEditButton, upButton);
+				} else
+				{
+					Button upButton = new Button("up");
+					upButton.setMinSize(10, 6);
+					upButton.setLayoutX(-34);
+					upButton.setLayoutY(10);
+					upButton.setAlignment(Pos.BOTTOM_RIGHT);
+					upButton.setOnAction(e -> ingreUp(ingrePane.getId()));
+					Button downButton = new Button("down");
+					downButton.setMinSize(10, 6);
+					downButton.setLayoutX(-48);
+					downButton.setLayoutY(40);
+					downButton.setAlignment(Pos.BOTTOM_RIGHT);
+					downButton.setOnAction(e -> ingreDown(ingrePane.getId()));
+					ingrePane.getChildren().addAll(ingredientLabel1, ingredientLabel2, ingredientLabel3,
+							ingreDeleteButton, ingreEditButton, upButton, downButton);
+				}
+			}
 			ingreDeleteButton.setOnAction(e -> deleteIngre(ingrePane.getId()));
 			ingreEditButton.setOnAction(e -> editIngre(ingrePane.getId(), ingrePane));
 
-			
 			ingredientVBox.getChildren().add(ingrePane);
 			prepRootVBox.setLayoutY(ingreRootVBox.getLayoutY() + 88 * (addingIngredient.size() + 3));
 			buttonVBox.setLayoutY(prepRootVBox.getLayoutY() + 88 * (addingPrepStep.size() + 3));
@@ -547,10 +625,12 @@ public class AddEditRecipeController implements Initializable
 			prepStepTextField.clear();
 		}
 	}
-	
+
 	/**
 	 * To delete a preparation step
-	 * @param prepPaneNo/the number of the preparation pane
+	 * 
+	 * @param prepPaneNo/the
+	 *            number of the preparation pane
 	 */
 	public void deletePrep(String prepPaneNo)
 	{
@@ -562,11 +642,13 @@ public class AddEditRecipeController implements Initializable
 		loadAddingPrep();
 	}
 
-	
 	/**
 	 * To edit a preparation step
-	 * @param prepPaneNo/the number of the preparation pane
-	 * @param parentNode/the parent pane
+	 * 
+	 * @param prepPaneNo/the
+	 *            number of the preparation pane
+	 * @param parentNode/the
+	 *            parent pane
 	 */
 	public void editPrep(String prepPaneNo, AnchorPane parentNode)
 	{
@@ -575,8 +657,8 @@ public class AddEditRecipeController implements Initializable
 		Matcher matcher = pattern.matcher(prepPaneNo);
 		int prepRowNo = Integer.parseInt(matcher.replaceAll(""));
 		TextField prepTextField1 = new TextField(addingPrepStep.get(prepRowNo - 1));
-		prepTextField1.setMinSize(922, 100);
-		prepTextField1.setMaxSize(922, 100);
+		prepTextField1.setMinSize(922, 56);
+		prepTextField1.setMaxSize(922, 56);
 		prepTextField1.setLayoutX(14);
 		prepTextField1.setLayoutY(10);
 		prepTextField1.setFont(Font.font(12));
@@ -631,9 +713,11 @@ public class AddEditRecipeController implements Initializable
 						e.printStackTrace();
 					}
 
+				} else
+				{
+					addingPrepStep.set(prepRowNo - 1, prepTextField1.getText());
+					loadAddingPrep();
 				}
-				addingPrepStep.set(prepRowNo - 1, prepTextField1.getText());
-				loadAddingPrep();
 			}
 		});
 		parentNode.getChildren().clear();
@@ -674,48 +758,51 @@ public class AddEditRecipeController implements Initializable
 			prepEditButton.setLayoutX(958);
 			prepEditButton.setLayoutY(10);
 			prepEditButton.setAlignment(Pos.BOTTOM_RIGHT);
-			if (i == 0)
+			if (addingPrepStep.size() <= 1)
 			{
-				Button downButton = new Button("down");
-				downButton.setMinSize(10, 6);
-				downButton.setLayoutX(-48);
-				downButton.setLayoutY(40);
-				downButton.setAlignment(Pos.BOTTOM_RIGHT);
-				downButton.setOnAction(e -> prepDown(prepStepPane.getId()));
-				prepStepPane.getChildren().addAll(prepLabel, prepDeleteButton, prepEditButton, downButton);
-			}
-			else if (i == (addingPrepStep.size()-1))
+				prepStepPane.getChildren().addAll(prepLabel, prepDeleteButton, prepEditButton);
+			} else
 			{
-			
-				Button upButton = new Button("up");
-				upButton.setMinSize(10, 6);
-				upButton.setLayoutX(-34);
-				upButton.setLayoutY(10);
-				upButton.setAlignment(Pos.BOTTOM_RIGHT);
-				upButton.setOnAction(e -> prepUp(prepStepPane.getId()));
-				prepStepPane.getChildren().addAll(prepLabel, prepDeleteButton, prepEditButton, upButton);
-			}
-			else
-			{
-				Button upButton = new Button("up");
-				upButton.setMinSize(10, 6);
-				upButton.setLayoutX(-34);
-				upButton.setLayoutY(10);
-				upButton.setAlignment(Pos.BOTTOM_RIGHT);
-				upButton.setOnAction(e -> prepUp(prepStepPane.getId()));
-				prepStepPane.getChildren().addAll(prepLabel, prepDeleteButton, prepEditButton, upButton);
-				Button downButton = new Button("down");
-				downButton.setMinSize(10, 6);
-				downButton.setLayoutX(-48);
-				downButton.setLayoutY(40);
-				downButton.setAlignment(Pos.BOTTOM_RIGHT);
-				downButton.setOnAction(e -> prepDown(prepStepPane.getId()));
-				prepStepPane.getChildren().addAll(downButton);
-			}
+				if (i == 0)
+				{
+					Button downButton = new Button("down");
+					downButton.setMinSize(10, 6);
+					downButton.setLayoutX(-48);
+					downButton.setLayoutY(40);
+					downButton.setAlignment(Pos.BOTTOM_RIGHT);
+					downButton.setOnAction(e -> prepDown(prepStepPane.getId()));
+					prepStepPane.getChildren().addAll(prepLabel, prepDeleteButton, prepEditButton, downButton);
+				} else if (i == (addingPrepStep.size() - 1))
+				{
 
+					Button upButton = new Button("up");
+					upButton.setMinSize(10, 6);
+					upButton.setLayoutX(-34);
+					upButton.setLayoutY(10);
+					upButton.setAlignment(Pos.BOTTOM_RIGHT);
+					upButton.setOnAction(e -> prepUp(prepStepPane.getId()));
+					prepStepPane.getChildren().addAll(prepLabel, prepDeleteButton, prepEditButton, upButton);
+				} else
+				{
+					Button upButton = new Button("up");
+					upButton.setMinSize(10, 6);
+					upButton.setLayoutX(-34);
+					upButton.setLayoutY(10);
+					upButton.setAlignment(Pos.BOTTOM_RIGHT);
+					upButton.setOnAction(e -> prepUp(prepStepPane.getId()));
+					prepStepPane.getChildren().addAll(prepLabel, prepDeleteButton, prepEditButton, upButton);
+					Button downButton = new Button("down");
+					downButton.setMinSize(10, 6);
+					downButton.setLayoutX(-48);
+					downButton.setLayoutY(40);
+					downButton.setAlignment(Pos.BOTTOM_RIGHT);
+					downButton.setOnAction(e -> prepDown(prepStepPane.getId()));
+					prepStepPane.getChildren().addAll(downButton);
+				}
+			}
 			prepDeleteButton.setOnAction(e -> deletePrep(prepStepPane.getId()));
-			prepEditButton.setOnAction(e -> editPrep(prepStepPane.getId(),prepStepPane));
-			
+			prepEditButton.setOnAction(e -> editPrep(prepStepPane.getId(), prepStepPane));
+
 			prepStepVBox.getChildren().add(prepStepPane);
 			buttonVBox.setLayoutY(prepRootVBox.getLayoutY() + 88 * (addingPrepStep.size() + 3));
 			if (i == (addingPrepStep.size() - 1))
@@ -764,7 +851,6 @@ public class AddEditRecipeController implements Initializable
 		}
 	}
 
-	
 	/**
 	 * update a recipe after edit it
 	 */
@@ -823,9 +909,8 @@ public class AddEditRecipeController implements Initializable
 
 	}
 
-	
 	/**
-	 * Cancel the edit process and go back to the profile view 
+	 * Cancel the edit process and go back to the profile view
 	 */
 	public void cancel()
 	{
@@ -849,6 +934,7 @@ public class AddEditRecipeController implements Initializable
 
 	/**
 	 * To check the boundary of the basic information of the recipe
+	 * 
 	 * @return boolean
 	 */
 	public boolean checkBasicInfo()
@@ -917,8 +1003,7 @@ public class AddEditRecipeController implements Initializable
 				e.printStackTrace();
 			}
 			return false;
-		} else if (recipeTitleTextField.getText().length() > 45 ||
-				categoryTextField.getText().length() > 45 )
+		} else if (recipeTitleTextField.getText().length() > 45 || categoryTextField.getText().length() > 45)
 		{
 			try
 			{
@@ -937,16 +1022,15 @@ public class AddEditRecipeController implements Initializable
 				e.printStackTrace();
 			}
 			return false;
-		} 
-		else
+		} else
 		{
-			if (Integer.parseInt(servingPplTextField.getText()) > 999 || 
-					Integer.parseInt(prepTimeTextField.getText()) > 999 || 
-					Integer.parseInt(cookingTimeTextField.getText()) > 999)
+			if (Integer.parseInt(servingPplTextField.getText()) > 999
+					|| Integer.parseInt(prepTimeTextField.getText()) > 999
+					|| Integer.parseInt(cookingTimeTextField.getText()) > 999)
 			{
 				try
 				{
-					BackMessageController.message = "Any number should not greater than 999!";
+					BackMessageController.message = "Numbers should not greater than 999!";
 					BackMessageController.messageType = 5;
 					BackMessageController.stage = Main.subStage2;
 					Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
@@ -960,17 +1044,17 @@ public class AddEditRecipeController implements Initializable
 					e.printStackTrace();
 				}
 				return false;
-			}
-			else
+			} else
 			{
-			return true;
+				return true;
 			}
 		}
 
 	}
-	
+
 	/**
 	 * To move up the specific ingredient
+	 * 
 	 * @param ingrePaneNo
 	 */
 	public void ingreUp(String ingrePaneNo)
@@ -982,12 +1066,13 @@ public class AddEditRecipeController implements Initializable
 		Ingredient temp = new Ingredient();
 		temp = addingIngredient.get(ingreNo);
 		addingIngredient.set(ingreNo, addingIngredient.get(ingreNo - 1));
-		addingIngredient.set(ingreNo - 1, temp);	
+		addingIngredient.set(ingreNo - 1, temp);
 		loadAddingIngre();
 	}
-	
+
 	/**
 	 * To move down the specific ingredient
+	 * 
 	 * @param ingrePaneNo
 	 */
 	public void ingreDown(String ingrePaneNo)
@@ -999,11 +1084,13 @@ public class AddEditRecipeController implements Initializable
 		Ingredient temp = new Ingredient();
 		temp = addingIngredient.get(ingreNo);
 		addingIngredient.set(ingreNo, addingIngredient.get(ingreNo + 1));
-		addingIngredient.set(ingreNo + 1, temp);	
+		addingIngredient.set(ingreNo + 1, temp);
 		loadAddingIngre();
 	}
+
 	/**
 	 * To move up the specific preparation step
+	 * 
 	 * @param ingrePaneNo
 	 */
 	public void prepUp(String ingrePaneNo)
@@ -1014,11 +1101,13 @@ public class AddEditRecipeController implements Initializable
 		int prepStepNo = Integer.parseInt(matcher.replaceAll("")) - 1;
 		String temp = addingPrepStep.get(prepStepNo);
 		addingPrepStep.set(prepStepNo, addingPrepStep.get(prepStepNo - 1));
-		addingPrepStep.set(prepStepNo - 1, temp);	
+		addingPrepStep.set(prepStepNo - 1, temp);
 		loadAddingPrep();
 	}
+
 	/**
 	 * To move down the specific preparation step
+	 * 
 	 * @param ingrePaneNo
 	 */
 	public void prepDown(String ingrePaneNo)
@@ -1029,9 +1118,10 @@ public class AddEditRecipeController implements Initializable
 		int prepStepNo = Integer.parseInt(matcher.replaceAll("")) - 1;
 		String temp = addingPrepStep.get(prepStepNo);
 		addingPrepStep.set(prepStepNo, addingPrepStep.get(prepStepNo + 1));
-		addingPrepStep.set(prepStepNo + 1, temp);	
+		addingPrepStep.set(prepStepNo + 1, temp);
 		loadAddingPrep();
 	}
+
 	/**
 	 * To clear up all the input field
 	 */

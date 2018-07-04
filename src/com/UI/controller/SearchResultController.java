@@ -108,7 +108,8 @@ public class SearchResultController implements Initializable
 	public void initialize(URL location, ResourceBundle resources)
 	{
 		// TODO Auto-generated method stub\
-		if (i <= 0)
+		
+		if (i == 0)
 		{
 			lastPage.setVisible(false);
 		}
