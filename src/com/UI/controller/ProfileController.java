@@ -42,6 +42,8 @@ public class ProfileController implements Initializable{
 	private ImageView backgroundView;
 	@FXML
 	private Hyperlink createLink;
+	@FXML
+	private Hyperlink mainPageLink;
 	
 	//the standard point Y coordination
 	int Y;
@@ -72,7 +74,7 @@ public class ProfileController implements Initializable{
 		Image backgroundImage = new Image("/Picture/delicious.jpg");
 
 		backgroundView.setImage(backgroundImage);
-		
+		mainPageLink.setOnAction(e -> backToMain());
 		if(backPoint == 0){
 			backBtn.setOnAction(e->backToMain());
 		}else if (backPoint == 1){
