@@ -86,6 +86,8 @@ public class RecipeViewController implements Initializable{
 	@FXML
 	private Hyperlink loginLink;
 	
+	public static int pagenumber=0;
+	
 	
 	public static ArrayList<Recipe> goalRecipe1 = new ArrayList<Recipe>();	
 	
@@ -98,8 +100,8 @@ public class RecipeViewController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		
-		goalRecipe1 = SearchResultController.goalRecipe1;
+		pagenumber=SearchResultController.i;
+		goalRecipe1 = SearchResultController.currentRecipeList;
 		currentRecipe = MainController.currentRecipe;
 		
 		if(MainController.currentRecipe == null) {
@@ -134,7 +136,7 @@ public class RecipeViewController implements Initializable{
 			backBtn.setOnAction(e->backToProfile());
 			
 		}else{
-			backBtn.setOnAction(e->searchResult());
+			backBtn.setOnAction(e->backToResult());
 		}
 		
 		
@@ -431,6 +433,7 @@ public class RecipeViewController implements Initializable{
 	public void backToMainInterface(){
 		
 		try {
+			SearchResultController.ensure=0;
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(MainController.MainResourse));
 			Parent root = loader.load();
 			Scene refresh = new Scene(root, 1249, 837);
@@ -448,6 +451,7 @@ public class RecipeViewController implements Initializable{
 	public void searchResult() {
 
 		try {
+			SearchResultController.ensure=0;
 			ArrayList<Recipe> goalRecipe2 = new ArrayList<Recipe>();
 			goalRecipe2 = MainController.jdbc.searchRecipe(searchBar.getText());
 			SearchResultController.currentRecipeList = goalRecipe2;
@@ -457,8 +461,8 @@ public class RecipeViewController implements Initializable{
 			scene.getStylesheets().add(getClass().getResource(Main.cssResource).toExternalForm());
 			Main.primaryStage.setResizable(false);
 			Main.primaryStage.setScene(scene);
+			
 
-			SearchResultController.i = i;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -466,6 +470,26 @@ public class RecipeViewController implements Initializable{
 
 	}
 	
+	public void backToResult() {
+
+		try {
+			SearchResultController.ensure=1;
+			SearchResultController.currentRecipeList=goalRecipe1;
+			// initialize the recipe interface
+			Parent root = FXMLLoader.load(getClass().getResource(SearchResultController.RecipeResource));
+			Scene scene = new Scene(root, 1249, 837);
+			scene.getStylesheets().add(getClass().getResource(Main.cssResource).toExternalForm());
+			Main.primaryStage.setResizable(false);
+			Main.primaryStage.setScene(scene);
+			
+            
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
 	/**
 	 * The event to recalculate the amount of ingredients by inputing a new serving people
 	 */
