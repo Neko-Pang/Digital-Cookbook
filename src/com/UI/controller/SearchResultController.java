@@ -32,6 +32,7 @@ import javafx.stage.Stage;
 
 /**
  * The controller of search view
+ * 
  * @author MacroHard
  * @version 1.0
  */
@@ -93,7 +94,9 @@ public class SearchResultController implements Initializable
 
 	int m = 0;
 
-	int n = 0;
+	static int ensure = 0;
+
+	static int n = 1;
 
 	String p = null;
 
@@ -101,13 +104,14 @@ public class SearchResultController implements Initializable
 
 	public static Recipe currentRecipe;
 
-	public static ArrayList<Recipe> goalRecipe1 = new ArrayList<Recipe>();
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources)
 	{
 		// TODO Auto-generated method stub\
-
+		if (i <= 0)
+		{
+			lastPage.setVisible(false);
+		}
 		goButton.setOnAction(e -> searchResult());
 
 		backBtn.setOnAction(e -> backToMainInterface());
@@ -118,13 +122,13 @@ public class SearchResultController implements Initializable
 
 		signout.setOnAction(e -> signOut());
 
-		
 		// to show the next page when the user click the next page button
 		nextPage.setOnAction(e ->
 		{
-
+			lastPage.setVisible(true);
 			i = i + 5;
 			n = n + 1;
+			System.out.println("the size of list is:   " + currentRecipeList.size());
 			if (currentRecipeList.size() > i)
 			{
 				if (currentRecipeList.size() > (i))
@@ -189,89 +193,98 @@ public class SearchResultController implements Initializable
 					hbox5.setVisible(false);
 				}
 			}
-			if (currentRecipeList.size() < i)
+			if (currentRecipeList.size() <= (i + 5))
 			{
-				i = i - 5;
-				n = n - 1;
+				nextPage.setVisible(false);
 			}
 			p = String.valueOf(n + "/" + m);
 			page.setText(p);
 		});
 
-		
-		//to show the last page when the user click the last page button
+		// to show the last page when the user click the last page button
 		lastPage.setOnAction(e ->
 		{
-			if (i >= 5)
+			nextPage.setVisible(true);
+
+			i = i - 5;
+			n = n - 1;
+			if (currentRecipeList.size() > (i))
 			{
-				i = i - 5;
-				n = n - 1;
-				if (currentRecipeList.size() > (i))
-				{
-					currentRecipe = currentRecipeList.get(i);
-					recipe1.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary()
-							+ "\n\nServingPeople: " + currentRecipe.getServingPpl());
-					hbox1.setVisible(true);
-				}
-				if (currentRecipeList.size() > (i + 1))
-				{
-					currentRecipe = currentRecipeList.get(i + 1);
-					recipe2.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary()
-							+ "\n\nServingPeople: " + currentRecipe.getServingPpl());
-					hbox2.setVisible(true);
+				currentRecipe = currentRecipeList.get(i);
+				recipe1.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary() + "\n\nServingPeople: "
+						+ currentRecipe.getServingPpl());
+				hbox1.setVisible(true);
+			}
+			if (currentRecipeList.size() > (i + 1))
+			{
+				currentRecipe = currentRecipeList.get(i + 1);
+				recipe2.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary() + "\n\nServingPeople: "
+						+ currentRecipe.getServingPpl());
+				hbox2.setVisible(true);
 
-				}
-				if (currentRecipeList.size() > (i + 2))
-				{
-					currentRecipe = currentRecipeList.get(i + 2);
-					recipe3.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary()
-							+ "\n\nServingPeople: " + currentRecipe.getServingPpl());
-					hbox3.setVisible(true);
+			}
+			if (currentRecipeList.size() > (i + 2))
+			{
+				currentRecipe = currentRecipeList.get(i + 2);
+				recipe3.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary() + "\n\nServingPeople: "
+						+ currentRecipe.getServingPpl());
+				hbox3.setVisible(true);
 
-				}
-				if (currentRecipeList.size() > (i + 3))
-				{
-					currentRecipe = currentRecipeList.get(i + 3);
-					recipe4.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary()
-							+ "\n\nServingPeople: " + currentRecipe.getServingPpl());
-					hbox4.setVisible(true);
+			}
+			if (currentRecipeList.size() > (i + 3))
+			{
+				currentRecipe = currentRecipeList.get(i + 3);
+				recipe4.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary() + "\n\nServingPeople: "
+						+ currentRecipe.getServingPpl());
+				hbox4.setVisible(true);
 
-				}
-				if (currentRecipeList.size() > (i + 4))
-				{
-					currentRecipe = currentRecipeList.get(i + 4);
-					recipe5.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary()
-							+ "\n\nServingPeople: " + currentRecipe.getServingPpl());
-					hbox5.setVisible(true);
+			}
+			if (currentRecipeList.size() > (i + 4))
+			{
+				currentRecipe = currentRecipeList.get(i + 4);
+				recipe5.setText(currentRecipe.getName() + "\n\n" + currentRecipe.getCategary() + "\n\nServingPeople: "
+						+ currentRecipe.getServingPpl());
+				hbox5.setVisible(true);
 
-				}
-				if (currentRecipeList.size() <= (i + 1))
-				{
-					hbox2.setVisible(false);
-					hbox3.setVisible(false);
-					hbox4.setVisible(false);
-					hbox5.setVisible(false);
-				}
-				if (currentRecipeList.size() <= (i + 2))
-				{
-					hbox3.setVisible(false);
-					hbox4.setVisible(false);
-					hbox5.setVisible(false);
-				}
-				if (currentRecipeList.size() <= (i + 3))
-				{
-					hbox4.setVisible(false);
-					hbox5.setVisible(false);
-				}
-				if (currentRecipeList.size() <= (i + 4))
-				{
-					hbox5.setVisible(false);
-				}
+			}
+			if (currentRecipeList.size() <= (i + 1))
+			{
+				hbox2.setVisible(false);
+				hbox3.setVisible(false);
+				hbox4.setVisible(false);
+				hbox5.setVisible(false);
+			}
+			if (currentRecipeList.size() <= (i + 2))
+			{
+				hbox3.setVisible(false);
+				hbox4.setVisible(false);
+				hbox5.setVisible(false);
+			}
+			if (currentRecipeList.size() <= (i + 3))
+			{
+				hbox4.setVisible(false);
+				hbox5.setVisible(false);
+			}
+			if (currentRecipeList.size() <= (i + 4))
+			{
+				hbox5.setVisible(false);
+			}
+
+			if (i <= 0)
+			{
+				lastPage.setVisible(false);
 			}
 			p = String.valueOf(n + "/" + m);
 			page.setText(p);
 		});
-		i = 0;
+		if (ensure == 0)
+		{
+			i = 0;
+		}
+		if (ensure == 1)
+		{
+			i = RecipeViewController.pagenumber;
+		}
 		if (currentRecipeList.size() > (i))
 		{
 			currentRecipe = currentRecipeList.get(i);
@@ -353,9 +366,18 @@ public class SearchResultController implements Initializable
 		{
 			m = m + 1;
 		}
-		n = 1;
+		if (ensure == 0)
+		{
+			n = 1;
+		}
+		if (ensure == 1)
+		{
+			n = RecipeViewController.pagenumber / 5 + 1;
+		}
 		if (m == 0)
 		{
+			nextPage.setVisible(false);
+			lastPage.setVisible(false);
 			n = 0;
 		}
 		p = String.valueOf(n + "/" + m);
@@ -372,17 +394,18 @@ public class SearchResultController implements Initializable
 
 	}
 
-	
 	/**
 	 * To go to the recipe view and show the chosen recipe
-	 * @param i: the number of the recipe
+	 * 
+	 * @param i:
+	 *            the number of the recipe
 	 */
 	public void showRecipe(int i)
 	{
 
 		try
 		{
-			MainController.currentRecipe = currentRecipeList.get(i);
+			currentRecipe = currentRecipeList.get(i);
 			MainController.backPoint = 1;
 			// initialize the recipe interface
 			Parent root = FXMLLoader.load(getClass().getResource(RecipeViewController.RecipeResource));
@@ -390,6 +413,7 @@ public class SearchResultController implements Initializable
 			scene.getStylesheets().add(getClass().getResource(Main.cssResource).toExternalForm());
 			Main.primaryStage.setResizable(false);
 			Main.primaryStage.setScene(scene);
+			RecipeViewController.pagenumber = this.i;
 
 		} catch (IOException e)
 		{
@@ -407,6 +431,7 @@ public class SearchResultController implements Initializable
 
 		try
 		{
+
 			ArrayList<Recipe> goalRecipe2 = new ArrayList<Recipe>();
 			goalRecipe2 = MainController.jdbc.searchRecipe(this.searchBox.getText());
 			currentRecipeList = goalRecipe2;
@@ -427,7 +452,9 @@ public class SearchResultController implements Initializable
 
 	/**
 	 * The login event
-	 * @param subStage/the stage to show login
+	 * 
+	 * @param subStage/the
+	 *            stage to show login
 	 */
 	public void showLogin(Stage subStage)
 	{
@@ -450,10 +477,12 @@ public class SearchResultController implements Initializable
 		}
 
 	}
-	
+
 	/**
 	 * The signin event
-	 * @param substage/the stage
+	 * 
+	 * @param substage/the
+	 *            stage
 	 */
 	public void showSignIn(Stage substage)
 	{
@@ -495,19 +524,20 @@ public class SearchResultController implements Initializable
 	 */
 	public void backToMainInterface()
 	{
+		ensure = 0;
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(MainController.MainResourse));
 		Parent root;
-		try {
+		try
+		{
 			root = loader.load();
 			Scene refresh = new Scene(root, 1249, 837);
-			
+
 			Main.primaryStage.setScene(refresh);
-		} catch (IOException e) {
+		} catch (IOException e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	
-	
 }
