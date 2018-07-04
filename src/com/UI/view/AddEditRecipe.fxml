@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.media.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="3000.0" prefWidth="1249.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.UI.controller.AddEditRecipeController">
+   <children>
+      <ScrollPane prefHeight="3000.0" prefWidth="1167.0">
+         <content>
+            <AnchorPane prefHeight="1798.0" prefWidth="1249.0" stylesheets="@com.UI.view.css">
+               <children>
+                  <Label fx:id="addEditLabel" layoutX="599.0" layoutY="36.0" text="Label" textAlignment="CENTER">
+                     <font>
+                        <Font size="22.0" />
+                     </font></Label>
+                  <VBox layoutX="151.0" layoutY="112.0" prefHeight="354.0" prefWidth="950.0">
+                     <children>
+                        <AnchorPane minHeight="88.0" prefHeight="88.0" prefWidth="320.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <styleClass>
+                              <String fx:value="Border" />
+                              <String fx:value="BorderRadiusUp" />
+                           </styleClass>
+                           <children>
+                              <TextField fx:id="recipeTitleTextField" alignment="CENTER" layoutX="338.0" layoutY="25.0" prefHeight="38.0" prefWidth="273.0" promptText="Type in the title">
+                                 <font>
+                                    <Font size="17.0" />
+                                 </font></TextField>
+                           </children>
+                        </AnchorPane>
+                        <HBox prefHeight="74.0" prefWidth="642.0">
+                           <children>
+                              <AnchorPane minHeight="88.0" minWidth="321.0" prefHeight="88.0" prefWidth="495.0" styleClass="Border">
+                                 <children>
+                                    <Label layoutX="8.0" layoutY="1.0" text="Category:" textFill="#4b4bad">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="categoryTextField" layoutX="132.0" layoutY="25.0">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font></TextField>
+                                 </children></AnchorPane>
+                              <AnchorPane prefHeight="88.0" prefWidth="495.0" styleClass="Border">
+                                 <children>
+                                    <Label layoutX="8.0" layoutY="1.0" text="Serving People:" textFill="#4b4bad">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="servingPplTextField" layoutX="132.0" layoutY="25.0">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font></TextField>
+                                 </children></AnchorPane>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="74.0" prefWidth="642.0">
+                           <children>
+                              <AnchorPane minHeight="88.0" prefHeight="88.0" prefWidth="495.0" styleClass="Border">
+                                 <children>
+                                    <Label layoutX="6.0" layoutY="1.0" text="Preparation Time:" textFill="#4b4bad">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="prepTimeTextField" layoutX="132.0" layoutY="25.0">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font></TextField>
+                                    <Label layoutX="343.0" layoutY="31.0" text="min" textFill="#4b4bad">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefHeight="88.0" prefWidth="495.0" styleClass="Border">
+                                 <children>
+                                    <Label layoutX="7.0" layoutY="1.0" text="Cooking Time:" textFill="#4b4bad">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="cookingTimeTextField" layoutX="132.0" layoutY="25.0">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font></TextField>
+                                    <Label layoutX="344.0" layoutY="32.0" text="min" textFill="#4b4bad">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                 </children></AnchorPane>
+                           </children>
+                        </HBox>
+                        <AnchorPane minHeight="88.0" prefHeight="88.0" prefWidth="946.0">
+                           <children>
+                              <Label layoutX="6.0" layoutY="1.0" text="Update User:" textFill="#4b4bad">
+                                 <font>
+                                    <Font size="17.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="userLabel" layoutX="365.0" layoutY="28.0" text="Mr. / Miss.  Somebody">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font></Label>
+                           </children>
+                           <styleClass>
+                              <String fx:value="Border" />
+                              <String fx:value="BorderRadiusDown" />
+                           </styleClass>
+                        </AnchorPane>
+                     </children>
+                     <styleClass>
+                        <String fx:value="Border" />
+                        <String fx:value="BorderRadius" />
+                     </styleClass>
+                  </VBox>
+                  <VBox fx:id="ingreRootVBox" layoutX="151.0" layoutY="525.0" maxWidth="950.0" prefHeight="204.0" prefWidth="950.0">
+                     <children>
+                        <AnchorPane minHeight="88.0" prefHeight="85.0">
+                           <children>
+                              <Label alignment="CENTER" layoutX="399.0" layoutY="15.0" prefHeight="35.0" prefWidth="150.0" text="Ingredients" textFill="#4b4bab">
+                                 <font>
+                                    <Font name="Matura MT Script Capitals" size="29.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <styleClass>
+                              <String fx:value="Border" />
+                              <String fx:value="BorderRadiusUp" />
+                           </styleClass>
+                        </AnchorPane>
+                        <AnchorPane minHeight="88.0" prefHeight="117.0" prefWidth="948.0" styleClass="Border">
+                           <children>
+                              <TextField fx:id="ingreNameTextField" layoutX="40.0" layoutY="24.0" prefHeight="56.0" prefWidth="222.0" promptText="Ingredient Name" />
+                              <TextField fx:id="ingreAmountTextField" layoutX="312.0" layoutY="24.0" prefHeight="56.0" prefWidth="54.0" promptText="Amount">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </TextField>
+                              <TextField fx:id="ingreUnitTextField" layoutX="366.0" layoutY="24.0" prefHeight="56.0" prefWidth="71.0" promptText="Unit" />
+                              <TextField fx:id="ingreReqTextField" layoutX="489.0" layoutY="24.0" prefHeight="56.0" prefWidth="378.0" promptText="Requirements" />
+                              <Button fx:id="ingreAddButton" layoutX="897.0" layoutY="38.0" mnemonicParsing="false" text="Add" />
+                           </children>
+                        </AnchorPane>
+                        <VBox fx:id="ingredientVBox" prefHeight="200.0" prefWidth="100.0" />
+                     </children>
+                     <styleClass>
+                        <String fx:value="Border" />
+                        <String fx:value="BorderRadius" />
+                     </styleClass>
+                  </VBox>
+                  <VBox fx:id="prepRootVBox" layoutX="151.0" layoutY="940.0" maxWidth="950.0" minWidth="950.0" prefHeight="188.0" prefWidth="950.0">
+                     <children>
+                        <AnchorPane maxWidth="948.0" minHeight="88.0" minWidth="948.0" prefHeight="88.0" prefWidth="948.0">
+                           <children>
+                              <Label layoutX="365.0" layoutY="17.0" minHeight="50.0" minWidth="150.0" text="Preparation Step" textFill="#4b4bab">
+                                 <font>
+                                    <Font name="Matura MT Script Capitals" size="29.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <styleClass>
+                              <String fx:value="Border" />
+                              <String fx:value="BorderRadiusUp" />
+                           </styleClass>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="80.0" prefWidth="948.0" styleClass="Border">
+                           <children>
+                              <TextField fx:id="prepStepTextField" layoutX="39.0" layoutY="12.0" prefHeight="56.0" prefWidth="794.0" promptText="Type in preparation step" />
+                              <Button fx:id="prepStepAddButton" layoutX="900.0" layoutY="23.0" mnemonicParsing="false" text="Add" />
+                           </children>
+                        </AnchorPane>
+                        <VBox fx:id="prepStepVBox" maxWidth="948.0" minWidth="948.0" prefHeight="200.0" prefWidth="100.0" />
+                     </children>
+                     <styleClass>
+                        <String fx:value="Border" />
+                        <String fx:value="BorderRadius" />
+                     </styleClass>
+                  </VBox>
+                  <VBox fx:id="buttonVBox" layoutX="162.0" layoutY="1198.0" prefHeight="200.0" prefWidth="946.0">
+                     <children>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Button fx:id="confirmButton" layoutX="182.0" layoutY="88.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="92.0" styleClass="ComfirmButton" text="Confirm" textFill="WHITE" />
+                              <Button fx:id="cancelButton" layoutX="684.0" layoutY="88.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="92.0" styleClass="CancelButton" text="Cancel" textFill="WHITE" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+   </children>
+</VBox>
