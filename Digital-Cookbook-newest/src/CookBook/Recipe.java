@@ -2,16 +2,9 @@ package CookBook;
 
 import java.util.ArrayList;
 
-
 import java.io.Serializable;
 import java.sql.*;
 
-
-/**
- * the Recipe model class
- * @author MacroHard
- * @version 1.0
- */
 public class Recipe implements Serializable {
 
 	private ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
@@ -129,10 +122,6 @@ public class Recipe implements Serializable {
 		this.cookingTime = cookingTime;
 	}
 
-	
-	/**
-	 * Override the toString method to give the Recipe information
-	 */
 	@Override
 	public String toString() {
 		// To give the information of Name and Category
@@ -166,15 +155,10 @@ public class Recipe implements Serializable {
 		String strCookingTime = "Cooking Time: " + this.preparationTime + "\n";
 
 		// To give the serving people of the recipe
-		String strServingPeople = "Serving People:" + this.servingPpl + "\n";
-		
-		String strComments = "Comments: \n";
-		for (int i = 0; i < comments.size(); i++) {
-			String string  = comments.get(i).getContext()+"\n";
-			strComments = strComments + string;
-		}
+		String strServingPeople = "Serving People:" + this.servingPpl;
+
 		// Return all the recipe information
 		return strNameandCategory + strRecipeID + strIngredients + strPreparationStep + strPreparationTime
-				+ strCookingTime + strServingPeople + strComments;
+				+ strCookingTime + strServingPeople;
 	}
 }

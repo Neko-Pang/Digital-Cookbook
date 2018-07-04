@@ -73,15 +73,15 @@ public class BackMessageController implements Initializable{
 		
 	
 
-		if(messageType == 1)
+		if(messageType == 2)
 		{
 			message = "Uploaded Suceessfully!";
 		}
-		else if(messageType == 2)
+		else if(messageType == 3)
 		{
 			message = "Updated Suceessfully!";
 		}
-		if(messageType == 3)
+		if(messageType == 4)
 		{
 			confirm.setVisible(false);
 			confirmForCancel.setVisible(true);

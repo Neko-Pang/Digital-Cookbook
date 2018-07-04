@@ -1,6 +1,5 @@
 package CookBook;
 
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -12,43 +11,18 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-
-/**
- * The CookBook model class, fulfill the operation of other classes in logic layer
- * @author MacorHard
- * @version 1.0
- */
 public class CookBook {
 	
 	
-	public static DatabaseController jDatabaseController = DatabaseController.getInstance();
+	DatabaseController jDatabaseController = DatabaseController.getInstance();
 	private ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 	private String name;
-	
-	
-	public ArrayList<Recipe> getRecipes() {
-		return recipes;
-	}
-
-	public void setRecipes(ArrayList<Recipe> recipes) {
-		this.recipes = recipes;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	
 
 	/**
 	 * This method will add the parameter recipe into the ArrayList of recipes
 	 * and database
 	 * 
-	 * @param recipe/the goal recipe
+	 * @param recipe
 	 */
 	public void add(Recipe recipe) {
 
@@ -60,16 +34,15 @@ public class CookBook {
 	
 	/**
 	 * To update the recipe by a newly edited version
-	 * @param originRecipe /the origin recipe
-	 * @param newRecipe /the latest recipe
-	 * @return originRecipe
+	 * @param recipeID
+	 * @param newRecipe
 	 */
-	public Recipe updateRecipe(Recipe originRecipe, Recipe newRecipe){
+	public void updateRecipe(Recipe originRecipe, Recipe newRecipe){
 		
 		newRecipe.setRecipeID(originRecipe.getRecipeID());
 		jDatabaseController.updateRecipe(originRecipe.getRecipeID(), newRecipe);
 		originRecipe = this.getRecipe(originRecipe.getRecipeID());
-		return originRecipe;
+		
 	}
 
 	public CookBook(String name) {
@@ -79,8 +52,8 @@ public class CookBook {
 	/**
 	 * This method is to search the recipe by name and get the wanted recipe
 	 * 
-	 * @param name: the name of the wanted recipe
-	 * @return goalRecipes
+	 * @param name
+	 * @return
 	 */
 	public ArrayList<Recipe> getRecipe(String name) {
 		
@@ -95,8 +68,8 @@ public class CookBook {
 	
 	/**
 	 * This method is overloaded to get the recipe by ID from database
-	 * @param recipeID/the id of the recipe
-	 * @return goalRecipe
+	 * @param recipeID
+	 * @return
 	 */
 	public Recipe getRecipe(int recipeID){
 		
@@ -105,15 +78,27 @@ public class CookBook {
 		
 		return goalRecipe;
 	}
-	
-	
-	
+
+	public void setRecipes(ArrayList<Recipe> recipes) {
+		this.recipes = recipes;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	/**
 	 * This method is to recalculate the amount of each ingredient based on the
 	 * changed serving ppl
 	 * 
-	 * @param originRecipe/the orginal version of the recipe
-	 * @param changedServingPpl/the reseted number of the recipe
+	 * @param originRecipe/the
+	 *            orginal version of the recipe
+	 * @param changedservingPpl/the
+	 *            reseted number of the recipe
 	 * @return the new recipe(but this recipe will not be stored into the
 	 *         database)
 	 */
@@ -160,7 +145,7 @@ public class CookBook {
 	 *            the origin recipe
 	 * @return (Recipe) / a copy Recipe object of the specific Recipe
 	 */
-	public static Recipe copy(Recipe origin) {
+	public Recipe copy(Recipe origin) {
 
 		Recipe copyVersion;
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -240,20 +225,13 @@ public class CookBook {
 	
 	/**
 	 * To delete the recipe from the cookbook and database
-	 * @param recipe/the goal recipe
+	 * @param recipe
 	 * @return isDeleted
 	 */
 	public Boolean deleteRecipe(Recipe recipe){
 		
 		Boolean isDeleted = jDatabaseController.deleteRecipe(recipe.getRecipeID());
-		for(int i = 0; i < recipes.size();i++){
-			Recipe testRecipe = recipes.get(i);
-			if(testRecipe.getRecipeID()==recipe.getRecipeID()){
-				this.recipes.remove(testRecipe);
-			}
-		}
 		return isDeleted;
 	}
-
 
 }

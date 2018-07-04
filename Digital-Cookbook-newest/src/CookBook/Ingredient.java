@@ -2,14 +2,6 @@ package CookBook;
 
 import java.io.Serializable;
 
-
-
-/**
- * the ingredient model class
- * @author MacroHard
- * @version 1.0
- */
-
 public class Ingredient implements Serializable {
 
 	public String name;
@@ -17,15 +9,12 @@ public class Ingredient implements Serializable {
 	public String unit = "g";
 	public String cookingWay = null;
 
-
 	public Ingredient(String name, double weight, String unit, String cookingWay) {
-
 		this.name = name;
 		this.weight = weight;
 		this.unit = unit;
 		this.cookingWay = cookingWay;
 	}
-
 
 	public Ingredient(String name, double weight, String unit) {
 		this.name = name;
@@ -70,10 +59,6 @@ public class Ingredient implements Serializable {
 		this.cookingWay = cookingWay;
 	}
 
-	
-	/**
-	 * Override the toString method to give the ingredient information
-	 */
 	@Override
 	public String toString() {
 		// this string is collection of all ingredient
@@ -88,6 +73,5 @@ public class Ingredient implements Serializable {
 		
 
 		return totalInformation;
-
 	}
 }

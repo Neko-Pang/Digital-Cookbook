@@ -20,7 +20,7 @@
                   <Font size="16.0" />
                </font>
             </TextField>
-            <Button fx:id="goBtn" layoutX="915.0" layoutY="97.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="95.0" styleClass="ComfirmButton" stylesheets="@com.UI.view.css" text="Go" textFill="WHITE">
+            <Button layoutX="915.0" layoutY="97.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="95.0" styleClass="ComfirmButton" stylesheets="@com.UI.view.css" text="Go" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
@@ -30,19 +30,14 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Hyperlink fx:id="profileLink" alignment="CENTER" layoutX="963.0" layoutY="35.0" prefHeight="32.0" prefWidth="133.0" styleClass="HyperLink" text="My Profile" textFill="WHITE" visible="false">
+            <Label layoutX="825.0" layoutY="33.0" prefHeight="32.0" prefWidth="263.0" text="Label">
                <font>
                   <Font size="18.0" />
                </font>
-            </Hyperlink>
-            <Hyperlink fx:id="loginLink" layoutX="908.0" layoutY="32.0" prefHeight="42.0" prefWidth="72.0" text="Login" textFill="WHITE">
+            </Label>
+            <Hyperlink alignment="CENTER" layoutX="1100.0" layoutY="31.0" prefHeight="32.0" prefWidth="133.0" text="My Profile" textFill="#2d2c32">
                <font>
-                  <Font size="21.0" />
-               </font>
-            </Hyperlink>
-            <Hyperlink fx:id="signinLink" layoutX="1066.0" layoutY="32.0" prefHeight="42.0" prefWidth="110.0" text="Sign in" textFill="WHITE">
-               <font>
-                  <Font size="21.0" />
+                  <Font size="18.0" />
                </font>
             </Hyperlink>
          </children>
@@ -78,7 +73,7 @@
                                           <Font size="17.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="categoryLabel" alignment="CENTER" layoutX="77.0" layoutY="27.0" prefHeight="49.0" prefWidth="367.0" textFill="#4b4bad">
+                                    <Label fx:id="categoryLabel" alignment="CENTER" layoutX="77.0" layoutY="27.0" prefHeight="49.0" prefWidth="167.0" textFill="#4b4bad">
                                        <font>
                                           <Font size="27.0" />
                                        </font>
@@ -196,7 +191,7 @@
                         <String fx:value="BorderRadius" />
                      </styleClass>
                   </VBox>
-                  <VBox fx:id="commentVbox" layoutX="151.0" layoutY="1037.0" minWidth="948.0" prefHeight="449.0" prefWidth="948.0">
+                  <VBox fx:id="commentVbox" layoutX="151.0" layoutY="1037.0" minWidth="948.0" prefHeight="478.0" prefWidth="948.0">
                      <children>
                         <AnchorPane minHeight="88.0" prefHeight="88.0" prefWidth="950.0">
                            <children>
@@ -213,7 +208,7 @@
                         </AnchorPane>
                         <AnchorPane minHeight="220.0" prefHeight="249.0" prefWidth="946.0" styleClass="Border">
                            <children>
-                              <Label fx:id="loginHint" layoutX="228.0" layoutY="86.0" prefHeight="49.0" prefWidth="491.0" text="If you want to give a comment to this recipe , Please login first !" visible="false" wrapText="true">
+                              <Label fx:id="loginHint" layoutX="177.0" layoutY="86.0" prefHeight="49.0" prefWidth="491.0" text="If you want to give a comment to this recipe , Please login first !" visible="false" wrapText="true">
                                  <font>
                                     <Font size="17.0" />
                                  </font>
@@ -235,9 +230,9 @@
                               </Button>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="commentPane" prefHeight="120.0" prefWidth="946.0">
+                        <AnchorPane fx:id="commentPane" prefHeight="139.0" prefWidth="946.0">
                            <children>
-                              <Label fx:id="commentHint" alignment="CENTER" layoutX="280.0" layoutY="24.0" prefHeight="67.0" prefWidth="386.0" text="No comment yet!   Comment Now!" textFill="#4b4bad" visible="false">
+                              <Label fx:id="commentHint" alignment="CENTER" layoutX="280.0" layoutY="36.0" prefHeight="67.0" prefWidth="386.0" text="No comment yet!   Comment Now!" textFill="#4b4bad" visible="false">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
@@ -253,22 +248,6 @@
                         <String fx:value="BorderRadius" />
                      </styleClass>
                   </VBox>
-                  <Button fx:id="recalculate" layoutX="439.0" layoutY="41.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="140.0" styleClass="ComfirmButton" text="Recalculate " textFill="WHITE">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="deleteBtn" layoutX="932.0" layoutY="41.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="140.0" text="delete" visible="false">
-                     <font>
-                        <Font size="17.0" />
-                     </font>
-                  </Button>
-                  <TextField fx:id="recalText" layoutX="206.0" layoutY="40.0" prefHeight="49.0" prefWidth="202.0" promptText="Changed Serving People(ie: 6)" />
-                  <Button fx:id="editBtn" layoutX="736.0" layoutY="42.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="140.0" text="edit" visible="false">
-                     <font>
-                        <Font size="17.0" />
-                     </font>
-                  </Button>
                </children>
             </AnchorPane>
          </content>

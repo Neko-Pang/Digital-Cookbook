@@ -15,7 +15,7 @@ public class CookBookApp {
 	 *
 	 * @return the new recipe
 	 */
-	public static Recipe createGongBaoJiding() {
+	private static Recipe createGongBaoJiding() {
 		Recipe recipe = new Recipe("Gong Bao Jiding", "Sichuan Dish", 4);
 
 		recipe.addIngredient(new Ingredient("cornstarch", 1.0, "tablespoon"));
@@ -59,7 +59,7 @@ public class CookBookApp {
 	 *
 	 * @return the recipe
 	 */
-	public static Recipe createHongShaoRou() {
+	private static Recipe createHongShaoRou() {
 		Recipe recipe = new Recipe("Hong Shao Rou", "Hunan Dish", 4);
 
 		recipe.addIngredient(new Ingredient("pork belly", 0.5, "kg", "cut into 2cm pieces"));
@@ -138,17 +138,15 @@ public class CookBookApp {
 	 */
 	public static void main(String[] args) {
 		CookBook cb = new CookBook("Chinese Cuisine");
-
 		Recipe recipeGBJD = createGongBaoJiding();
 		Recipe recipeHSR = createHongShaoRou();
 		Recipe recipeSLF = createSuanLaFen();
-
-		cb.add(recipeGBJD);
-		cb.add(recipeGBJD);
+//
+//		cb.add(recipeGBJD);
 		cb.add(recipeHSR);
-		cb.add(recipeSLF);
-		cb.add(recipeSLF);
-		ArrayList<Recipe> recipe = cb.getRecipe("Suan La Fen");
+//		cb.add(recipeSLF);
+
+		ArrayList<Recipe> recipe = cb.getRecipe("Hong shao rou");
 		
 		
 		if (recipe.size() != 0) {
@@ -164,7 +162,6 @@ public class CookBookApp {
 			
 			cb.updateRecipe(recipe.get(0), recipeHSR);
 		   
-
 		}
 	}
 }
