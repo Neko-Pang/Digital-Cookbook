@@ -382,7 +382,7 @@ public class SearchResultController implements Initializable
 
 		try
 		{
-			currentRecipe = currentRecipeList.get(i);
+			MainController.currentRecipe = currentRecipeList.get(i);
 			MainController.backPoint = 1;
 			// initialize the recipe interface
 			Parent root = FXMLLoader.load(getClass().getResource(RecipeViewController.RecipeResource));

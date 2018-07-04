@@ -98,7 +98,7 @@ public class SignInViewController extends Thread implements Initializable{
 				if(jdbc.searchUser(username) == null){
 			
 					usernameCheckHint.setText("Username is valid ");
-					usernameCheckHint2.setText("¡Ì");
+					usernameCheckHint2.setText("âˆš");
 					usernameCheckHint2.setTextFill(javafx.scene.paint.Color.GREEN);
 					usernamePass = true;
 					
@@ -157,7 +157,7 @@ public class SignInViewController extends Thread implements Initializable{
 			passwordPass = false;
 		}else{
 			passwordCheckHint.setText("Password is valid ");
-			passwordCheckHint2.setText("¡Ì");
+			passwordCheckHint2.setText("âˆš");
 			passwordCheckHint2.setTextFill(javafx.scene.paint.Color.GREEN);
 			passwordCheckLengthPass=true;
 			passwordPass = true;
@@ -189,7 +189,7 @@ public class SignInViewController extends Thread implements Initializable{
 
 			if (passwordRepeat.equals(password)) {
 				passwordCheckHint.setText("Password is valid ");
-				passwordCheckHint2.setText("¡Ì");
+				passwordCheckHint2.setText("âˆš");
 				passwordCheckHint2.setTextFill(javafx.scene.paint.Color.GREEN);
 				passwordPass = true;
 			} else {

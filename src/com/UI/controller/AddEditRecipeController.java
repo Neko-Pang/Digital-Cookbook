@@ -3,6 +3,7 @@
  */
 package com.UI.controller;
 
+import java.awt.ScrollPane;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -86,6 +87,7 @@ public class AddEditRecipeController implements Initializable
 	private VBox buttonVBox;
 
 	private final int maxLength = 80;
+	
 	private static Recipe currentRecipe = new Recipe();
 	private static boolean setEdit = false;
 	private ArrayList<Ingredient> addingIngredient = new ArrayList<Ingredient>();
@@ -541,7 +543,6 @@ public class AddEditRecipeController implements Initializable
 		{
 			String addingPrep = new String(prepStepTextField.getText());
 			addingPrepStep.add(addingPrep);
-
 			loadAddingPrep();
 			prepStepTextField.clear();
 		}
@@ -902,6 +903,26 @@ public class AddEditRecipeController implements Initializable
 			try
 			{
 				BackMessageController.message = "Illegal numbers for Preparation time or Cooking time";
+				BackMessageController.messageType = 5;
+				BackMessageController.stage = Main.subStage2;
+				Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
+				Scene scene = new Scene(root, 328, 223);
+				Main.subStage2.setScene(scene);
+				Main.subStage2.setResizable(false);
+				Main.subStage2.show();
+
+			} catch (IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return false;
+		} else if (recipeTitleTextField.getText().length() > 45 ||
+				categoryTextField.getText().length() > 45 )
+		{
+			try
+			{
+				BackMessageController.message = "Recipe title and category should not longer than 45 letters!";
 				BackMessageController.messageType = 5;
 				BackMessageController.stage = Main.subStage2;
 				Parent root = FXMLLoader.load(getClass().getResource(BackMessageController.BackResourse));
