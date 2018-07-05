@@ -22,5 +22,6 @@ It is a digital cookbook software, providing functions that users can search for
 
 4.Change log
 2018/7/4 ver1.0.0 First Version
+
 ------------------------------------------------------------
 Thanks for using our software!
