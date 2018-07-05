@@ -20,8 +20,8 @@ It is a digital cookbook software, providing functions that users can search for
 (3) Activate the MySQL, login with username "root", create a new database named "cookbookdatabase", and run the file "initialize".
 (5) Finally, go back to eclipse and run the "Main.java" in the package "com.UI.view".
 
-4.Change log
-2018/7/4 ver1.0.0 First Version
+ 4.Change log
+ 2018/7/4 ver1.0.0 First Version
 
 ------------------------------------------------------------
 Thanks for using our software!
