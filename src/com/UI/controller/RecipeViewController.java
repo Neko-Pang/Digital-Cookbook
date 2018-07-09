@@ -102,11 +102,9 @@ public class RecipeViewController implements Initializable{
 		// TODO Auto-generated method stub
 		pagenumber=SearchResultController.i;
 		goalRecipe1 = SearchResultController.currentRecipeList;
+	
 		currentRecipe = MainController.currentRecipe;
 		
-		if(MainController.currentRecipe == null) {
-			currentRecipe = SearchResultController.currentRecipe;
-		}
 		
 		if(MainController.currentUser != null){
 			profileLink.setVisible(true);

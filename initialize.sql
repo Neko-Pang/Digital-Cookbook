@@ -1,4 +1,10 @@
 create schema if not exists cookbookdatabase;
+
+create user MacroHard@'%' identified by '123456';
+grant all privileges on cookbookdatabase.* to MacroHard@'%' with grant option;
+ALTER USER 'MacroHard'@'%' IDENTIFIED WITH mysql_native_password BY '123456';
+flush privileges;
+
 use cookbookdatabase;
 
 

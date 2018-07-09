@@ -10,6 +10,7 @@ import java.lang.Thread.State;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 
@@ -140,6 +141,8 @@ public class CookBook {
 			// calculate the new weight
 			double newWeight = ingrePointer.getWeight();
 			newWeight = (newWeight / recalRecipe.getServingPpl()) * changedServingPpl;
+			DecimalFormat df = new DecimalFormat("#.00");
+			newWeight = Double.parseDouble(df.format(newWeight));
 			ingrePointer.setWeight(newWeight);
 
 			// add the new ingredient

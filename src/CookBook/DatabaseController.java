@@ -31,8 +31,8 @@ public class DatabaseController implements Serializable {
 	/**
 	 * your username and the password of mysql
 	 */
-	private String dbUser = "root";
-	private String dbPass = "xiaoxia12";
+	private String dbUser = "MacroHard";
+	private String dbPass = "123456";
 	
 	// To realize Singleton Pattern
 	private static DatabaseController instance = null;
